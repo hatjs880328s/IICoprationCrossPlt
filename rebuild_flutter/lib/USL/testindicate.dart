@@ -1,4 +1,6 @@
 import "dart:convert";
+import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import "package:http/http.dart" as http;
 import 'package:rebuild_flutter/USL/fromtable.dart';
@@ -12,17 +14,18 @@ class Testindicate extends StatefulWidget {
 }
 
 class TestindicateState extends State<Testindicate> {
-
   List widgets = [];
 
-  @override 
+  @override
   void initState() {
     super.initState();
     loadData();
   }
 
   Widget showWhich() {
-    if (widgets.length == 0) { return buildIndicate(); }
+    if (widgets.length == 0) {
+      return buildIndicate();
+    }
     return buildListVw();
   }
 
@@ -32,13 +35,16 @@ class TestindicateState extends State<Testindicate> {
       appBar: AppBar(
         title: Text('net data'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.list),onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return IITab();
-            }));
-          },)
+          IconButton(
+            icon: Icon(Icons.list),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return IITab();
+              }));
+            },
+          )
         ],
-        ),
+      ),
       body: showWhich(),
     );
   }
@@ -48,7 +54,20 @@ class TestindicateState extends State<Testindicate> {
     return ListView.builder(
       itemCount: widgets.length,
       itemBuilder: (context, i) {
-        return Padding(padding: EdgeInsets.all(12), child: Text(widgets[i]["title"]));
+        return GestureDetector(
+          child: Padding(
+              padding: EdgeInsets.all(12), child: Text(widgets[i]["title"])),
+          onTap: () {
+            return showDialog(
+                context: context,
+                builder: (context) {
+                  return CupertinoAlertDialog(
+                    title: Text(widgets[i]["title"]),
+                    content: Text(widgets[i]["body"]),
+                  );
+                });
+          },
+        );
       },
     );
   }
