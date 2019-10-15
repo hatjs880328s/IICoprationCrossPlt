@@ -14,10 +14,11 @@
 
 ## Requirements
 
+- Flutter 1.9.0 +
 - iOS 8.0+
 - Xcode 10.1+
 - Swift 5+
-- Android 4.0 +
+- Android 4.0+
 - VSCode 1.39.1+
 
 ## FAQ
