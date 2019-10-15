@@ -1,0 +1,59 @@
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+/usr/local/bin/pod install
+
+
+xcodebuild archive -workspace /Users/shanwz/Desktop/Source/source.xcworkspace -archivePath "/Users/shanwz/Desktop/Source/source.xcarchive"  -scheme "source" -sdk iphoneos  -configuration "Release" -allowProvisioningUpdates -allowProvisioningDeviceRegistration
+
+
+
+
+xcodebuild -exportArchive -archivePath "/Users/shanwz/Desktop/Source/source.xcarchive" -exportPath "/Users/shanwz/Desktop/Source" -exportOptionsPlist '/Users/shanwz/Desktop/Source/ExportOptions.plist' -allowProvisioningUpdates
+
+
+
+
+
+
+xcodebuild archive -workspace /Users/Shared/Jenkins/Home/workspace/source/source.xcworkspace -scheme source -sdk iphoneos -configuration Release -archivePath /Users/Shared/Jenkins/Home/workspace/source/BuildFileNoahShan/2018_07_03__19_01_06/source -allowProvisioningUpdates -allowProvisioningDeviceRegistration
+
+
+
+xcodebuild -exportArchive -archivePath /Users/Shared/Jenkins/Home/workspace/source/BuildFileNoahShan/2018_07_03__19_01_06/source.xcarchive -exportPath /Users/Shared/Jenkins/Home/workspace/source/BuildFileNoahShan/2018_07_03__19_01_06/ -exportOptionsPlist /Users/Shared/Jenkins/JBWY/exportOptions.plist -allowProvisioningUpdates
+
+
+
+
+
+/usr/local/bin/python2.7 /Users/Shared/Jenkins/JBWY/autoDo.py
+
+
+#!/usr/bin/env python
+#coding:utf-8
+
+import sys
+sys.path.append(r'/Users/Shared/Jenkins/JBWY')
+'''python import模块时， 是在sys.path里按顺序查找的。
+sys.path是一个列表，里面以字符串的形式存储了许多路径。
+使用A.py文件中的函数需要先将他的文件路径放到sys.path中'''
+import autoDo
+
+
+
+ln -s ~/Library/Keychains/login.keychain-db ~/Library/Keychains/login.keychain
+
+
+
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+/usr/local/bin/pod install
+
+
+xcodebuild archive -workspace /Users/Shared/Jenkins/Home/workspace/Source/source.xcworkspace -archivePath "/Users/Shared/Jenkins/Home/workspace/Source/source.xcarchive"  -scheme "source" -sdk iphoneos  -configuration "Release" 
+
+
+
+
+xcodebuild -exportArchive -archivePath "/Users/Shared/Jenkins/Home/workspace/Source/source.xcarchive" -exportPath "/Users/Shared/Jenkins/Home/workspace/Source" -exportOptionsPlist '/Users/Shared/Jenkins/Home/workspace/Source/ExportOptions.plist'
