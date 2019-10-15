@@ -6,5 +6,26 @@
 [![Platform](https://img.shields.io/cocoapods/p/IISecurity.svg?style=flat)](https://cocoapods.org/pods/IISecurity)
 
 
-# IICoprationCrossPlt
-使用flutter写的跨平台团队协作工具
+## Features
+
+- [x] Use Github & Gitlab Account
+- [x] Create and upgrade one file with OPEN API
+- [x] [Complete Documentation](https://flutter.cn)
+
+## Requirements
+
+- iOS 8.0+
+- Xcode 10.1+
+- Swift 5+
+- Android 4.0 +
+- VSCode 1.39.1+
+
+## FAQ
+
+### What's the origin of the name IICoprationCrossPlt?
+
+IICoprationCrossPlt is named after the [Copration Group CrossPlt](https://flutter.cn)
+
+## License
+
+Alamofire is released under the MIT license. [See LICENSE](https://github.com/hatjs880328s/IICoprationCrossPlt/blob/master/LICENSE) for details.
