@@ -28,4 +28,4 @@ IICoprationCrossPlt is named after the [Copration Group CrossPlt](https://flutte
 
 ## License
 
-Alamofire is released under the MIT license. [See LICENSE](https://github.com/hatjs880328s/IICoprationCrossPlt/blob/master/LICENSE) for details.
+IICoprationCrossPlt is released under the MIT license. [See LICENSE](https://github.com/hatjs880328s/IICoprationCrossPlt/blob/master/LICENSE) for details.
