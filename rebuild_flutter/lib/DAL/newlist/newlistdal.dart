@@ -1,15 +1,23 @@
 import 'package:rebuild_flutter/UTI/HTTP/nshttp.dart';
 import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:rebuild_flutter/DAL/api/apistruct.dart';
 
 class NewListDAL {
+    /*
+     * base64解码
+     */
+    String base64Decodes(String base64Str) {
+      var result = base64Decode(base64Str);
+      return utf8.decode(result);
+    }
 
     /*
      * 获取通用header
      */
     Map<String, dynamic> getNormalGitHeader() {
       Map<String, dynamic> header = {
-        "Authorization": APIStruct.authHeaderInfo,
+        "Authorization": this.base64Decodes(APIStruct.authHeaderInfo),
         "Accept": APIStruct.authSubInfo
       }; 
       return header;

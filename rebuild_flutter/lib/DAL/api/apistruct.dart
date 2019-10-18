@@ -1,6 +1,6 @@
 class APIStruct {
 
-  static String authHeaderInfo = "Bearer 6c358b32a3419925faa05808ae2406bbc28c9e13";
+  static String authHeaderInfo = "QmVhcmVyIGNkMDBkNzEwMTRhZDhiNjZlNGQ0Yzk2OTgyYTdlYTBhZWJlNzNkNTE=";
 
   static String authSubInfo = "application/vnd.github.squirrel-girl-preview";
 
