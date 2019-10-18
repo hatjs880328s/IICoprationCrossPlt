@@ -23,4 +23,13 @@ class NewListDAL {
       Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
       return res.data;
     }
+
+    /*
+     *获取某人的最新文件夹下面的数据 
+     */
+    Future<List<dynamic>> getUserNewestFileList(String userid) async {
+      String url = APIStruct.getNewestFileListapi.replaceAll("{uid}", userid);
+      Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
+      return res.data;
+    }
 }

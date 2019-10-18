@@ -30,6 +30,6 @@ class NewestFileState extends State<NewestFile> {
   }
 
   Future<List<dynamic>> getSelfFolderList() async {
-    return await NewListDAL().getUserFolders('shanwzh');
+    return await NewListDAL().getUserNewestFileList('shanwzh');
   }
 }
