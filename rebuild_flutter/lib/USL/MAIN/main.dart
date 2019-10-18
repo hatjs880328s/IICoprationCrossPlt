@@ -3,8 +3,8 @@ import 'package:rebuild_flutter/USL/TabbarGroup/maintabbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'USL/testindicate.dart';
-import 'package:rebuild_flutter/USL/fromtable.dart';
+import 'package:rebuild_flutter/USL/TEST/testindicate.dart';
+import 'package:rebuild_flutter/USL/TEST/fromtable.dart';
 
 void main() => runApp(MyApp());
 
