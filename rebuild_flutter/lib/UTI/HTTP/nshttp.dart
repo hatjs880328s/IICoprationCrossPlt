@@ -28,7 +28,13 @@ class NSHTTP {
     try {
     switch (requestType) {
       case NSHTTPRequestType.GET: 
-        return manager.get(url); break;
+      Options opt = Options(
+          method: "get",
+          extra: params,
+          headers: header,
+          receiveTimeout: 30
+        );
+        return manager.get(url, options: opt); break;
       case NSHTTPRequestType.POST:
         Options opt = Options(
           method: "post",
