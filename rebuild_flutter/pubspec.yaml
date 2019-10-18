@@ -14,6 +14,7 @@ dependencies:
   http: any
   fish_redux: ^0.2.8
   dio: any
+  sqflite: any
 
 dev_dependencies:
   flutter_test:
