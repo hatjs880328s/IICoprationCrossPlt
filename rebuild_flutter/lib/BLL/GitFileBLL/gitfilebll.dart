@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistdal.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 
 class GitFileBLL {
 

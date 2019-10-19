@@ -27,7 +27,7 @@ class NewestFileState extends State<NewestFile> {
         title: Text('最新'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.sync), onPressed: () {
-            this.createFile();
+            //this.createFile();
           },),
           IconButton(icon: Icon(Icons.search), onPressed: () {
             showSearch(context: context, delegate: nssearchbarDelegate());

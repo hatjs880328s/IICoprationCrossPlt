@@ -20,18 +20,18 @@ class NSHTTP {
       [Map<String, dynamic> header, Map<String, dynamic> params]) async {
     Dio manager = new Dio();
     //这里设置了代理-正式需要去掉 =================
-    bool isProxyChecked = true;
-    String proxy = '10.25.11.132:8984';
-    (manager.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) {
-        return isProxyChecked && Platform.isAndroid;
-      };
-      client.findProxy = (url) {
-        return isProxyChecked ? 'PROXY $proxy' : 'DIRECT';
-      };
-    };
+    // bool isProxyChecked = true;
+    // String proxy = '10.25.11.132:8984';
+    // (manager.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //     (client) {
+    //   client.badCertificateCallback =
+    //       (X509Certificate cert, String host, int port) {
+    //     return isProxyChecked && Platform.isAndroid;
+    //   };
+    //   client.findProxy = (url) {
+    //     return isProxyChecked ? 'PROXY $proxy' : 'DIRECT';
+    //   };
+    // };
     //这里设置了代理-正式需要去掉 =================
     try {
       switch (requestType) {
