@@ -52,18 +52,7 @@ class NewListDAL {
       String userid, 
       String folderid,
       String filename) async {
-        
         String realContent = base64Encode(utf8.encode(content));
-        Map<String, dynamic> dic =
-         {
-          "content": realContent, 
-          "message": userid + "commit.",
-          "committer": 
-            {
-            "name": userid, 
-            "email": "451145552@qq.com"
-            }
-         };
         FileGitCommitSmallModel smallModel = FileGitCommitSmallModel(userid, "451145552@qq.com");
         FileGitCommitModel model = FileGitCommitModel(userid + "commit.", realContent, smallModel);
 
@@ -74,7 +63,7 @@ class NewListDAL {
 
         Map<String, dynamic> headers = getNormalGitHeader();
         headers["content-type"] = "application/json";
-        Response res = await NSHTTP.startRequest(NSHTTPRequestType.PUT, api, headers, dic);
+        Response res = await NSHTTP.startRequest(NSHTTPRequestType.PUT, api, headers, model.toJson());
         print(res.data);
         return true;
     }
