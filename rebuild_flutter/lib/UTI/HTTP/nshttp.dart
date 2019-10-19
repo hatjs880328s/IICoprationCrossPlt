@@ -48,7 +48,8 @@ class NSHTTP {
           method: "put",
           extra: params,
           headers: header,
-          receiveTimeout: 30
+          receiveTimeout: 30,
+          contentType: "application/json"
         );
         return manager.put(url, options: opt); break;
       default: return null; break;

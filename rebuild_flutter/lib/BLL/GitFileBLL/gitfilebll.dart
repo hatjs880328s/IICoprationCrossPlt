@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistdal.dart';
@@ -16,5 +17,18 @@ class GitFileBLL {
       list.add(model);
     }
     return list;
+  }
+
+  /*
+   * 创建一个文件 
+   */
+  Future<Void> createFile(
+    String content, 
+      String userid, 
+      String folderid,
+      String filename) async {
+
+        NewListDAL dal = NewListDAL();
+        bool result = await dal.createFile(content, userid, folderid, filename);
   }
 }

@@ -26,9 +26,11 @@ class NewestFileState extends State<NewestFile> {
       appBar: AppBar(
         title: Text('最新'),
         actions: <Widget>[
-          Icon(Icons.sync),
+          IconButton(icon: Icon(Icons.sync), onPressed: () {
+            this.createFile();
+          },),
           IconButton(icon: Icon(Icons.search), onPressed: () {
-          showSearch(context: context, delegate: nssearchbarDelegate());
+            showSearch(context: context, delegate: nssearchbarDelegate());
         }),
         ],
       ),
@@ -49,6 +51,14 @@ class NewestFileState extends State<NewestFile> {
     list = lists;
     setState(() {
       list = lists;
+    });
+  }
+
+  // 创建一个新文件 - 然后刷新
+  void createFile() async {
+    await GitFileBLL().createFile("haloworld", "shanwzh", "最新", "tesddddtfile1.txt");
+    setState(() {
+    
     });
   }
 }
