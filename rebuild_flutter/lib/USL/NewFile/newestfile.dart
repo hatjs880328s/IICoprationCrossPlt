@@ -55,10 +55,10 @@ class NewestFileState extends State<NewestFile> {
   }
 
   // 创建一个新文件 - 然后刷新
-  void createFile() async {
-    await GitFileBLL().createFile("haloworld", "shanwzh", "最新", "tesddddtfile1.txt");
-    setState(() {
+  // void createFile() async {
+  //   await GitFileBLL().createFile("haloworld", "shanwzh", "最新", "tesddddtfile1.txt");
+  //   setState(() {
     
-    });
-  }
+  //   });
+  // }
 }
