@@ -1,6 +1,6 @@
 
 import 'dart:ffi';
-
+import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -38,7 +38,7 @@ class FolderPageState extends State<FolderPage> with AutomaticKeepAliveClientMix
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.white,
         border: Border(bottom: BorderSide.none),
-        leading: Text('文件夹', style: TextStyle(fontSize: 24)),
+        leading: Text('文件夹', style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
         trailing: IconButton(icon: Icon(Icons.sync), onPressed: () {
           this.loadData();
         }),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 
 class FolderPageCell extends StatelessWidget {
   String title = "";
@@ -25,7 +26,7 @@ class FolderPageCell extends StatelessWidget {
                 Icon(Icons.folder_open),
                 Container(width: 15),
                 Text(title,
-                    style: TextStyle(fontSize: 18, color: Colors.black)),
+                    style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: NSNormalConfig.fontFamily)),
               ],
             ),
           ),
@@ -34,7 +35,7 @@ class FolderPageCell extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(time,
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                    style: TextStyle(fontSize: 14, color: Colors.grey, fontFamily: NSNormalConfig.fontFamily),
                     textAlign: TextAlign.start),
               ],
             ),

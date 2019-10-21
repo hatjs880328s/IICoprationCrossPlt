@@ -6,6 +6,7 @@ import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/filelistcell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
+import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 
 /// 最新文章列表页面 - tab首屏
 class NewestFile extends StatefulWidget {
@@ -30,7 +31,7 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.white,
         border: Border(bottom: BorderSide.none),
-        leading: Text('最新', style: TextStyle(fontSize: 24)),
+        leading: Text('最新', style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
         trailing: IconButton(icon: Icon(Icons.sync), onPressed: () {
             this.getSelfFolderList();
           }),
