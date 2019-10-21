@@ -26,17 +26,14 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('最新', style: TextStyle(fontSize: 24)),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.sync), onPressed: () {
-            this.createFile();
-          },),
-        ],
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        leading: Text('最新', style: TextStyle(fontSize: 24)),
+        trailing: IconButton(icon: Icon(Icons.sync), onPressed: () {
+            this.getSelfFolderList();
+          }),
       ),
-      body: Container(
+      child: Container(
         child: ListView.builder(
           itemCount: list.length + 1,
           itemBuilder: (context, i) {
@@ -65,8 +62,8 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
   }
 
   // 创建一个新文件 - 然后刷新
-  void createFile() async {
-    await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create");
-    this.getSelfFolderList();
-  }
+  // void createFile() async {
+  //   await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create");
+  //   this.getSelfFolderList();
+  // }
 }
