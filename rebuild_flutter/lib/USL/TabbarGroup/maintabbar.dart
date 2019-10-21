@@ -1,4 +1,4 @@
-
+import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionsheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/USL/TESTFile/fromtable.dart';
@@ -63,7 +63,14 @@ class MaintabBarState extends State<MaintabBar> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return NSActionSheet();
+            }
+          );
+        },
         child: Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

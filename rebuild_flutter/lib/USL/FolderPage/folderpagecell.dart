@@ -25,7 +25,7 @@ class FolderPageCell extends StatelessWidget {
                 Icon(Icons.folder_open),
                 Container(width: 15),
                 Text(title,
-                    style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold)),
+                    style: TextStyle(fontSize: 18, color: Colors.black)),
               ],
             ),
           ),
