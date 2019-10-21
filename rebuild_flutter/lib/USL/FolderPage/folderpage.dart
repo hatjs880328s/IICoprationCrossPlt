@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +19,34 @@ class FolderPage extends StatefulWidget {
 }
 
 class FolderPageState extends State<FolderPage>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   List<FolderModel> folderlist = [];
 
   @override
   bool get wantKeepAlive => true;
 
+  AnimationController controller;
+  Animation<int> animationIns;
+
   @override
   void initState() {
     super.initState();
+
+    controller = AnimationController(duration: Duration(seconds: 3), vsync: this);
+    animationIns = Tween(begin: 0, end: 6).animate(controller)
+    ..addListener((){
+      setState(() {
+        
+      });
+    });
+    controller.forward();
     this.loadData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 
   @override
@@ -37,13 +56,16 @@ class FolderPageState extends State<FolderPage>
         backgroundColor: Colors.white,
         border: Border(bottom: BorderSide.none),
         leading: Text('文件夹',
-            style:
-                TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
-        trailing: IconButton(
+            style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
+        trailing: RotationTransition(
+          turns: controller,
+          alignment: Alignment.center,
+          child: IconButton(
             icon: Icon(Icons.sync),
             onPressed: () {
               this.loadData();
             }),
+        ),
       ),
       child: Container(
         color: Colors.white,
