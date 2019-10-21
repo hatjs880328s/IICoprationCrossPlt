@@ -25,11 +25,11 @@ class FileListCell extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            child: Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Text(title, style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400)),
+            child: Text(time, style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400)),
           ),
           Divider(height: 1, color: Colors.black12, endIndent: 0),
         ],

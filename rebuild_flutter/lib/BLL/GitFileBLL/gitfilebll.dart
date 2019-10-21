@@ -22,14 +22,25 @@ class GitFileBLL {
 
   /*
    * 创建一个文件 
+   * 
+   * 1.创建文件的标题 为    realtitle + time 使用分隔符隔开，获取数据时需要处理
+   * 2.创建内容时，是一个model,tojson.tostring()
    */
-  Future<Void> createFile(
+  Future createFile(
     String content, 
+    String title,
       String userid, 
       String folderid,
       String filename) async {
 
         NewListDAL dal = NewListDAL();
-        bool result = await dal.createFile(content, userid, folderid, filename);
+        String title = filename + "EXEOF" + DateTime.now().millisecondsSinceEpoch.toString();
+        RealGitFileModel realmodel = RealGitFileModel(
+          content, 
+          DateTime.now().millisecondsSinceEpoch, 
+          "", 
+          title, 
+          content.substring(0, content.length > 10 ? 10 : content.length - 1));
+        await dal.createFile(realmodel.toJson().toString(), userid, folderid, title);
   }
 }

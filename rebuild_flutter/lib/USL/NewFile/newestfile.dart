@@ -27,7 +27,7 @@ class NewestFileState extends State<NewestFile> {
         title: Text('最新'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.sync), onPressed: () {
-            //this.createFile();
+            this.createFile();
           },),
           IconButton(icon: Icon(Icons.search), onPressed: () {
             showSearch(context: context, delegate: nssearchbarDelegate());
@@ -38,7 +38,7 @@ class NewestFileState extends State<NewestFile> {
         child: ListView.builder(
           itemCount: list.length,
           itemBuilder: (context, i) {
-            return FileListCell(title: list[i].name, img: "", time: list[i].name);
+            return FileListCell(title: list[i].getTitleInfo(), img: "", time: list[i].getCreateTime());
           },
         ),
       ),
@@ -55,10 +55,8 @@ class NewestFileState extends State<NewestFile> {
   }
 
   // 创建一个新文件 - 然后刷新
-  // void createFile() async {
-  //   await GitFileBLL().createFile("haloworld", "shanwzh", "最新", "tesddddtfile1.txt");
-  //   setState(() {
-    
-  //   });
-  // }
+  void createFile() async {
+    await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create");
+    this.getSelfFolderList();
+  }
 }

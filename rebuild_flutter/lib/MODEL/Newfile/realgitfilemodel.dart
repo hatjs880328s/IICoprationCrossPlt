@@ -10,12 +10,13 @@ part 'realgitfilemodel.g.dart';
 @JsonSerializable()
 
 class RealGitFileModel {
-  RealGitFileModel(this.content, this.time, this.img, this.title);
+  RealGitFileModel(this.content, this.time, this.img, this.title, this.subtitle);
 
   String content;
-  double time;
+  int time;
   String img;
   String title;
+  String subtitle;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

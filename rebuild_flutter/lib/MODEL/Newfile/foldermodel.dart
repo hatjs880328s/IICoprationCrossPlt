@@ -31,4 +31,21 @@ class FolderModel {
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
   Map<String, dynamic> toJson() => _$FolderModelToJson(this);
+
+  // 获取标题
+  String getTitleInfo() {
+    return this.name.split("EXEOF").first;
+  }
+
+  // 获取日期格式化信息
+  String getCreateTime() {
+    int lastTime = this.name.split("EXEOF").length;
+    if (lastTime == 1) {
+      DateTime time = DateTime.now();
+      return "${time.year}年${time.month}月${time.day}日";
+    }
+    int millSec = int.parse(this.name.split("EXEOF").last.toString());
+    DateTime time = DateTime.fromMillisecondsSinceEpoch(millSec);
+    return "${time.year}年${time.month}月${time.day}日";
+  }
 }
