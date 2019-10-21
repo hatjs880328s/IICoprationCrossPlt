@@ -64,11 +64,11 @@ class MaintabBarState extends State<MaintabBar> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          return showDialog(
+          return showCupertinoModalPopup(
             context: context,
             builder: (context) {
               return NSActionSheet();
-            }
+            } 
           );
         },
         child: Icon(Icons.add),
