@@ -1,9 +1,7 @@
-import 'package:fish_redux/fish_redux.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rebuild_flutter/USL/TEST/fromtable.dart';
-import 'package:rebuild_flutter/USL/TEST/testindicate.dart';
-import 'package:rebuild_flutter/USL/MAIN/main.dart';
+import 'package:rebuild_flutter/USL/TESTFile/fromtable.dart';
 import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
 
 class MaintabBar extends StatefulWidget {
@@ -17,7 +15,7 @@ class MaintabBarState extends State<MaintabBar> {
   Widget currentItem = NewestFile();
   int _currentIndex = 0;
   PageController _controller;
-  List<Widget> infos = [NewestFile(), IITab(), Stsate(), Stsate()];
+  List<Widget> infos = [NewestFile(), IITab(), IITab(), IITab()];
 
   @override
   void initState() {

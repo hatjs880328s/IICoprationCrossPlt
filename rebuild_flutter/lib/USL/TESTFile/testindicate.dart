@@ -3,7 +3,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import "package:http/http.dart" as http;
-import 'package:rebuild_flutter/USL/TEST/fromtable.dart';
+import 'package:rebuild_flutter/USL/TESTFile/fromtable.dart';
 
 /// 网络数据加载 - 有指示器的页面
 class Testindicate extends StatefulWidget {
