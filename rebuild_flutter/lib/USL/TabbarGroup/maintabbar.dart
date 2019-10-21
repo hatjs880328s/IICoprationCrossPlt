@@ -44,13 +44,13 @@ class MaintabBarState extends State<MaintabBar> {
                   onTap(0);
                 }),
             IconButton(
-                icon: Icon(Icons.chat),
+                icon: Icon(Icons.folder),
                 onPressed: () {
                   onTap(1);
                 }),
             SizedBox(),
             IconButton(
-                icon: Icon(Icons.apps),
+                icon: Icon(Icons.new_releases),
                 onPressed: () {
                   onTap(2);
                 }),

@@ -1,10 +1,11 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rebuild_flutter/UTI/COMPONENT/nssearchbar.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/filelistcell.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 
 /// 最新文章列表页面 - tab首屏
 class NewestFile extends StatefulWidget {
@@ -27,27 +28,33 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('最新'),
+        title: Text('最新', style: TextStyle(fontSize: 24)),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(icon: Icon(Icons.sync), onPressed: () {
             this.createFile();
           },),
-          IconButton(icon: Icon(Icons.search), onPressed: () {
-            showSearch(context: context, delegate: nssearchbarDelegate());
-        }),
         ],
       ),
       body: Container(
         child: ListView.builder(
-          itemCount: list.length,
+          itemCount: list.length + 1,
           itemBuilder: (context, i) {
-            return FileListCell(title: list[i].getTitleInfo(), img: "", time: list[i].getCreateTime());
+            if (i == 0) {
+              NSNormalSearchBar search = NSNormalSearchBar();
+              search.onTap = (int) {
+                showSearch(context: context, delegate: nssearchbarDelegate());
+              };
+              return search;
+            }
+            return FileListCell(title: list[i - 1].getTitleInfo(), img: "", time: list[i - 1].getCreateTime());
           },
         ),
       ),
     );
   }
 
+  // 
   // 获取最新数据
   void getSelfFolderList() async {
     List<FolderModel> lists = await GitFileBLL().getNewestInfosWithUserid();
