@@ -1,0 +1,11 @@
+
+
+/**
+    lib - src change log 
+    Noah shan. 
+    2019-10-21
+*/
+
+
+
+1.修改了线条进度条的高度： _kLinearProgressIndicatorHeight  原来为6;现在是2

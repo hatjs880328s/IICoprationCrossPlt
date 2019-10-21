@@ -8,6 +8,7 @@ import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
 
 class FolderPage extends StatefulWidget {
   @override
@@ -49,6 +50,9 @@ class FolderPageState extends State<FolderPage>
         child: ListView.builder(
           itemCount: folderlist.length + 1,
           itemBuilder: (context, i) {
+            if (this.folderlist.length == 0) {
+              return Center(child: LinearProgressIndicator(backgroundColor: Colors.white, valueColor: IIAnimationColor()));
+            }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();
               search.onTap = (int) {

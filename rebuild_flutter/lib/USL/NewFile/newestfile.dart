@@ -7,6 +7,7 @@ import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/NewFile/filelistcell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
 
 /// 最新文章列表页面 - tab首屏
 class NewestFile extends StatefulWidget {
@@ -41,6 +42,9 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
         child: ListView.builder(
           itemCount: list.length + 1,
           itemBuilder: (context, i) {
+            if (this.list.length == 0) {
+              return Center(child: LinearProgressIndicator(backgroundColor: Colors.white, valueColor: IIAnimationColor()));
+            }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();
               search.onTap = (int) {
