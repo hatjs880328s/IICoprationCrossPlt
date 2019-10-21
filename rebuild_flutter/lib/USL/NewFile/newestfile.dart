@@ -11,9 +11,12 @@ class NewestFile extends StatefulWidget {
   State<StatefulWidget> createState() => NewestFileState();
 }
 
-class NewestFileState extends State<NewestFile> {
+class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMixin {
 
   List<FolderModel> list = [];
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override 
   initState() {
