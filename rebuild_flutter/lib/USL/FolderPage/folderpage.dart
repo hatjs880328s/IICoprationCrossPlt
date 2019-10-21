@@ -36,6 +36,8 @@ class FolderPageState extends State<FolderPage> with AutomaticKeepAliveClientMix
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        backgroundColor: Colors.white,
+        border: Border(bottom: BorderSide.none),
         leading: Text('文件夹', style: TextStyle(fontSize: 24)),
         trailing: IconButton(icon: Icon(Icons.sync), onPressed: () {
           this.loadData();

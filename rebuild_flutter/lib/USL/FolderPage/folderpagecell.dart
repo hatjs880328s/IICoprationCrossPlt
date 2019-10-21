@@ -39,6 +39,7 @@ class FolderPageCell extends StatelessWidget {
               ],
             ),
           ),
+          Divider(height: 1, color: Colors.black12, endIndent: 0),
         ],
       ),
     );
