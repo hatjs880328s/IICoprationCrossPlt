@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/USL/TESTFile/fromtable.dart';
 import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
+import 'package:rebuild_flutter/USL/FolderPage/folderpage.dart';
 
 class MaintabBar extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class MaintabBarState extends State<MaintabBar> {
   Widget currentItem = NewestFile();
   int _currentIndex = 0;
   PageController _controller;
-  List<Widget> infos = [NewestFile(), IITab(), IITab(), IITab()];
+  List<Widget> infos = [NewestFile(), FolderPage(), IITab(), IITab()];
 
   @override
   void initState() {

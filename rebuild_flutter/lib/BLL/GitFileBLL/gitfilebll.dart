@@ -20,6 +20,20 @@ class GitFileBLL {
   }
 
   /*
+   *获取用户文件夹信息 [目前没有处理缓存]
+   */
+  Future<List<FolderModel>> getUserFolders() async {
+    NewListDAL dal = NewListDAL();
+    List<dynamic> res = await dal.getUserFolders("shanwzh");
+    List<FolderModel> list = [];
+    for (int i = 0  ; i < res.length ; i++) {
+      FolderModel model = FolderModel.fromJson(res[i]);
+      list.add(model);
+    }
+    return list;
+  }
+
+  /*
    * 创建一个文件 
    * 
    * 1.创建文件的标题 为    realtitle + time 使用分隔符隔开，获取数据时需要处理
