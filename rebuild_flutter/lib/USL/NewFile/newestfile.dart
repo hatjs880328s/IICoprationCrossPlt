@@ -37,6 +37,7 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
           }),
       ),
       child: Container(
+        color: Colors.white,
         child: ListView.builder(
           itemCount: list.length + 1,
           itemBuilder: (context, i) {

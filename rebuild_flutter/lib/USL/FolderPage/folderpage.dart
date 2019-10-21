@@ -1,4 +1,3 @@
-
 import 'dart:ffi';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,18 +14,16 @@ class FolderPage extends StatefulWidget {
   State<StatefulWidget> createState() {
     return FolderPageState();
   }
-
 }
 
-class FolderPageState extends State<FolderPage> with AutomaticKeepAliveClientMixin {
-
-  
+class FolderPageState extends State<FolderPage>
+    with AutomaticKeepAliveClientMixin {
   List<FolderModel> folderlist = [];
 
   @override
   bool get wantKeepAlive => true;
 
-  @override 
+  @override
   void initState() {
     super.initState();
     this.loadData();
@@ -38,23 +35,31 @@ class FolderPageState extends State<FolderPage> with AutomaticKeepAliveClientMix
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.white,
         border: Border(bottom: BorderSide.none),
-        leading: Text('文件夹', style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
-        trailing: IconButton(icon: Icon(Icons.sync), onPressed: () {
-          this.loadData();
-        }),
+        leading: Text('文件夹',
+            style:
+                TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
+        trailing: IconButton(
+            icon: Icon(Icons.sync),
+            onPressed: () {
+              this.loadData();
+            }),
       ),
-      child: ListView.builder(
-        itemCount: folderlist.length + 1,
-        itemBuilder: (context, i) {
-          if (i == 0) {
-            NSNormalSearchBar search = NSNormalSearchBar();
+      child: Container(
+        color: Colors.white,
+        child: ListView.builder(
+          itemCount: folderlist.length + 1,
+          itemBuilder: (context, i) {
+            if (i == 0) {
+              NSNormalSearchBar search = NSNormalSearchBar();
               search.onTap = (int) {
                 showSearch(context: context, delegate: nssearchbarDelegate());
               };
               return search;
-          }
-          return FolderPageCell(folderlist[i - 1].getTitleInfo(), folderlist[i - 1].getCreateTime());
-        },
+            }
+            return FolderPageCell(folderlist[i - 1].getTitleInfo(),
+                folderlist[i - 1].getCreateTime());
+          },
+        ),
       ),
     );
   }
@@ -67,4 +72,3 @@ class FolderPageState extends State<FolderPage> with AutomaticKeepAliveClientMix
     });
   }
 }
-

@@ -31,7 +31,7 @@ class FolderPageCell extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 4, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 4, 0, 3),
             child: Row(
               children: <Widget>[
                 Text(time,
