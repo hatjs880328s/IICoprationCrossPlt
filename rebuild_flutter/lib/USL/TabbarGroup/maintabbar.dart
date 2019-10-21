@@ -88,4 +88,14 @@ class MaintabBarState extends State<MaintabBar> {
       });
     }
   }
+
+  // 新建一个文件夹
+  void createNewFolder() {
+
+  }
+
+  // 新建一个文件
+  void createNewFile() {
+
+  }
 }

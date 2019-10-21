@@ -13,7 +13,7 @@ class NSActionSheet extends StatelessWidget {
     return CupertinoActionSheet(
       title: Text("创建文件与文件夹", style: TextStyle(fontSize: 16)),
       message: Text("新建文件默认放到您的[最新]目录下",
-          style: TextStyle(fontSize: 14, color: Colors.grey)),
+          style: TextStyle(fontSize: 14, color: Colors.grey, fontFamily: NSNormalConfig.fontFamily)),
       cancelButton: Container(
         height: 45,
         padding: EdgeInsets.fromLTRB(0, 11, 0, 8),
@@ -40,7 +40,6 @@ class NSActionSheet extends StatelessWidget {
           child: Text("新建文件",
               style: TextStyle(
                   fontSize: 15,
-                  decoration: TextDecoration.none,
                   fontWeight: FontWeight.w300,
                   color: Colors.black,
                   fontFamily: NSNormalConfig.fontFamily),
