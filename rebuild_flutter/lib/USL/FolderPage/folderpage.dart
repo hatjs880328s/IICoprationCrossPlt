@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:math';
 import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,19 +27,21 @@ class FolderPageState extends State<FolderPage>
   bool get wantKeepAlive => true;
 
   AnimationController controller;
-  Animation<int> animationIns;
+  Animation<double> animationIns;
+  CurvedAnimation curve;
+  bool isForward = false;
 
   @override
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: Duration(seconds: 3), vsync: this);
-    animationIns = Tween(begin: 0, end: 6).animate(controller)
-    ..addListener((){
-      setState(() {
-        
+    controller = AnimationController(
+        duration: Duration(milliseconds: 2000), vsync: this);
+    curve = CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
+    animationIns = Tween(begin: 0.0, end: 1.0).animate(controller)
+      ..addListener(() {
+        setState(() {});
       });
-    });
     controller.forward();
     this.loadData();
   }
@@ -53,27 +56,30 @@ class FolderPageState extends State<FolderPage>
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: Colors.white,
-        border: Border(bottom: BorderSide.none),
-        leading: Text('文件夹',
-            style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
-        trailing: RotationTransition(
-          turns: controller,
-          alignment: Alignment.center,
-          child: IconButton(
-            icon: Icon(Icons.sync),
-            onPressed: () {
-              this.loadData();
-            }),
-        ),
-      ),
+          backgroundColor: Colors.white,
+          border: Border(bottom: BorderSide.none),
+          leading: Text('文件夹',
+              style: TextStyle(
+                  fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
+          trailing: Transform.rotate(
+              angle: curve.value * pi,
+              child: IconButton(
+                  icon: Icon(Icons.sync),
+                  onPressed: () {
+                    isForward ? controller.reverse() : controller.forward();
+                    isForward = !isForward;
+                    this.loadData();
+                  }))),
       child: Container(
         color: Colors.white,
         child: ListView.builder(
           itemCount: folderlist.length + 1,
           itemBuilder: (context, i) {
             if (this.folderlist.length == 0) {
-              return Center(child: LinearProgressIndicator(backgroundColor: Colors.white, valueColor: IIAnimationColor()));
+              return Center(
+                  child: LinearProgressIndicator(
+                      backgroundColor: Colors.white,
+                      valueColor: IIAnimationColor()));
             }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();

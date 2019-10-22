@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +16,15 @@ class NewestFile extends StatefulWidget {
   State<StatefulWidget> createState() => NewestFileState();
 }
 
-class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMixin {
+class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
 
   List<FolderModel> list = [];
+
+  AnimationController controller;
+  Animation<double> animation;
+  CurvedAnimation curve;
+  bool isforward = false;
+   
 
   @override
   bool get wantKeepAlive => true;
@@ -24,7 +32,21 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
   @override 
   initState() {
     super.initState();
+    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
+    curve = CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
+    animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+    animation.addListener((){
+      setState(() {
+        
+      });
+    });
     this.getSelfFolderList();
+  }
+
+  @override 
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -33,9 +55,18 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
         backgroundColor: Colors.white,
         border: Border(bottom: BorderSide.none),
         leading: Text('最新', style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
-        trailing: IconButton(icon: Icon(Icons.sync), onPressed: () {
+        trailing: Transform.rotate(
+          angle: animation.value * pi,
+          child: IconButton(icon: Icon(Icons.sync), onPressed: () {
+            if (!isforward) {
+              controller.forward();
+            } else {
+              controller.reverse();
+            }
+            isforward = !isforward;
             this.getSelfFolderList();
           }),
+        ),
       ),
       child: Container(
         color: Colors.white,
