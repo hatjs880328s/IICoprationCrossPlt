@@ -12,9 +12,9 @@ class NSNormalSearchBar extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           border: Border.all(width: 1, color: Colors.white),
-          color: Color.fromRGBO(1, 1, 1, 0.05),
+          color: Color.fromRGBO(1, 1, 1, 0.04),
         ),
-        margin: EdgeInsets.fromLTRB(8, 8, 8, 8),
+        margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: GestureDetector(
             onTap: () { this.onTap(0); },
             child: Text(

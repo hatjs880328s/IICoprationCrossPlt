@@ -1,3 +1,4 @@
+import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionsheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,27 +40,19 @@ class MaintabBarState extends State<MaintabBar> {
         notchMargin: 4,
         child: Row(
           children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.home),
-                onPressed: () {
-                  onTap(0);
-                }),
-            IconButton(
-                icon: Icon(Icons.folder),
-                onPressed: () {
-                  onTap(1);
-                }),
+            MainTabItem(0, '首页', Icon(Icons.home), (idx) {
+              onTap(idx);
+            }),
+            MainTabItem(1, '书架', Icon(Icons.folder), (idx) {
+              onTap(idx);
+            }),
             SizedBox(),
-            IconButton(
-                icon: Icon(Icons.new_releases),
-                onPressed: () {
-                  onTap(2);
-                }),
-            IconButton(
-                icon: Icon(Icons.person),
-                onPressed: () {
-                  onTap(3);
-                })
+            MainTabItem(2, '协作', Icon(Icons.new_releases), (idx) {
+              onTap(idx);
+            }),
+            MainTabItem(3, '我的', Icon(Icons.person), (idx) {
+              onTap(idx);
+            }),
           ],
           mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
