@@ -1,26 +1,34 @@
-//import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+/// document: https://pub.dev/packages/sqflite#-readme-tab-
+
 
 class NewListLocalDAL {
+
+  Database db;
+
+  /// 打开数据库
+  Future<void> openDB() async {
+    var dbpath = await getDatabasesPath();
+    String path = join(dbpath, 'rebuild_flutter.db');
+    db = await openDatabase(path);
+  }
+
+  /// 关闭数据库
+  Future<void> closeDB() async {
+    await db.close();
+  }
 
   /*
    * 创建文件数据表 
    */
   Future<void> createNewListTab() async {
-    // 获取数据库文件的存储路径
-    // var databasesPath = await getDatabasesPath();
-    // String path = databasesPath.//join(databasesPath, 'demo.db');
-
-//根据数据库文件路径和数据库版本号创建数据库表
-    // var db = await openDatabase(path, version: 1,
-    //     onCreate: (Database db, int version) async {
-    //   await db.execute('''
-    //       CREATE TABLE $tableBook (
-    //         $columnId INTEGER PRIMARY KEY, 
-    //         $columnName TEXT, 
-    //         $columnAuthor TEXT, 
-    //         $columnPrice REAL, 
-    //         $columnPublishingHouse TEXT)
-    //       ''');
-    // });
+    await openDB();
+    String sql = "CREATE TABLE IF NOT EXISTS FileAndFolderTab" +
+    " (id varchar(100) PRIMARY KEY, content TEXT, time REAL, title varchar(100), subtitle varchar(100))";
+    this.db.execute(sql);
   }
+
+  
 }
