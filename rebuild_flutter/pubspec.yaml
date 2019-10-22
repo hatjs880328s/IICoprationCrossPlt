@@ -16,6 +16,7 @@ dependencies:
   dio: any
   sqflite: any
   aspectd: ^0.9.6
+  fluttertoast: any
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitsmallmodel.dart';
 import 'package:rebuild_flutter/UTI/HTTP/nshttp.dart';
 import 'package:dio/dio.dart';
@@ -29,18 +30,28 @@ class NewListDAL {
      * 获取某个用户下的所有文件夹
      */
     Future<List<dynamic>> getUserFolders(String userid) async {
-      String url = APIStruct.getFolderapi + userid;
-      Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
-      return res.data;
+      try {
+        String url = APIStruct.getFolderapi + userid;
+        Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
+        return res.data;
+      } on Exception {
+        Fluttertoast.showToast(msg: "网络异常，请稍后再试", gravity: ToastGravity.CENTER);
+        return [];
+      }
     }
 
     /*
      *获取某人的最新文件夹下面的数据 
      */
     Future<List<dynamic>> getUserNewestFileList(String userid) async {
-      String url = APIStruct.getNewestFileListapi.replaceAll("{uid}", userid);
-      Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
-      return res.data;
+      try {
+        String url = APIStruct.getNewestFileListapi.replaceAll("{uid}", userid);
+        Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
+        return res.data;
+      } on Exception {
+        Fluttertoast.showToast(msg: "网络异常，请稍后再试", gravity: ToastGravity.CENTER);
+        return [];
+      }
     }
 
     /*
