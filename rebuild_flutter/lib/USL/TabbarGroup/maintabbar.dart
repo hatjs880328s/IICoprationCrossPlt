@@ -100,6 +100,6 @@ class MaintabBarState extends State<MaintabBar> {
 
   // 新建一个文件
   Future<void> createNewFile() async {
-    await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create1");
+    //await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create1");
   }
 }
