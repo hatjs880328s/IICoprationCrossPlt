@@ -18,6 +18,7 @@ dependencies:
   path: any
   aspectd: ^0.9.6
   fluttertoast: any
+  uuid: any
 
 dev_dependencies:
   flutter_test:

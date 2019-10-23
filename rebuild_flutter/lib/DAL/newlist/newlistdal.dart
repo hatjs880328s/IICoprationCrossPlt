@@ -54,6 +54,18 @@ class NewListDAL {
       }
     }
 
+    /// 根据path，获取一个文件的内容
+    Future<Map> getOneItem(String path) async {
+      try {
+        String url = APIStruct.getOneItemapi + path;
+        Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
+        return res.data;
+      } on Exception {
+        Fluttertoast.showToast(msg: "网络异常，请稍后再试", gravity: ToastGravity.CENTER);
+        return {};
+      }
+    }
+
     /*
      * 创建一个文件，返回结果为bool 
      * 切记content是在此处进行的base64编码

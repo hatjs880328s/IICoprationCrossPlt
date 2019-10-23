@@ -1,9 +1,17 @@
 
+import 'dart:convert';
+import 'package:convert/convert.dart';
+import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistdal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
+import 'package:uuid/uuid.dart';
+import 'package:crypto/crypto.dart';
 
 class GitFileBLL {
+
+  /// db - dal
+  NewListLocalDAL localDal = NewListLocalDAL();
 
   /*
    *获取用户最新数据信息 [目前没有处理缓存]
@@ -49,11 +57,39 @@ class GitFileBLL {
         NewListDAL dal = NewListDAL();
         String title = filename + "EXEOF" + DateTime.now().millisecondsSinceEpoch.toString();
         RealGitFileModel realmodel = RealGitFileModel(
+          new Uuid().v1(),
           content, 
           DateTime.now().millisecondsSinceEpoch, 
           "", 
           title, 
           content.substring(0, content.length > 10 ? 10 : content.length - 1));
         await dal.createFile(realmodel.toJson().toString(), userid, folderid, title);
+  }
+
+  /*
+   * 获取一个文件的具体内容
+   * 
+   * 本地数据使用 - 根据path的md5（就是item的id)查找本地数据库
+   * 网络数据，获取下来需要存储到本地数据库，path的md5值就是id,需要设置
+   */
+  Future<RealGitFileModel> getOneFileContent(String path, String sha) async {
+    var content = Utf8Encoder().convert(path);
+    var digest = md5.convert(content);
+    String md5Str = hex.encode(digest.bytes);
+
+    //先从本地取
+    String wheresql = "where id = '$md5Str'";
+    List<Map> result = await this.localDal.getInfo(wheresql);
+    RealGitFileModel model = RealGitFileModel.fromJson(result.first);
+    if (model != null) { return model; }
+    //再从网络取
+    NewListDAL dal = NewListDAL();
+    Map item = await dal.getOneItem(path);
+    RealGitFileModel newmodel = RealGitFileModel.fromJson(item);
+    //插入数据库
+    newmodel.id = md5Str;
+    this.localDal.insertInfo(newmodel);
+    //返回
+    return newmodel;
   }
 }
