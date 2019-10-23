@@ -32,6 +32,7 @@ class DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: Text(widget.model == null ? 'loading...' : widget.model.getTitleInfo())
       ),
       body: Text(
