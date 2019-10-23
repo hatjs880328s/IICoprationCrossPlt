@@ -54,6 +54,7 @@ class FolderPageState extends State<FolderPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
           backgroundColor: Colors.white,

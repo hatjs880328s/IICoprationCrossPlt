@@ -49,7 +49,9 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
     controller.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Colors.white,
