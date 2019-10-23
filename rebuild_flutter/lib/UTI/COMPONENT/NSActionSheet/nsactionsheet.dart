@@ -11,7 +11,7 @@ class NSActionSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoActionSheet(
-      title: Text("创建文件与文件夹", style: TextStyle(fontSize: 16)),
+      title: Text("创建文件与文件夹", style: TextStyle(fontSize: 16, color: Colors.black)),
       message: Text("新建文件默认放到您的[最新]目录下",
           style: TextStyle(fontSize: 14, color: Colors.grey, fontFamily: NSNormalConfig.fontFamily)),
       cancelButton: Container(
@@ -23,7 +23,6 @@ class NSActionSheet extends StatelessWidget {
             style: TextStyle(
                 fontSize: 16,
                 fontFamily: NSNormalConfig.fontFamily,
-                fontWeight: FontWeight.w400,
                 decoration: TextDecoration.none),
             textAlign: TextAlign.center,
           ),
@@ -41,7 +40,6 @@ class NSActionSheet extends StatelessWidget {
           child: Text("新建文件",
               style: TextStyle(
                   fontSize: 15,
-                  fontWeight: FontWeight.w300,
                   color: Colors.black,
                   fontFamily: NSNormalConfig.fontFamily),
               textAlign: TextAlign.center),
@@ -55,7 +53,6 @@ class NSActionSheet extends StatelessWidget {
               style: TextStyle(
                   fontSize: 15,
                   decoration: TextDecoration.none,
-                  fontWeight: FontWeight.w300,
                   color: Colors.black,
                   fontFamily: NSNormalConfig.fontFamily),
               textAlign: TextAlign.center),
