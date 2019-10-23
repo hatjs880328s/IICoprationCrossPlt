@@ -17,10 +17,13 @@ class MaintabBar extends StatefulWidget {
 }
 
 class MaintabBarState extends State<MaintabBar> {
-  Widget currentItem = NewestFile();
+  Widget get currentItem {
+    return infos[_currentIndex];
+  }
+
   int _currentIndex = 0;
   PageController _controller;
-  List<Widget> infos = [NewestFile(), FolderPage(), AnimationPage03(), IITab()];
+  List<Widget> infos = [NewestFile(true, "最新", ""), FolderPage(), AnimationPage03(), IITab()];
 
   @override
   void initState() {

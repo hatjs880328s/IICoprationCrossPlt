@@ -7,13 +7,18 @@ class FolderPageCell extends StatelessWidget {
 
   String time = "";
 
-  FolderPageCell(String title, String time) {
+  dynamic action;
+
+  FolderPageCell(String title, String time, dynamic action) {
     this.time = time;
     this.title = title;
+    this.action = action;
   }
 
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () { action(); },
+      child: Container(
       height: 80,
       padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
       child: Column(
@@ -43,6 +48,7 @@ class FolderPageCell extends StatelessWidget {
           Divider(height: 1, color: Colors.black12, endIndent: 0),
         ],
       ),
+    ),
     );
   }
 }

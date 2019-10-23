@@ -13,6 +13,19 @@ import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.
 
 /// 最新文章列表页面 - tab首屏
 class NewestFile extends StatefulWidget {
+
+  bool isNewset = false;
+
+  String titleInfo = "";
+
+  String folderid = "";
+
+  NewestFile(bool isnew, String titleinfo, String folderid) {
+    this.isNewset = isnew;
+    this.titleInfo = titleinfo;
+    this.folderid = folderid;
+  }
+
   State<StatefulWidget> createState() => NewestFileState();
 }
 
@@ -53,7 +66,7 @@ class NewestFileState extends State<NewestFile>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '最新',
+          widget.titleInfo,
            style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
         elevation: 0,
         actions: <Widget>[
@@ -105,7 +118,12 @@ class NewestFileState extends State<NewestFile>
   //
   // 获取最新数据
   void getSelfFolderList() async {
-    List<FolderModel> lists = await GitFileBLL().getNewestInfosWithUserid();
+    List<FolderModel> lists;
+    if (widget.isNewset) {
+      lists = await GitFileBLL().getNewestInfosWithUserid();
+    } else {
+      lists = await GitFileBLL().getSomeoneFolderInfosWithUserid(widget.folderid);
+    }
     list = lists;
     setState(() {
       list = lists;

@@ -54,6 +54,20 @@ class NewListDAL {
       }
     }
 
+    /*
+     *获取某人的某个文件夹下面的数据 
+     */
+    Future<List<dynamic>> getUserFolderFileList(String userid, String folder) async {
+      try {
+        String url = APIStruct.getSomeoneFolderFileListapi.replaceAll("{uid}", userid).replaceAll("{fid}", folder);
+        Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
+        return res.data;
+      } on Exception {
+        Fluttertoast.showToast(msg: "网络异常，请稍后再试", gravity: ToastGravity.CENTER);
+        return [];
+      }
+    }
+
     /// 根据path，获取一个文件的内容
     Future<Map> getOneItem(String path) async {
       try {

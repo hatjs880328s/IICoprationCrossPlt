@@ -12,6 +12,9 @@ class APIStruct {
   /// 获取某人的最新文件夹下面的数据
   static String getNewestFileListapi = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/最新";
 
+  /// 获取某人的某个文件夹下面的数据
+  static String getSomeoneFolderFileListapi = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/{fid}";
+
   /// 创建一个文件
   static String createFile = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/{folderid}/{filename}";
 

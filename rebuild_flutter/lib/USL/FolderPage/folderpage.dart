@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
+import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
@@ -92,7 +93,9 @@ class FolderPageState extends State<FolderPage>
               return search;
             }
             return FolderPageCell(folderlist[i - 1].getTitleInfo(),
-                folderlist[i - 1].getCreateTime());
+                folderlist[i - 1].getCreateTime(), () {
+                  this.goFilelistPage(i - 1);
+                });
           },
         ),
       ),
@@ -105,5 +108,13 @@ class FolderPageState extends State<FolderPage>
     setState(() {
       this.folderlist = models;
     });
+  }
+
+  void goFilelistPage(int idx) {
+    NewestFile page = NewestFile(false, folderlist[idx].name, folderlist[idx].name);
+
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return page;
+    }));
   }
 }

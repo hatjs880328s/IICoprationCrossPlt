@@ -28,6 +28,20 @@ class GitFileBLL {
   }
 
   /*
+   *获取用户某个文件夹下的数据信息 [目前没有处理缓存]
+   */
+  Future<List<FolderModel>> getSomeoneFolderInfosWithUserid(String folderid) async {
+    NewListDAL dal = NewListDAL();
+    List<dynamic> res = await dal.getUserFolderFileList("shanwzh", folderid);
+    List<FolderModel> list = [];
+    for (int i = 0  ; i < res.length ; i++) {
+      FolderModel model = FolderModel.fromJson(res[i]);
+      list.add(model);
+    }
+    return list;
+  }
+
+  /*
    *获取用户文件夹信息 [目前没有处理缓存]
    */
   Future<List<FolderModel>> getUserFolders() async {
