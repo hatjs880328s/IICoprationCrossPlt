@@ -10,7 +10,7 @@ RealGitFileModel _$RealGitFileModelFromJson(Map<String, dynamic> json) {
   return RealGitFileModel(
       json['id'] as String,
       json['content'] as String,
-      json['time'] as int,
+      (json['time'] as num)?.toDouble(),
       json['img'] as String,
       json['title'] as String,
       json['subtitle'] as String);

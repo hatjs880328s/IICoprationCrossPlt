@@ -59,11 +59,11 @@ class GitFileBLL {
         RealGitFileModel realmodel = RealGitFileModel(
           new Uuid().v1(),
           content, 
-          DateTime.now().millisecondsSinceEpoch, 
+          DateTime.now().millisecondsSinceEpoch.toDouble(), 
           "", 
           title, 
           content.substring(0, content.length > 10 ? 10 : content.length - 1));
-        await dal.createFile(realmodel.toJson().toString(), userid, folderid, title);
+        await dal.createFile(json.encode(realmodel.toJson()), userid, folderid, title);
   }
 
   /*
@@ -72,7 +72,7 @@ class GitFileBLL {
    * 本地数据使用 - 根据path的md5（就是item的id)查找本地数据库
    * 网络数据，获取下来需要存储到本地数据库，path的md5值就是id,需要设置
    */
-  Future<RealGitFileModel> getOneFileContent(String path, String sha) async {
+  Future<RealGitFileModel> getOneFileContent(String path) async {
     var content = Utf8Encoder().convert(path);
     var digest = md5.convert(content);
     String md5Str = hex.encode(digest.bytes);
@@ -80,16 +80,23 @@ class GitFileBLL {
     //先从本地取
     String wheresql = "where id = '$md5Str'";
     List<Map> result = await this.localDal.getInfo(wheresql);
-    RealGitFileModel model = RealGitFileModel.fromJson(result.first);
-    if (model != null) { return model; }
-    //再从网络取
+    if (result.length > 0) {
+      RealGitFileModel model = RealGitFileModel.fromJson(result.first);
+      if (model != null) { return model; }
+    }
+    //再从网络取[获取下来的首先是gitmodel -> content -> base64decode -> realgitfilemodel]
     NewListDAL dal = NewListDAL();
     Map item = await dal.getOneItem(path);
-    RealGitFileModel newmodel = RealGitFileModel.fromJson(item);
+    FolderModel newmodel = FolderModel.fromJson(item);
+    
+    var data = base64Decode(newmodel.content.replaceAll("\n", ""));
+    String contents = utf8.decode(data);
+    Map infos = json.decode(contents);
     //插入数据库
-    newmodel.id = md5Str;
-    this.localDal.insertInfo(newmodel);
+    RealGitFileModel realnewmodel = RealGitFileModel.fromJson(infos);
+    realnewmodel.id = md5Str;
+    this.localDal.insertInfo(realnewmodel);
     //返回
-    return newmodel;
+    return realnewmodel;
   }
 }

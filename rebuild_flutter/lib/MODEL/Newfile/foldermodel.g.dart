@@ -16,7 +16,8 @@ FolderModel _$FolderModelFromJson(Map<String, dynamic> json) {
       json['html_url'] as String,
       json['git_url'] as String,
       json['download_url'] as String,
-      json['type'] as String);
+      json['type'] as String,
+      json['content'] as String);
 }
 
 Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
@@ -29,5 +30,6 @@ Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
       'html_url': instance.html_url,
       'git_url': instance.git_url,
       'download_url': instance.download_url,
-      'type': instance.type
+      'type': instance.type,
+      'content': instance.content
     };

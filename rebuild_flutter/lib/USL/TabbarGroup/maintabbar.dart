@@ -1,3 +1,4 @@
+import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionsheet.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,7 +63,15 @@ class MaintabBarState extends State<MaintabBar> {
           return showCupertinoModalPopup(
             context: context,
             builder: (context) {
-              return NSActionSheet();
+              NSActionSheet sheet = NSActionSheet();
+              sheet.actionOne = (idx) {
+                //文件
+                this.createNewFile();
+              };
+              sheet.actionTwo = (idx) {
+                //书架
+              };
+              return sheet;
             } 
           );
         },
@@ -90,7 +99,7 @@ class MaintabBarState extends State<MaintabBar> {
   }
 
   // 新建一个文件
-  void createNewFile() {
-
+  Future<void> createNewFile() async {
+    await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create1");
   }
 }

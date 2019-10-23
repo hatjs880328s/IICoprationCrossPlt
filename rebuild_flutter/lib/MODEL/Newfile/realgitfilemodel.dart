@@ -13,7 +13,7 @@ class RealGitFileModel {
   RealGitFileModel(this.id, this.content, this.time, this.img, this.title, this.subtitle);
 
   String content;
-  int time;
+  double time;
   String img;
   String title;
   String subtitle;
@@ -28,4 +28,21 @@ class RealGitFileModel {
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
   Map<String, dynamic> toJson() => _$RealGitFileModelToJson(this);
+
+  // 获取标题
+  String getTitleInfo() {
+    return this.title.split("EXEOF").first;
+  }
+
+  // 获取日期格式化信息
+  String getCreateTime() {
+    int lastTime = this.title.split("EXEOF").length;
+    if (lastTime == 1) {
+      DateTime time = DateTime.now();
+      return "${time.year}年${time.month}月${time.day}日";
+    }
+    int millSec = int.parse(this.title.split("EXEOF").last.toString());
+    DateTime time = DateTime.fromMillisecondsSinceEpoch(millSec);
+    return "${time.year}年${time.month}月${time.day}日";
+  }
 }

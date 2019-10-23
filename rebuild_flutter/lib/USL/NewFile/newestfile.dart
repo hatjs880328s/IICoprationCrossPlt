@@ -83,7 +83,7 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
               };
               return search;
             }
-            return FileListCell(title: list[i - 1].getTitleInfo(), img: "", time: list[i - 1].getCreateTime());
+            return FileListCell(title: list[i - 1].getTitleInfo(), img: "", time: list[i - 1].getCreateTime(), path: list[i - 1].path);
           },
         ),
       ),

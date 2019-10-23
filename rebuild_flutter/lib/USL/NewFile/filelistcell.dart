@@ -1,6 +1,8 @@
 import 'dart:wasm';
+import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/material.dart';
+import 'package:rebuild_flutter/USL/DetailPage/detailpage.dart';
 
 class FileListCell extends StatelessWidget {
 
@@ -10,17 +12,21 @@ class FileListCell extends StatelessWidget {
 
   String img = "";
 
-  FileListCell({String img, String title, String time}) {
+  String path = "";
+
+  FileListCell({String img, String title, String time, String path}) {
     this.title = title;
     this.img = img;
     this.time = time;
+    this.path = path;
   }
 
   /// vw create
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(16, 8, 0, 8),
-      child: Column(
+      child: GestureDetector(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
@@ -33,6 +39,12 @@ class FileListCell extends StatelessWidget {
           ),
           Divider(height: 1, color: Colors.black12, endIndent: 0),
         ],
+      ),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return DetailPage(this.path);
+        }));
+      },
       ),
     );
   }
