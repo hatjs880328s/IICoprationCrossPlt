@@ -55,14 +55,14 @@ class FolderPageState extends State<FolderPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-          backgroundColor: Colors.white,
-          border: Border(bottom: BorderSide.none),
-          leading: Text('文件夹',
-              style: TextStyle(
-                  fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
-          trailing: Transform.rotate(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text('文件夹',
+            style:
+                TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
+        actions: <Widget>[
+          Transform.rotate(
               angle: curve.value * pi,
               child: IconButton(
                   icon: Icon(Icons.sync),
@@ -70,8 +70,10 @@ class FolderPageState extends State<FolderPage>
                     isForward ? controller.reverse() : controller.forward();
                     isForward = !isForward;
                     this.loadData();
-                  }))),
-      child: Container(
+                  }))
+        ],
+      ),
+      body: Container(
         color: Colors.white,
         child: ListView.builder(
           itemCount: folderlist.length + 1,

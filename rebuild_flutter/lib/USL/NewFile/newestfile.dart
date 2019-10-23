@@ -16,34 +16,32 @@ class NewestFile extends StatefulWidget {
   State<StatefulWidget> createState() => NewestFileState();
 }
 
-class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-
+class NewestFileState extends State<NewestFile>
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   List<FolderModel> list = [];
 
   AnimationController controller;
   Animation<double> animation;
   CurvedAnimation curve;
   bool isforward = false;
-   
 
   @override
   bool get wantKeepAlive => true;
 
-  @override 
+  @override
   initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2000));
     curve = CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
     animation = Tween(begin: 0.0, end: 1.0).animate(controller);
-    animation.addListener((){
-      setState(() {
-        
-      });
+    animation.addListener(() {
+      setState(() {});
     });
     this.getSelfFolderList();
   }
 
-  @override 
+  @override
   void dispose() {
     super.dispose();
     controller.dispose();
@@ -52,31 +50,39 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        backgroundColor: Colors.white,
-        border: Border(bottom: BorderSide.none),
-        leading: Text('最新', style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
-        trailing: Transform.rotate(
-          angle: animation.value * pi,
-          child: IconButton(icon: Icon(Icons.sync), onPressed: () {
-            if (!isforward) {
-              controller.forward();
-            } else {
-              controller.reverse();
-            }
-            isforward = !isforward;
-            this.getSelfFolderList();
-          }),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '最新',
+           style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
+        elevation: 0,
+        actions: <Widget>[
+          Transform.rotate(
+            angle: animation.value * pi,
+            child: IconButton(
+                icon: Icon(Icons.sync),
+                onPressed: () {
+                  if (!isforward) {
+                    controller.forward();
+                  } else {
+                    controller.reverse();
+                  }
+                  isforward = !isforward;
+                  this.getSelfFolderList();
+                }),
+          )
+        ],
       ),
-      child: Container(
+      body: Container(
         color: Colors.white,
         child: ListView.builder(
           itemCount: list.length + 1,
           itemBuilder: (context, i) {
             if (this.list.length == 0) {
-              return Center(child: LinearProgressIndicator(backgroundColor: Colors.white, valueColor: IIAnimationColor()));
+              return Center(
+                  child: LinearProgressIndicator(
+                      backgroundColor: Colors.white,
+                      valueColor: IIAnimationColor()));
             }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();
@@ -85,14 +91,18 @@ class NewestFileState extends State<NewestFile> with AutomaticKeepAliveClientMix
               };
               return search;
             }
-            return FileListCell(title: list[i - 1].getTitleInfo(), img: "", time: list[i - 1].getCreateTime(), path: list[i - 1].path);
+            return FileListCell(
+                title: list[i - 1].getTitleInfo(),
+                img: "",
+                time: list[i - 1].getCreateTime(),
+                path: list[i - 1].path);
           },
         ),
       ),
     );
   }
 
-  // 
+  //
   // 获取最新数据
   void getSelfFolderList() async {
     List<FolderModel> lists = await GitFileBLL().getNewestInfosWithUserid();
