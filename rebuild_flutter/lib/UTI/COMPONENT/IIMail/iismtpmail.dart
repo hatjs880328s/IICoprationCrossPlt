@@ -6,7 +6,7 @@ import 'dart:math';
  */
 
 class IISmtpMail {
-  Future<String> sendMail() async {
+  void sendMail(dynamic resultaction) {
     String i = this.randomStr();
     var options = new GmailSmtpOptions()
     ..username = 'hatjs880328@gmail.com'
@@ -32,14 +32,17 @@ class IISmtpMail {
   emailTransport.send(envelope)
     .then((envelope) {
       print('Email sent!');
+      resultaction(i);
     })
     .catchError((e){
       print('Error occurred: $e');
+      resultaction(null);
     });
   }
 
+  /// 获取随机码
   String randomStr() {
-    String alphabet = 'qwertyuiopasdfghjklzxcvbnm0123456789';
+    String alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     int strlenght = 4;
     String left = '';
     for (var i = 0; i < strlenght; i++) {
