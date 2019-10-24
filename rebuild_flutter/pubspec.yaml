@@ -30,21 +30,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/aboutus.png
-    - images/cardbox.png
-    - images/setting.png
-    - images/arrowrright.png
-    - images/personcenter_company.png
-    - images/personcenter_email.png
-    - images/personcenter_phone.png
-    - images/personcenter_userno.png
-    - images/personcenter_depart.png
-    - images/exchangelogin_top.png
-    - images/iiexc_security_lock.png
-    - images/movecar_big_bg.png
-
-    - images/microblog_nail.png
-    - images/microblog_share.png
-    - images/microblog_talk.png
     - images/cop_128.png
+    - images/login_weixin.png
+    - images/login_weibo.png
+    - images/login_qq.png
   
