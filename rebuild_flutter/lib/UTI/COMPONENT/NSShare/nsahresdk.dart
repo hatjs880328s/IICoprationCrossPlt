@@ -1,5 +1,10 @@
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 
+/// 平台类型
+enum NSShareType {
+  qq, wx, sina
+}
+
 /// 分享配置类
 class NSShareSDK {
 
