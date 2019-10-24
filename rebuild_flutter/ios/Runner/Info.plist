@@ -67,6 +67,7 @@
 	<array>
 		<string>en</string>
 		<string>wechat</string>
+		<string>weixinULAPI</string>
 		<string>weixin</string>
 		<string>sinaweibo</string>
 		<string>mqq</string>

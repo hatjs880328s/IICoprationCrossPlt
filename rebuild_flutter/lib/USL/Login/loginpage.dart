@@ -31,9 +31,9 @@ class LoginPageState extends State<LoginPage> {
 
   void getUserInfoToWechat(BuildContext context) {
     SharesdkPlugin.getUserInfo(
-        ShareSDKPlatforms.qq, (SSDKResponseState state,
+        ShareSDKPlatforms.wechatSession, (SSDKResponseState state,
         Map user, SSDKError error) {
-      print("halow.sdfasdf");
+        print('error =======${error.toString()}');
     });
   }
 }

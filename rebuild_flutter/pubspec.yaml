@@ -19,7 +19,7 @@ dependencies:
   aspectd: ^0.9.6
   fluttertoast: any
   uuid: any
-  sharesdk_plugin: any
+  sharesdk_plugin: ^1.1.6
 
 dev_dependencies:
   flutter_test:
