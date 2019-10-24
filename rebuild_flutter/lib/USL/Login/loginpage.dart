@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSShare/nsahresdk.dart';
+import 'package:sharesdk_plugin/sharesdk_interface.dart';
+import 'package:sharesdk_plugin/sharesdk_plugin.dart';
 
 class LoginPage extends StatefulWidget {
   @override 
@@ -21,11 +23,17 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     //super.build(context);
     return IconButton(icon: Icon(Icons.person_pin), onPressed: () {
-      setState(() {
-        this.sdk.showPlatMenu((Map maps) {
-          print("halo,world");
-        });
-      });
+      // setState(() {
+        this.getUserInfoToWechat(context);
+      // });
+    });
+  }
+
+  void getUserInfoToWechat(BuildContext context) {
+    SharesdkPlugin.getUserInfo(
+        ShareSDKPlatforms.qq, (SSDKResponseState state,
+        Map user, SSDKError error) {
+      print("halow.sdfasdf");
     });
   }
 }
