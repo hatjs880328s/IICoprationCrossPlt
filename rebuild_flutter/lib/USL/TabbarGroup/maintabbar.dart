@@ -1,4 +1,5 @@
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
+import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionsheet.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,7 +24,7 @@ class MaintabBarState extends State<MaintabBar> {
 
   int _currentIndex = 0;
   PageController _controller;
-  List<Widget> infos = [NewestFile(true, "最新", ""), FolderPage(), AnimationPage03(), IITab()];
+  List<Widget> infos = [NewestFile(true, "最新", ""), FolderPage(), AnimationPage03(), LoginPage()];
 
   @override
   void initState() {
