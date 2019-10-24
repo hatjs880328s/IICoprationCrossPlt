@@ -33,7 +33,8 @@ class LoginBll {
     if (code == null) {
       //发送失败
       Fluttertoast.showToast(
-        msg: '发送失败，请稍后再试'
+        msg: '发送失败，请稍后再试',
+        gravity: ToastGravity.CENTER
       );
       return null;
     }

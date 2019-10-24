@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/BLL/LoginBll/loginbll.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSShare/nsahresdk.dart';
 
 class LoginPage extends StatefulWidget {
@@ -77,7 +78,9 @@ class LoginPageState extends State<LoginPage> {
                   hintText: "请输入邮箱账号",
                   suffixIcon: IconButton(
                     icon: Icon(Icons.send),
-                    onPressed: () {},
+                    onPressed: () {
+                      this.sendmail();
+                    },
                   ),
                 ),
               ),
@@ -111,7 +114,7 @@ class LoginPageState extends State<LoginPage> {
               height: 40,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(3)),
+                  color: Color.fromRGBO(0, 0, 0, 0.05), borderRadius: BorderRadius.circular(3)),
               child: GestureDetector(
                   onTap: () {},
                   child: Container(
@@ -166,4 +169,8 @@ class LoginPageState extends State<LoginPage> {
   //       print('error =======${error.toString()}');
   //   });
   // }
+
+  void sendmail() {
+    LoginBll().loginwithEmail('451145552@qq.com');
+  }
 }

@@ -15,7 +15,8 @@ class IIMail {
     try {
       await FlutterEmailSender.send(emial);
       return i;
-    } on Exception {
+    } on Exception catch (exe) {
+      print(exe);
       return null;
     }
   }
