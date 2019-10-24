@@ -20,13 +20,13 @@ class IISmtpMail {
 
   // Create our mail/envelope.
   var envelope = new Envelope()
-    ..from = '协同文档'
+    ..from = 'comporation-doc'
     ..recipients.add('451145552@qq.com')
     //..bccRecipients.add('hidden@recipient.com')
-    ..subject = '【协同文档】邀请您'
+    ..subject = '[comporation-doc] invite u'
     //..attachments.add(new Attachment(file: new File('path/to/file')))
     ..text = '..'
-    ..html = '<h1>协同文档邀请你，请勿将邀请码透露给其他人</h1><p>邀请码为： $i</p>';
+    ..html = '<h1>[comporation-doc] invite u, do not tell the code 2 someothers.</h1><p>CODE： $i</p>';
 
   // Email it.
   emailTransport.send(envelope)

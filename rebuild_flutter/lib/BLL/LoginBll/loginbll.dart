@@ -1,7 +1,6 @@
 import 'dart:ffi';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rebuild_flutter/UTI/COMPONENT/IIMail/iimail.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIMail/iismtpmail.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSShare/nsahresdk.dart';
 import 'package:sharesdk_plugin/sharesdk_plugin.dart';
@@ -29,17 +28,19 @@ class LoginBll {
   }
 
   /// 邮箱登陆
-  Future<String> loginwithEmail(String email) async {
-    String code = await IISmtpMail().sendMail();
-    if (code == null) {
+  void loginwithEmail(String email) {
+    IISmtpMail().sendMail((String code) {
+      if (code == null) {
       //发送失败
       Fluttertoast.showToast(
         msg: '发送失败，请稍后再试',
         gravity: ToastGravity.CENTER
       );
-      return null;
+      //return null;
     }
     //发送成功
-    return code;
+    //return code;
+    });
+    
   }
 }
