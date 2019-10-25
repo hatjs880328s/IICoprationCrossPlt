@@ -10,6 +10,7 @@ import 'package:rebuild_flutter/USL/NewFile/filelistcell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
+import 'package:rebuild_flutter/UTI/NSNotificationCenter/nsnotificationcenter.dart';
 
 /// 最新文章列表页面 - tab首屏
 class NewestFile extends StatefulWidget {
@@ -38,6 +39,8 @@ class NewestFileState extends State<NewestFile>
   CurvedAnimation curve;
   bool isforward = false;
 
+  NSNormalNotificationObserver observer = NSNormalNotificationObserver();
+
   @override
   bool get wantKeepAlive => true;
 
@@ -52,12 +55,18 @@ class NewestFileState extends State<NewestFile>
       setState(() {});
     });
     this.getSelfFolderList();
+
+    observer.executeAction = (Map<String, dynamic> mapInfo) {
+      this.getSelfFolderList();
+    };
+    NSNotificationCenter.getInstance().addOneItem2SomeTable(observer, observer.notificationKey);
   }
 
   @override
   void dispose() {
     super.dispose();
     controller.dispose();
+    this.observer.dispose();
   }
 
   @override

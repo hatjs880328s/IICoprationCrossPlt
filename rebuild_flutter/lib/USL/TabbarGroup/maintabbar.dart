@@ -10,6 +10,7 @@ import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpage.dart';
 //AnimationPage03
 import 'package:rebuild_flutter/USL/FolderPage/newani.dart';
+import 'package:rebuild_flutter/UTI/NSNotificationCenter/nsnotificationcenter.dart';
 
 class MaintabBar extends StatefulWidget {
   @override
@@ -106,6 +107,7 @@ class MaintabBarState extends State<MaintabBar> {
   // 新建一个文件
   Future<void> createNewFile() async {
     var model = await NSLoginGlobal.getInstance().getUserInfo();
-    await GitFileBLL().createFile("halowor", "title is halo", model.uid, "最新", "flutter_file_text_create1");
+    await GitFileBLL().createFile("halowor", "title is halo", model.uid, "最新", "flutter_file_text_create1qqq");
+    NSNotificationCenter.getInstance().postNotification(NSNormalNotificationObserver().notificationKey, {"result": true});
   }
 }
