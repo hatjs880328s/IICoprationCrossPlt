@@ -87,6 +87,7 @@ class LoginBll {
       "icon": "images/cop_128.png"
     };
     NSLoginModel model = NSLoginModel.fromJson(map);
+    this.saveUserinfo2Local(json.encode(map));
     return model;
   }
 }

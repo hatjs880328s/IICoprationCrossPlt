@@ -36,6 +36,7 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "halo,world",
       theme: ThemeData(primaryColor: Colors.white),
+      debugShowCheckedModeBanner: false,
       home: mainWid,
     );
   }
