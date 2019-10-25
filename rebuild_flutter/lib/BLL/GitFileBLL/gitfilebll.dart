@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:convert/convert.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistdal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
@@ -18,7 +19,8 @@ class GitFileBLL {
    */
   Future<List<FolderModel>> getNewestInfosWithUserid() async {
     NewListDAL dal = NewListDAL();
-    List<dynamic> res = await dal.getUserNewestFileList("shanwzh");
+    var model = await NSLoginGlobal.getInstance().getUserInfo();
+    List<dynamic> res = await dal.getUserNewestFileList(model.uid);
     List<FolderModel> list = [];
     for (int i = 0  ; i < res.length ; i++) {
       FolderModel model = FolderModel.fromJson(res[i]);
@@ -32,7 +34,8 @@ class GitFileBLL {
    */
   Future<List<FolderModel>> getSomeoneFolderInfosWithUserid(String folderid) async {
     NewListDAL dal = NewListDAL();
-    List<dynamic> res = await dal.getUserFolderFileList("shanwzh", folderid);
+    var model = await NSLoginGlobal.getInstance().getUserInfo();
+    List<dynamic> res = await dal.getUserFolderFileList(model.uid, folderid);
     List<FolderModel> list = [];
     for (int i = 0  ; i < res.length ; i++) {
       FolderModel model = FolderModel.fromJson(res[i]);
@@ -46,7 +49,8 @@ class GitFileBLL {
    */
   Future<List<FolderModel>> getUserFolders() async {
     NewListDAL dal = NewListDAL();
-    List<dynamic> res = await dal.getUserFolders("shanwzh");
+    var model = await NSLoginGlobal.getInstance().getUserInfo();
+    List<dynamic> res = await dal.getUserFolders(model.uid);
     List<FolderModel> list = [];
     for (int i = 0  ; i < res.length ; i++) {
       FolderModel model = FolderModel.fromJson(res[i]);

@@ -1,4 +1,5 @@
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionsheet.dart';
@@ -104,6 +105,7 @@ class MaintabBarState extends State<MaintabBar> {
 
   // 新建一个文件
   Future<void> createNewFile() async {
-    //await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create1");
+    var model = await NSLoginGlobal.getInstance().getUserInfo();
+    await GitFileBLL().createFile("halowor", "title is halo", model.uid, "最新", "flutter_file_text_create1");
   }
 }

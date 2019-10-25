@@ -129,10 +129,4 @@ class NewestFileState extends State<NewestFile>
       list = lists;
     });
   }
-
-  // 创建一个新文件 - 然后刷新
-  // void createFile() async {
-  //   await GitFileBLL().createFile("halowor", "title is halo", "shanwzh", "最新", "flutter_file_text_create");
-  //   this.getSelfFolderList();
-  // }
 }
