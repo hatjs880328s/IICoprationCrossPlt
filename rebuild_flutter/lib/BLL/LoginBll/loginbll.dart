@@ -81,10 +81,10 @@ class LoginBll {
     var content = Utf8Encoder().convert(email);
     var digest = md5.convert(content);
     String md5Str = hex.encode(digest.bytes);
-    Map map = {
+    Map<String, String> map = {
       "uid": md5Str,
-      "nickname": "email",
-      "icon": ""
+      "nickname": email,
+      "icon": "images/cop_128.png"
     };
     NSLoginModel model = NSLoginModel.fromJson(map);
     return model;

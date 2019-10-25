@@ -39,7 +39,7 @@ class IISmtpMail {
 
   /// 获取随机码
   String randomStr() {
-    String alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    String alphabet = '0123456789';
     int strlenght = 4;
     String left = '';
     for (var i = 0; i < strlenght; i++) {
