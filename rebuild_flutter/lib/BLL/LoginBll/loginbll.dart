@@ -30,8 +30,16 @@ class LoginBll {
         break;
     }
     NSShareSDK().authPlatform(form, (Map maps) {
+      if (maps == null) {
+        //resultaction(false);
+        Fluttertoast.showToast(
+          msg: '认证失败',
+        );
+        return;
+      }
       String modelStr = json.encode(maps);
       this.saveUserinfo2Local(modelStr);
+      resultaction();
     });
   }
 
@@ -47,6 +55,12 @@ class LoginBll {
         codeaction(code);
       }
     });
+  }
+
+  /// 邮箱登陆 - 真正的登陆
+  void loginWithEmailAndCode(String email, dynamic endaction) {
+    this.changeEamil2UserModel(email);
+    endaction();
   }
 
   /// 用户信息本地存储

@@ -156,7 +156,9 @@ class LoginPageState extends State<LoginPage> {
                   color: Color.fromRGBO(0, 0, 0, 0.05),
                   borderRadius: BorderRadius.circular(3)),
               child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    this.emailLogin();
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 2),
@@ -217,9 +219,18 @@ class LoginPageState extends State<LoginPage> {
         ));
   }
 
+  /// 第三方登陆
   void getUserInfoWithThirdPlt(String plt) {
-    LoginBll().loginwithThirdPlt(plt, (info){
+    LoginBll().loginwithThirdPlt(plt, (){
+      //登陆成功
+    });
+  }
 
+  /// 邮件登陆
+  void emailLogin() {
+    if (this.errorText != null) { return; }
+    LoginBll().loginWithEmailAndCode(this.emailCon.text, () {
+      //登陆成功
     });
   }
 
