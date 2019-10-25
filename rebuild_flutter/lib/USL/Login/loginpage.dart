@@ -23,10 +23,27 @@ class LoginPageState extends State<LoginPage> {
   String _codeCountdownStr = '获取验证码';
   int _countdownNum = 59;
 
+  Color loginBtnColor = Colors.grey;
+
+  String sentCode = "";
+
+  String errorText;
+
   @override
   void initState() {
     super.initState();
     sdk.sharesdkConfig();
+
+    this.codeCon.addListener(() {
+      setState(() {
+        if (this.codeCon.text == this.sentCode && this.sentCode.isNotEmpty) {
+          loginBtnColor = Colors.black;
+          errorText = null;
+        } else {
+          errorText = "验证码错误";
+        }
+      });
+    });
   }
 
   @override
@@ -126,7 +143,7 @@ class LoginPageState extends State<LoginPage> {
                 controller: codeCon,
                 style: TextStyle(
                     fontSize: 16, fontFamily: NSNormalConfig.fontFamily),
-                decoration: InputDecoration(hintText: "请输入验证码"),
+                decoration: InputDecoration(hintText: "请输入验证码", errorText: errorText),
               ),
             ),
 
@@ -145,7 +162,7 @@ class LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.only(top: 2),
                     child: Text(
                       '登陆',
-                      style: TextStyle(
+                      style: TextStyle(color: loginBtnColor,
                           fontFamily: NSNormalConfig.fontFamily, fontSize: 20),
                     ),
                   )),
@@ -203,7 +220,7 @@ class LoginPageState extends State<LoginPage> {
       String email = this.emailCon.text;
         FocusScope.of(context).requestFocus(FocusNode());
         LoginBll().loginwithEmail(email, (String code) {
-          print(code);
+          this.sentCode = code;
         });
       // Timer的第一秒倒计时是有一点延迟的，为了立刻显示效果可以添加下一行。
       _codeCountdownStr = '${_countdownNum--}重新获取';
