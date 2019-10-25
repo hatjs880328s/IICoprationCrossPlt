@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
-
+import 'package:convert/src/hex.dart';
+import 'package:crypto/crypto.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIMail/iismtpmail.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSShare/nsahresdk.dart';
@@ -40,7 +41,6 @@ class LoginBll {
       if (code == null) {
         //发送失败
         Fluttertoast.showToast(msg: '发送失败，请稍后再试', gravity: ToastGravity.CENTER);
-        //return null;
         codeaction(null);
       } else {
         //发送成功
@@ -53,5 +53,26 @@ class LoginBll {
   void saveUserinfo2Local(String modelJsonStr) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(userInfoKey, modelJsonStr);
+  }
+
+  /// 获取用户信息
+  Future<NSLoginModel> getUserInfo() async {
+    return await NSLoginGlobal.getInstance().getUserInfo();
+  }
+
+  /*
+   * 将email转为用户model
+   */
+  NSLoginModel changeEamil2UserModel(String email) {
+    var content = Utf8Encoder().convert(email);
+    var digest = md5.convert(content);
+    String md5Str = hex.encode(digest.bytes);
+    Map map = {
+      "uid": md5Str,
+      "nickname": "email",
+      "icon": ""
+    };
+    NSLoginModel model = NSLoginModel.fromJson(map);
+    return model;
   }
 }
