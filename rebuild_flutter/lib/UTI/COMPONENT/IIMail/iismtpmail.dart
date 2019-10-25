@@ -20,12 +20,12 @@ class IISmtpMail {
 
   // Create our mail/envelope.
   var envelope = new Envelope()
-    ..from = 'comporation-doc'
+    ..from = 'hatjs880328@gmail.com'
     ..recipients.add('451145552@qq.com')
     //..bccRecipients.add('hidden@recipient.com')
     ..subject = '[comporation-doc] invite u'
     //..attachments.add(new Attachment(file: new File('path/to/file')))
-    ..text = '..'
+    ..text = 'comporation-doc'
     ..html = '<h1>[comporation-doc] invite u, do not tell the code 2 someothers.</h1><p>CODE： $i</p>';
 
   // Email it.
