@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/BLL/LoginBll/loginbll.dart';
@@ -17,10 +19,21 @@ class LoginPageState extends State<LoginPage> {
 
   TextEditingController codeCon = TextEditingController();
 
+  Timer _countdownTimer;
+  String _codeCountdownStr = '获取验证码';
+  int _countdownNum = 59;
+
   @override
   void initState() {
     super.initState();
     sdk.sharesdkConfig();
+  }
+
+  @override
+  void dispose() {
+    _countdownTimer?.cancel();
+    _countdownTimer = null;
+    super.dispose();
   }
 
   @override
@@ -81,12 +94,14 @@ class LoginPageState extends State<LoginPage> {
                     fontSize: 16, fontFamily: NSNormalConfig.fontFamily),
                 decoration: InputDecoration(
                   hintText: "请输入邮箱账号",
-                  suffixIcon: IconButton(
-                    color: Colors.blue,
-                    icon: Icon(Icons.send),
-                    onPressed: () {
-                      this.sendmail();
+                  suffix: GestureDetector(
+                    onTap: () {
+                      this.reGetCountdown();
                     },
+                    child: Text(
+                      _codeCountdownStr,
+                      style: TextStyle(color: Colors.blue, fontSize: 15),
+                    ),
                   ),
                 ),
               ),
@@ -121,7 +136,8 @@ class LoginPageState extends State<LoginPage> {
               height: 40,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(0, 0, 0, 0.05), borderRadius: BorderRadius.circular(3)),
+                  color: Color.fromRGBO(0, 0, 0, 0.05),
+                  borderRadius: BorderRadius.circular(3)),
               child: GestureDetector(
                   onTap: () {},
                   child: Container(
@@ -177,12 +193,32 @@ class LoginPageState extends State<LoginPage> {
   //   });
   // }
 
-  /// 发送邮件
-  void sendmail() {
-    String email = this.emailCon.text;
-    FocusScope.of(context).requestFocus(FocusNode());
-    LoginBll().loginwithEmail(email, (String code) {
-      print(code);
+  /// 发送邮件 - 计时器
+  void reGetCountdown() {
+    setState(() {
+      if (_countdownTimer != null) {
+        return;
+      }
+      // 发送邮件
+      String email = this.emailCon.text;
+        FocusScope.of(context).requestFocus(FocusNode());
+        LoginBll().loginwithEmail(email, (String code) {
+          print(code);
+        });
+      // Timer的第一秒倒计时是有一点延迟的，为了立刻显示效果可以添加下一行。
+      _codeCountdownStr = '${_countdownNum--}重新获取';
+      _countdownTimer = new Timer.periodic(new Duration(seconds: 1), (timer) {
+        setState(() {
+          if (_countdownNum > 0) {
+            _codeCountdownStr = '${_countdownNum--}重新获取';
+          } else {
+            _codeCountdownStr = '获取验证码';
+            _countdownNum = 59;
+            _countdownTimer.cancel();
+            _countdownTimer = null;
+          }
+        });
+      });
     });
   }
 }
