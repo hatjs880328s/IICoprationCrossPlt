@@ -4,12 +4,12 @@ typedef MainTabItemTapAction = void Function(int index);
 
 class MainTabItem extends StatelessWidget {
   String title;
-  Icon icons;
+  String icons;
   MainTabItemTapAction tapaction;
   int idx;
 
   MainTabItem(
-      int idx, String title, Icon icons, MainTabItemTapAction tapaction) {
+      int idx, String title, String icons, MainTabItemTapAction tapaction) {
     this.icons = icons;
     this.title = title;
     this.tapaction = tapaction;
@@ -32,7 +32,7 @@ class MainTabItem extends StatelessWidget {
                   alignment: Alignment.center,
                   width: 50,
                   height: 25,
-                  child: this.icons
+                  child: Image(image: AssetImage(icons),)
                 ),
                 Container(
                     padding: EdgeInsets.only(top: 4),

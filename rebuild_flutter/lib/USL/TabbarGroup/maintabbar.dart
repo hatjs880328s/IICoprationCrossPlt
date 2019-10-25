@@ -45,17 +45,17 @@ class MaintabBarState extends State<MaintabBar> {
         notchMargin: 4,
         child: Row(
           children: <Widget>[
-            MainTabItem(0, '首页', Icon(Icons.home), (idx) {
+            MainTabItem(0, '首页', "images/main_tab_main.png", (idx) {
               onTap(idx);
             }),
-            MainTabItem(1, '书架', Icon(Icons.folder), (idx) {
+            MainTabItem(1, '书架', "images/main_tab_bookstore.png", (idx) {
               onTap(idx);
             }),
             SizedBox(),
-            MainTabItem(2, '协作', Icon(Icons.new_releases), (idx) {
+            MainTabItem(2, '协作', "images/main_tab_group.png", (idx) {
               onTap(idx);
             }),
-            MainTabItem(3, '我的', Icon(Icons.person), (idx) {
+            MainTabItem(3, '我的', "images/main_tab_person.png", (idx) {
               onTap(idx);
             }),
           ],
