@@ -22,7 +22,7 @@ class NSShareSDK {
   /// 第三方登陆信息获取平台信息获取
   void authPlatform(ShareSDKPlatform plt, dynamic result) {
     SharesdkPlugin.auth(plt, null, (SSDKResponseState state, Map user, SSDKError error) {
-      if (error == null) {
+      if (error.code == 0) {
         result(user);
       } else {
         result(null);

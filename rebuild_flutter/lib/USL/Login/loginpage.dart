@@ -175,25 +175,40 @@ class LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   //微信
-                  Image(
+                  GestureDetector(
+                    child: Image(
                     height: 30,
                     width: 30,
                     image: AssetImage('images/login_weixin.png'),
                   ),
+                  onTap: () {
+                    this.getUserInfoWithThirdPlt("weixin");
+                  },
+                  ),
                   //qq
                   Container(
                     margin: EdgeInsets.only(left: 45, right: 45),
-                    child: Image(
+                    child: GestureDetector(
+                      child: Image(
                       height: 30,
                       width: 30,
                       image: AssetImage('images/login_qq.png'),
                     ),
+                    onTap: () {
+                      this.getUserInfoWithThirdPlt("qq");
+                    },
+                    )
                   ),
                   //新浪微博
-                  Image(
+                  GestureDetector(
+                    child: Image(
                     height: 30,
                     width: 30,
                     image: AssetImage('images/login_weibo.png'),
+                  ),
+                  onTap: () {
+                    this.getUserInfoWithThirdPlt("weibo");
+                  },
                   )
                 ],
               ),
@@ -202,13 +217,11 @@ class LoginPageState extends State<LoginPage> {
         ));
   }
 
-  // void getUserInfoToWechat(BuildContext context) {
-  //   SharesdkPlugin.getUserInfo(
-  //       ShareSDKPlatforms.wechatSession, (SSDKResponseState state,
-  //       Map user, SSDKError error) {
-  //       print('error =======${error.toString()}');
-  //   });
-  // }
+  void getUserInfoWithThirdPlt(String plt) {
+    LoginBll().loginwithThirdPlt(plt, (info){
+
+    });
+  }
 
   /// 发送邮件 - 计时器
   void reGetCountdown() {
