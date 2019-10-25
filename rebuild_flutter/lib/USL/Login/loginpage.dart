@@ -13,6 +13,10 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   NSShareSDK sdk = NSShareSDK();
 
+  TextEditingController emailCon = TextEditingController();
+
+  TextEditingController codeCon = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -72,6 +76,7 @@ class LoginPageState extends State<LoginPage> {
             Container(
               margin: EdgeInsets.only(left: 25, right: 25, top: 10),
               child: TextField(
+                controller: emailCon,
                 style: TextStyle(
                     fontSize: 16, fontFamily: NSNormalConfig.fontFamily),
                 decoration: InputDecoration(
@@ -103,6 +108,7 @@ class LoginPageState extends State<LoginPage> {
             Container(
               margin: EdgeInsets.only(left: 25, right: 25, top: 10),
               child: TextField(
+                controller: codeCon,
                 style: TextStyle(
                     fontSize: 16, fontFamily: NSNormalConfig.fontFamily),
                 decoration: InputDecoration(hintText: "请输入验证码"),
@@ -173,7 +179,9 @@ class LoginPageState extends State<LoginPage> {
 
   /// 发送邮件
   void sendmail() {
-    LoginBll().loginwithEmail('451145552@qq.com', (String code) {
+    String email = this.emailCon.text;
+    FocusScope.of(context).requestFocus(FocusNode());
+    LoginBll().loginwithEmail(email, (String code) {
       print(code);
     });
   }
