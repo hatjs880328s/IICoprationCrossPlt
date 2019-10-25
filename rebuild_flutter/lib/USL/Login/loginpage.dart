@@ -77,6 +77,7 @@ class LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   hintText: "请输入邮箱账号",
                   suffixIcon: IconButton(
+                    color: Colors.blue,
                     icon: Icon(Icons.send),
                     onPressed: () {
                       this.sendmail();
@@ -170,7 +171,10 @@ class LoginPageState extends State<LoginPage> {
   //   });
   // }
 
+  /// 发送邮件
   void sendmail() {
-    LoginBll().loginwithEmail('451145552@qq.com');
+    LoginBll().loginwithEmail('451145552@qq.com', (String code) {
+      print(code);
+    });
   }
 }

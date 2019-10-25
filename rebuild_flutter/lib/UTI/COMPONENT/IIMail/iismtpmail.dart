@@ -6,14 +6,11 @@ import 'dart:math';
  */
 
 class IISmtpMail {
-  void sendMail(dynamic resultaction) {
+  void sendMail(String email, dynamic resultaction) {
     String i = this.randomStr();
     var options = new GmailSmtpOptions()
     ..username = 'hatjs880328@gmail.com'
-    ..password = 'nimabiguge'; // Note: if you have Google's "app specific passwords" enabled,
-                                        // you need to use one of those here.
-                                        
-  // How you use and store passwords is up to you. Beware of storing passwords in plain.
+    ..password = 'nimabiguge';
 
   // Create our email transport.
   var emailTransport = new SmtpTransport(options);
@@ -21,7 +18,7 @@ class IISmtpMail {
   // Create our mail/envelope.
   var envelope = new Envelope()
     ..from = 'hatjs880328@gmail.com'
-    ..recipients.add('451145552@qq.com')
+    ..recipients.add(email)
     //..bccRecipients.add('hidden@recipient.com')
     ..subject = '[comporation-doc] invite u'
     //..attachments.add(new Attachment(file: new File('path/to/file')))
