@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/BLL/LoginBll/loginbll.dart';
+import 'package:rebuild_flutter/USL/TabbarGroup/maintabbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSShare/nsahresdk.dart';
 
 class LoginPage extends StatefulWidget {
@@ -55,7 +56,8 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      body: Container(
         color: Colors.white,
         child: ListView(
           children: <Widget>[
@@ -150,7 +152,7 @@ class LoginPageState extends State<LoginPage> {
             /// 登陆按钮
             Container(
               margin: EdgeInsets.only(left: 25, right: 25, top: 65),
-              height: 40,
+              height: 45,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Color.fromRGBO(0, 0, 0, 0.05),
@@ -216,13 +218,15 @@ class LoginPageState extends State<LoginPage> {
               ),
             )
           ],
-        ));
+        )),
+    );
   }
 
   /// 第三方登陆
   void getUserInfoWithThirdPlt(String plt) {
     LoginBll().loginwithThirdPlt(plt, (){
       //登陆成功
+      this.goMainpage();
     });
   }
 
@@ -231,7 +235,14 @@ class LoginPageState extends State<LoginPage> {
     if (this.errorText != null) { return; }
     LoginBll().loginWithEmailAndCode(this.emailCon.text, () {
       //登陆成功
+      this.goMainpage();
     });
+  }
+
+  void goMainpage() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return MaintabBar();
+    }));
   }
 
   /// 发送邮件 - 计时器
