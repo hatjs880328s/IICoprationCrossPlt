@@ -31,7 +31,7 @@ class NewListDAL {
      */
     Future<List<dynamic>> getUserFolders(String userid) async {
       try {
-        String url = APIStruct.getFolderapi + userid;
+        String url = APIStruct.getFolderapi.replaceAll("{uid}", userid);
         Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, url, this.getNormalGitHeader());
         return res.data;
       } on Exception {
