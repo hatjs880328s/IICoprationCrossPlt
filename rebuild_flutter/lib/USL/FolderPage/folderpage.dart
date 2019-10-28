@@ -58,6 +58,7 @@ class FolderPageState extends State<FolderPage>
     super.build(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         title: Text('文件夹',
             style:
