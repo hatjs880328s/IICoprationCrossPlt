@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
@@ -130,9 +131,9 @@ class NewestFileState extends State<NewestFile>
   void getSelfFolderList() async {
     List<FolderModel> lists;
     if (widget.isNewset) {
-      lists = await GitFileBLL().getNewestInfosWithUserid();
+      lists = await GitFolderBLL().getNewestInfosWithUserid();
     } else {
-      lists = await GitFileBLL().getSomeoneFolderInfosWithUserid(widget.folderid);
+      lists = await GitFolderBLL().getSomeoneFolderInfosWithUserid(widget.folderid);
     }
     list = lists;
     setState(() {

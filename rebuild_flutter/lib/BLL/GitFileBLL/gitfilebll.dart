@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:rebuild_flutter/DAL/Folder/folderdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
@@ -13,51 +14,6 @@ class GitFileBLL {
 
   /// db - dal
   NewListLocalDAL localDal = NewListLocalDAL();
-
-  /*
-   *获取用户最新数据信息 [目前没有处理缓存]
-   */
-  Future<List<FolderModel>> getNewestInfosWithUserid() async {
-    NewListDAL dal = NewListDAL();
-    var model = await NSLoginGlobal.getInstance().getUserInfo();
-    List<dynamic> res = await dal.getUserNewestFileList(model.uid);
-    List<FolderModel> list = [];
-    for (int i = 0  ; i < res.length ; i++) {
-      FolderModel model = FolderModel.fromJson(res[i]);
-      list.add(model);
-    }
-    return list;
-  }
-
-  /*
-   *获取用户某个文件夹下的数据信息 [目前没有处理缓存]
-   */
-  Future<List<FolderModel>> getSomeoneFolderInfosWithUserid(String folderid) async {
-    NewListDAL dal = NewListDAL();
-    var model = await NSLoginGlobal.getInstance().getUserInfo();
-    List<dynamic> res = await dal.getUserFolderFileList(model.uid, folderid);
-    List<FolderModel> list = [];
-    for (int i = 0  ; i < res.length ; i++) {
-      FolderModel model = FolderModel.fromJson(res[i]);
-      list.add(model);
-    }
-    return list;
-  }
-
-  /*
-   *获取用户文件夹信息 [目前没有处理缓存]
-   */
-  Future<List<FolderModel>> getUserFolders() async {
-    NewListDAL dal = NewListDAL();
-    var model = await NSLoginGlobal.getInstance().getUserInfo();
-    List<dynamic> res = await dal.getUserFolders(model.uid);
-    List<FolderModel> list = [];
-    for (int i = 0  ; i < res.length ; i++) {
-      FolderModel model = FolderModel.fromJson(res[i]);
-      list.add(model);
-    }
-    return list;
-  }
 
   /*
    * 创建一个文件 
@@ -103,7 +59,7 @@ class GitFileBLL {
       if (model != null) { return model; }
     }
     //再从网络取[获取下来的首先是gitmodel -> content -> base64decode -> realgitfilemodel]
-    NewListDAL dal = NewListDAL();
+    FolderDAL dal = FolderDAL();
     Map item = await dal.getOneItem(path);
     FolderModel newmodel = FolderModel.fromJson(item);
     
