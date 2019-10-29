@@ -74,7 +74,7 @@ class NewestFileState extends State<NewestFile>
     super.build(context);
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: widget.isNewset ? false : true,
         title: Text(
           widget.titleInfo,
            style: TextStyle(fontSize: 24, fontFamily: NSNormalConfig.fontFamily)),
