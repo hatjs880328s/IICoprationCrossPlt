@@ -1,8 +1,10 @@
+import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionsheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +79,16 @@ class MaintabBarState extends State<MaintabBar> {
               };
               sheet.actionTwo = (idx) {
                 //书架
+                return showCupertinoDialog(
+                  context: context, 
+                  builder: (context) {
+                    NSActionField fid = NSActionField();
+                    fid.actionOne = (String foldername) {
+                      this.createNewFolder(foldername);
+                    };
+                    return fid;
+                  }
+                );
               };
               return sheet;
             } 
@@ -103,6 +115,7 @@ class MaintabBarState extends State<MaintabBar> {
   // 新建一个文件夹
   Future<void> createNewFolder(String foldername) async {
     await GitFolderBLL().createFolder(foldername);
+    NSNotificationCenter.getInstance().postNotification(NSNormalNotificationObserver().notificationKey, {"result": true});
   }
 
   // 新建一个文件

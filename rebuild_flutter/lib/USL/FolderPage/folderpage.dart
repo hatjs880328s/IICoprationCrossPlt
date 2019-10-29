@@ -8,11 +8,11 @@ import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
-import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
+import 'package:rebuild_flutter/UTI/NSNotificationCenter/nsnotificationcenter.dart';
 
 class FolderPage extends StatefulWidget {
   @override
@@ -33,6 +33,8 @@ class FolderPageState extends State<FolderPage>
   CurvedAnimation curve;
   bool isForward = false;
 
+  NSNormalNotificationObserver observer = NSNormalNotificationObserver();
+
   @override
   void initState() {
     super.initState();
@@ -46,12 +48,18 @@ class FolderPageState extends State<FolderPage>
       });
     controller.forward();
     this.loadData();
+
+    this.observer.executeAction = (Map<String, dynamic> maps) {
+      this.loadData();
+    };
+    NSNotificationCenter.getInstance().addOneItem2SomeTable(this.observer, this.observer.notificationKey);
   }
 
   @override
   void dispose() {
     super.dispose();
     controller.dispose();
+    observer.dispose();
   }
 
   @override

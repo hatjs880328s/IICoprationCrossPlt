@@ -20,9 +20,9 @@ class FolderDAL {
   /// 创建一个文件夹 - uid & foldername
   Future<void> createNewFolder(String name, String uid) async {
     String api = APIStruct.createFolder
-      ..replaceAll("{foldername}", name)
-      ..replaceAll("{uid}", uid)
-      ..replaceAll("{filename}", this.folderContentInfoFilename);
+      .replaceAll("{foldername}", name)
+      .replaceAll("{uid}", uid)
+      .replaceAll("{filename}", this.folderContentInfoFilename);
 
     String realContent = base64Encode(utf8.encode(""));
     FileGitCommitSmallModel smallModel =
