@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 
 class NSActionField extends StatelessWidget {
@@ -58,8 +59,14 @@ class NSActionField extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             onTap: () {
-              Navigator.pop(context);
-              actionOne(this.con.text);
+              if (this.con.text.isEmpty) {
+                Fluttertoast.showToast(
+                  msg: "文件夹名称不可为空",
+                );
+              } else {
+                Navigator.pop(context);
+                actionOne(this.con.text);
+              }
             },
           ),
         )
