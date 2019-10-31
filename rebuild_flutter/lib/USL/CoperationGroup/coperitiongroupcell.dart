@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 
 class CoperitionGroupCell extends StatelessWidget {
-  
   String title = "";
 
   String time = "";
@@ -16,48 +15,72 @@ class CoperitionGroupCell extends StatelessWidget {
     this.action = action;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () { action(); },
+      onTap: () {
+        action();
+      },
       child: Container(
-      height: 80,
-      padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 4),
-            child: Row(
-              children: <Widget>[
-                //Icon(Icons),
-                Image(
-                  height: 25,
-                  width: 25,
-                  image: AssetImage("images/main_tab_group.png")
-                ),
-                Container(width: 15),
-                Text(title,
-                    style: TextStyle(fontSize: 17, color: Colors.black, fontFamily: NSNormalConfig.fontFamily)),
-              ],
+        height: 150,
+        padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 4),
+              child: Row(
+                children: <Widget>[
+                  Image(
+                      height: 35,
+                      width: 35,
+                      image: AssetImage("images/main_tab_group.png")),
+                  Container(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          child: Text(title,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.black,
+                                  fontFamily: NSNormalConfig.fontFamily)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 8),
+                          child: Text(time,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                  fontFamily: NSNormalConfig.fontFamily)),
+                        ),
+                        // Container(
+                        //   padding: EdgeInsets.only(top: 8),
+                        //   child: Text("文件数目: 6",
+                        //       style: TextStyle(
+                        //           fontSize: 14,
+                        //           color: Colors.grey,
+                        //           fontFamily: NSNormalConfig.fontFamily)),
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(top: 8),
+                        //   child: Text("成员人数: 3",
+                        //       style: TextStyle(
+                        //           fontSize: 14,
+                        //           color: Colors.grey,
+                        //           fontFamily: NSNormalConfig.fontFamily)),
+                        // ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 4, 0, 3),
-            child: Row(
-              children: <Widget>[
-                Text(time,
-                    style: TextStyle(fontSize: 14, color: Colors.grey, fontFamily: NSNormalConfig.fontFamily),
-                    textAlign: TextAlign.start),
-              ],
-            ),
-          ),
-          Divider(height: 1, color: Colors.black12, endIndent: 0),
-        ],
+            Divider(height: 1, color: Colors.black12, endIndent: 0),
+          ],
+        ),
       ),
-    ),
     );
   }
-  
 }

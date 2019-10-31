@@ -13,7 +13,7 @@ class CoperationGroup extends StatefulWidget {
   State<StatefulWidget> createState() { return CoperationGroupState();}
 }
 
-class CoperationGroupState extends State<CoperationGroup> {
+class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliveClientMixin{
 
   List<FolderModel> list = [];
 
@@ -77,4 +77,7 @@ class CoperationGroupState extends State<CoperationGroup> {
       this.list = list;
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
