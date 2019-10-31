@@ -29,4 +29,10 @@ class APIStruct {
 
   /// 创建一个文件夹
   static String createFolder = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Folders/{foldername}/{filename}";
+
+
+
+
+  /// 创建一个协同组
+  static String createCoperationGroup = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Groups/{groupname}/{filename}";
 }

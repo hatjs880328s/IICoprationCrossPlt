@@ -1,16 +1,18 @@
-# rebuild_flutter
+<!--
+ * @Author: your name
+ * @Date: 2019-10-12 17:30:56
+ * @LastEditTime: 2019-10-31 10:22:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /rebuild_flutter/README.md
+ -->
 
-A new Flutter project.
+# 新特性&待开发
 
-## Getting Started
+1 协同group创建 - 默认创建一个  groupinfo文件内容包含： 1.当前协同组的用户信息 2.当前协同组维护的文件列表 3.协同组id&name&time等信息
 
-This project is a starting point for a Flutter application.
+2 ..
 
-A few resources to get you started if this is your first Flutter project:
+# 已开发完成
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1 创建文件夹& 创建文件
