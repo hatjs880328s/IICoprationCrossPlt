@@ -2,6 +2,7 @@ import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
+import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroup.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
@@ -29,7 +30,7 @@ class MaintabBarState extends State<MaintabBar> {
 
   int _currentIndex = 0;
   PageController _controller;
-  List<Widget> infos = [NewestFile(true, "最新", ""), FolderPage(), AnimationPage03(), LoginPage()];
+  List<Widget> infos = [NewestFile(true, "最新", ""), FolderPage(), CoperationGroup(), LoginPage()];
 
   @override
   void initState() {
@@ -82,7 +83,7 @@ class MaintabBarState extends State<MaintabBar> {
                 return showCupertinoDialog(
                   context: context, 
                   builder: (context) {
-                    NSActionField fid = NSActionField();
+                    NSActionField fid = NSActionField("创建文件夹", "请输入文件夹名称", "创建");
                     fid.actionOne = (String foldername) {
                       this.createNewFolder(foldername);
                     };

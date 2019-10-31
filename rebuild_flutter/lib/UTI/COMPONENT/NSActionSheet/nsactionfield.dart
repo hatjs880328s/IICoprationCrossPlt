@@ -7,13 +7,25 @@ class NSActionField extends StatelessWidget {
   
   dynamic actionOne;
 
+  String title;
+
+  String subtitle;
+
+  String confirmStr;
+
+  NSActionField(String title, String subTitle, String confirmStr) {
+    this.title = title;
+    this.subtitle = subTitle;
+    this.confirmStr = confirmStr;
+  }
+
   TextEditingController con = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: Text("创建文件夹", style: TextStyle(fontSize: 16, color: Colors.black)),
-      content: Text("请输入文件夹名称",
+      title: Text(title, style: TextStyle(fontSize: 16, color: Colors.black)),
+      content: Text(subtitle,
           style: TextStyle(
               fontSize: 14,
               color: Colors.grey,
@@ -50,7 +62,7 @@ class NSActionField extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(0, 11, 0, 8),
           child: GestureDetector(
             child: Text(
-              "创建",
+              confirmStr,
               style: TextStyle(
                   fontSize: 16,
                   fontFamily: NSNormalConfig.fontFamily,
@@ -61,7 +73,7 @@ class NSActionField extends StatelessWidget {
             onTap: () {
               if (this.con.text.isEmpty) {
                 Fluttertoast.showToast(
-                  msg: "文件夹名称不可为空",
+                  msg: "内容不可为空",
                 );
               } else {
                 Navigator.pop(context);

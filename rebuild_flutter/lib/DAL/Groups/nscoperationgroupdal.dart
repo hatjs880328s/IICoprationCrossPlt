@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/DAL/api/apistruct.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitmodel.dart';
@@ -18,7 +19,7 @@ class NSCoperationGroupDAL {
   String groupContentInfoFilename = "GroupInfoFile";
 
   /// 创建一个协同组
-  Future<void> createGroup(
+  Future<bool> createGroup(
     String name,
     String groupid,
     String uid,
@@ -46,9 +47,16 @@ class NSCoperationGroupDAL {
 
     Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
     headers["content-type"] = "application/json";
-    Response res = await NSHTTP.startRequest(
+    try {
+      Response res = await NSHTTP.startRequest(
         NSHTTPRequestType.PUT, api, headers, model.toJson());
-    print(res.data);
+      print(res.data);
+    } on Exception {
+      Fluttertoast.showToast(
+        msg: "网络异常，请稍后再试"
+      );
+      return false;
+    }
     return true;
   }
 }
