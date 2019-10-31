@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
+import 'package:rebuild_flutter/USL/CoperationGroup/coperitiongroupcell.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
@@ -54,11 +55,9 @@ class CoperationGroupState extends State<CoperationGroup> {
                       backgroundColor: Colors.white,
                       valueColor: IIAnimationColor()));
             }
-            return Text(list[i].name);
-            // return FolderPageCell(list[i - 1].getTitleInfo(),
-            //     list[i - 1].getCreateTime(), () {
-            //       this.goFilelistPage(i - 1);
-            //     });
+            return CoperitionGroupCell(list[i].getTitleInfo(),
+                list[i].getCreateTime(), () {
+                });
           },
         ),
       )
