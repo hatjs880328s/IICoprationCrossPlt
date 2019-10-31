@@ -7,6 +7,7 @@ import 'package:rebuild_flutter/DAL/api/apistruct.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitsmallmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/UTI/HTTP/nshttp.dart';
 import 'package:rebuild_flutter/UTI/HTTP/nshttpextension.dart';
 import 'package:uuid/uuid.dart';
@@ -59,4 +60,32 @@ class NSCoperationGroupDAL {
     }
     return true;
   }
+
+  /// 获取某个协同组下面的文件
+  Future<dynamic> getCoperitionGroups(String uid) async{
+    var uri = APIStruct.getCoperitionGroups.replaceAll("{uid}", uid).replaceAll("{filename}", this.groupContentInfoFilename);
+    try {
+      Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, uri, NSHTTPExtension().getNormalGitHeader());
+      return res.data;
+    } on Exception {
+      Fluttertoast.showToast(
+        msg: "网络异常，请稍后再试"
+      );
+    }
+  }
+
+
+  /// 获取协同组
+  Future<dynamic> getALLCoperitionGroups(String uid) async{
+    var uri = APIStruct.getALLCoperitionGroups.replaceAll("{uid}", uid); 
+    try {
+      Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, uri, NSHTTPExtension().getNormalGitHeader());
+      return res.data;
+    } on Exception {
+      Fluttertoast.showToast(
+        msg: "网络异常，请稍后再试"
+      );
+    }
+  }
+  
 }

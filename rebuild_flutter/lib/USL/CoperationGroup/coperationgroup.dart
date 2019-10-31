@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
+import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
 import 'package:rebuild_flutter/UTI/NSNotificationCenter/nsnotificationcenter.dart';
 
@@ -11,15 +14,12 @@ class CoperationGroup extends StatefulWidget {
 
 class CoperationGroupState extends State<CoperationGroup> {
 
-  NSNormalNotificationObserver observer = NSNormalNotificationObserver();
+  List<FolderModel> list = [];
 
   @override
   void initState() {
     super.initState();
-    NSNotificationCenter.getInstance().addOneItem2SomeTable(observer, this.observer.notificationKey);
-    this.observer.executeAction = (Map<String, dynamic> map) {
-
-    };
+    this.getGroupinfo();
   }
 
   @override 
@@ -42,6 +42,25 @@ class CoperationGroupState extends State<CoperationGroup> {
             );
           }),
         ],
+      ),
+      body: Container(
+        color: Colors.white,
+        child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, i) {
+            if (this.list.length == 0) {
+              return Center(
+                  child: LinearProgressIndicator(
+                      backgroundColor: Colors.white,
+                      valueColor: IIAnimationColor()));
+            }
+            return Text(list[i].name);
+            // return FolderPageCell(list[i - 1].getTitleInfo(),
+            //     list[i - 1].getCreateTime(), () {
+            //       this.goFilelistPage(i - 1);
+            //     });
+          },
+        ),
       )
     );
   }
@@ -52,7 +71,11 @@ class CoperationGroupState extends State<CoperationGroup> {
   }
 
   /// 获取协同组信息
-  void getGroupinfo() {
-
+  Future<void> getGroupinfo() async {
+    CoperationGroupBLL bll = CoperationGroupBLL();
+    List<FolderModel> list = await bll.getallGroups();
+    setState(() {
+      this.list = list;
+    });
   }
 }
