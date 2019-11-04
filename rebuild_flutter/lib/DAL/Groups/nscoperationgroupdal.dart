@@ -62,8 +62,11 @@ class NSCoperationGroupDAL {
   }
 
   /// 获取某个协同组下面的文件
-  Future<dynamic> getCoperitionGroups(String uid) async{
-    var uri = APIStruct.getCoperitionGroups.replaceAll("{uid}", uid).replaceAll("{filename}", this.groupContentInfoFilename);
+  Future<dynamic> getCoperitionGroups(String uid, String coperid) async{
+    var uri = APIStruct.getCoperitionGroups
+    .replaceAll("{uid}", uid)
+    .replaceAll("{filename}", this.groupContentInfoFilename)
+    .replaceAll("{coperid}", coperid);
     try {
       Response res = await NSHTTP.startRequest(NSHTTPRequestType.GET, uri, NSHTTPExtension().getNormalGitHeader());
       return res.data;

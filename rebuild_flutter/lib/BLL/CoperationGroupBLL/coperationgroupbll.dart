@@ -6,6 +6,7 @@ import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart'
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
+import 'package:rebuild_flutter/UTI/COMMON/nsdataextension.dart';
 import 'package:uuid/uuid.dart';
 
 class CoperationGroupBLL {
@@ -21,11 +22,13 @@ class CoperationGroupBLL {
   }
 
   /// 获取某个协同组下面的文件
-  Future<List<String>> getGroups() async {
+  Future<List<String>> getGroups(String coperid) async {
     var userinfo = await NSLoginGlobal.getInstance().getUserInfo();
-    dynamic model =  await this.dal.getCoperitionGroups(userinfo.uid);
+    dynamic model =  await this.dal.getCoperitionGroups(userinfo.uid, coperid);
     RealGitFileModel models = RealGitFileModel.fromJson(model);
-    var realModel = CoperationGroupModel.fromJson(json.decode(models.content));
+    var base64Content = models.content.replaceAll("\n", "");
+    var realstr = NSDataExtension().base64Decodes(base64Content);
+    var realModel = CoperationGroupModel.fromJson(json.decode(realstr));
     return realModel.files;
   }
 

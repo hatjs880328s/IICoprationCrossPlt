@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
+import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
 
 class CoperitionGroupCell extends StatelessWidget {
   String title = "";
@@ -19,7 +21,8 @@ class CoperitionGroupCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        action();
+        //action();
+        this.gopage(this.title, context);
       },
       child: Container(
         height: 70,
@@ -82,5 +85,12 @@ class CoperitionGroupCell extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void gopage(String coperid, BuildContext context) {
+    CoperationFileList widget = CoperationFileList(coperid);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context){
+      return widget;
+    }));
   }
 }

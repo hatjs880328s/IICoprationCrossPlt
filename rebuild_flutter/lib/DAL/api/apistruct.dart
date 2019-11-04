@@ -37,7 +37,7 @@ class APIStruct {
   static String createCoperationGroup = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Groups/{groupname}/{filename}";
 
   /// 获取某个协同组信息
-  static String getCoperitionGroups = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Groups/{filename}";
+  static String getCoperitionGroups = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Groups/{coperid}/{filename}";
 
   /// 获取所有协同组
   static String getALLCoperitionGroups = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Groups";
