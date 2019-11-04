@@ -7,6 +7,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 243,
+        //color: Colors.white,
         child: Stack(
           children: <Widget>[
             Positioned(

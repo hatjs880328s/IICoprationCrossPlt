@@ -14,7 +14,7 @@ class CoperationFileListCell extends StatelessWidget {
         border: Border.all(width: 0.5, color: Colors.grey),
         borderRadius: BorderRadius.circular(4),
       ),
-      margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
+      padding: EdgeInsets.fromLTRB(8, 10, 8, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
