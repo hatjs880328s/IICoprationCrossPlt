@@ -8,6 +8,7 @@ class CoperationFileListSecondCell extends StatelessWidget {
     return Container(
       height: 130,
       decoration: BoxDecoration(
+        color: Colors.white,
         border: Border.all(width: 0.5, color: Colors.grey),
         borderRadius: BorderRadius.circular(4),
       ),
