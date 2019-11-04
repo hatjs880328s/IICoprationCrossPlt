@@ -22,7 +22,7 @@ class CoperitionGroupCell extends StatelessWidget {
         action();
       },
       child: Container(
-        height: 150,
+        height: 70,
         padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
