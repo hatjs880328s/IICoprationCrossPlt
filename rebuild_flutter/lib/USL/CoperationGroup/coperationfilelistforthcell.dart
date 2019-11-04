@@ -50,8 +50,6 @@ class CoperationFileListForthCell extends StatelessWidget {
         'Describution of the papers'),
   ];
 
-  List<String> lists2 = ['三毛', '张胜男', '秋天的小胖子', '冬天的小裙子'];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,7 +72,7 @@ class CoperationFileListForthCell extends StatelessWidget {
                     width: 25,
                   ),
                   Text(
-                    '  协同组文章e',
+                    '  协同组文章',
                     style: TextStyle(fontSize: 16),
                   )
                 ],
@@ -92,19 +90,26 @@ class CoperationFileListForthCell extends StatelessWidget {
           margin: EdgeInsets.fromLTRB(6, 4, 6, 4),
           padding: EdgeInsets.fromLTRB(6, 10, 6, 10),
           decoration: BoxDecoration(
-            color: Color.fromRGBO(240, 238, 238, 1),
-            borderRadius: BorderRadius.circular(6)
-          ),
+              color: Color.fromRGBO(240, 238, 238, 1),
+              borderRadius: BorderRadius.circular(6)),
           child: Column(
             children: <Widget>[
               // LINE 1
               Row(
                 children: <Widget>[
                   Text(this.lists[i].title,
-                      style: TextStyle(color: Colors.black87, fontSize: 16, letterSpacing: 1.5)),
-                      SizedBox(width: 120,),
-                  Text('置顶',
-                      style: TextStyle(color: Colors.grey, fontSize: 14), textAlign: TextAlign.end,),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          letterSpacing: 1.5)),
+                  Container(
+                    padding: EdgeInsets.only(right: 5),
+                    child: Text(
+                      '置顶',
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      textAlign: TextAlign.end,
+                    ),
+                  )
                 ],
               ),
               // LINE 2
@@ -112,7 +117,8 @@ class CoperationFileListForthCell extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
                 child: Text(
                   this.lists[i].content,
-                  style: TextStyle(color: Colors.black54, fontSize: 15, height: 1.7),
+                  style: TextStyle(
+                      color: Colors.black87, fontSize: 15, height: 1.7),
                 ),
               ),
               // LINE 3
