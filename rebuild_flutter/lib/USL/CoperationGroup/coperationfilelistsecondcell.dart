@@ -1,8 +1,20 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// 协同组基本信息 cell
 class CoperationFileListSecondCell extends StatelessWidget {
+  int artcount;
+  int personcount;
+  double time;
+
+  CoperationFileListSecondCell(int articlecount, int personcount, double time) {
+    this.artcount = articlecount;
+    this.personcount = personcount;
+    this.time = time;
+  }
+
   @override 
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +45,7 @@ class CoperationFileListSecondCell extends StatelessWidget {
             child: RichText(text: TextSpan(
               children: <TextSpan>[
                 TextSpan(text: '文章数', style: TextStyle(color: Colors.grey, fontSize: 15)),
-                TextSpan(text: '  5', style: TextStyle(fontSize: 16, color: Colors.black)),
+                TextSpan(text: '  $artcount', style: TextStyle(fontSize: 16, color: Colors.black)),
               ]
             ),)
           ),
@@ -42,7 +54,7 @@ class CoperationFileListSecondCell extends StatelessWidget {
             child: RichText(text: TextSpan(
               children: <TextSpan>[
                 TextSpan(text: '成员数', style: TextStyle(color: Colors.grey, fontSize: 15)),
-                TextSpan(text: '  8', style: TextStyle(fontSize: 16, color: Colors.black)),
+                TextSpan(text: '  $personcount', style: TextStyle(fontSize: 16, color: Colors.black)),
               ]
             ),)
           ),
@@ -51,7 +63,7 @@ class CoperationFileListSecondCell extends StatelessWidget {
             child: RichText(text: TextSpan(
               children: <TextSpan>[
                 TextSpan(text: '最后修改时间', style: TextStyle(color: Colors.grey, fontSize: 15)),
-                TextSpan(text: '  2019-8-4 12:28', style: TextStyle(fontSize: 16, color: Colors.black)),
+                TextSpan(text: this.initTimeStr(this.time), style: TextStyle(fontSize: 16, color: Colors.black)),
               ]
             ),)
           ),
@@ -59,5 +71,11 @@ class CoperationFileListSecondCell extends StatelessWidget {
       )
     )
     );
+  }
+
+  /// 时间格式化处理
+  String initTimeStr(double milsec) {
+    var times = DateTime.fromMillisecondsSinceEpoch(milsec.toInt());
+    return "   ${times.year}-${times.month}-${times.day} ${times.hour} : ${times.minute}";
   }
 }

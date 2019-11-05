@@ -58,16 +58,16 @@ class CoperationFileListState extends State<CoperationFileList> {
               top: 0,
               child: ListView(
                 controller: this.scrollCon,
-                children: <Widget>[
+                children: this.list == null ? [] : [
                   //第一部分（返回按钮 & 顶部分享、邀请等按钮）
                   CoperationFileListFirstCell(),
                   //第二部分协同组基本信息
-                  CoperationFileListSecondCell(),
+                  CoperationFileListSecondCell(this.list.files.length, this.list.users.length, this.list.time),
                   //第三部分协同成员信息
                   CoperationFileListCell(this.list.users),
                   //第四部分协同组文章
                   CoperationFileListForthCell(),
-                ],
+                ]
               )),
         ],
       ),
