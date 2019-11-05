@@ -13,7 +13,7 @@ class CoperationGroup extends StatefulWidget {
   State<StatefulWidget> createState() { return CoperationGroupState();}
 }
 
-class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliveClientMixin{
+class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin{
 
   List<FolderModel> list = [];
 
@@ -48,7 +48,7 @@ class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliv
       body: Container(
         color: Colors.white,
         child: ListView.builder(
-          itemCount: list.length,
+          itemCount: list.length == 0 ? 1 : list.length,
           itemBuilder: (context, i) {
             if (this.list.length == 0) {
               return Center(
