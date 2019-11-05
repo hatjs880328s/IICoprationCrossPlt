@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
+import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistfirstcell.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistforthcell.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistsecondcell.dart';
@@ -21,7 +22,7 @@ class CoperationFileList extends StatefulWidget {
 }
 
 class CoperationFileListState extends State<CoperationFileList> {
-  List<String> list = [];
+  CoperationGroupModel list;
 
   ScrollController scrollCon;
 
@@ -63,7 +64,7 @@ class CoperationFileListState extends State<CoperationFileList> {
                   //第二部分协同组基本信息
                   CoperationFileListSecondCell(),
                   //第三部分协同成员信息
-                  CoperationFileListCell(),
+                  CoperationFileListCell(this.list.users),
                   //第四部分协同组文章
                   CoperationFileListForthCell(),
                 ],
@@ -76,7 +77,7 @@ class CoperationFileListState extends State<CoperationFileList> {
   /// 获取协同组信息
   Future<void> getGroupinfo() async {
     CoperationGroupBLL bll = CoperationGroupBLL();
-    List<String> list = await bll.getGroups(widget.coperid);
+    CoperationGroupModel list = await bll.getGroups(widget.coperid);
     setState(() {
       this.list = list;
     });

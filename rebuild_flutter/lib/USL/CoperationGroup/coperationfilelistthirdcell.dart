@@ -5,7 +5,11 @@ import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 /// 协同组成员cell
 class CoperationFileListCell extends StatelessWidget {
 
-  List<String> lists = ['三毛', '张胜男', '秋天的小胖子', '冬天的小裙子', '鲁能泰山', 'halo,world', 'rich text', '三毛', '张胜男', '秋天的小胖子', '冬天的小裙子', '鲁能泰山', 'halo,world', 'rich text'];
+  CoperationFileListCell(List<String> users) {
+    this.lists = users;
+  }
+
+  List<String> lists = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +52,7 @@ class CoperationFileListCell extends StatelessWidget {
   /// 创建所有标签
   List<Widget> getTexts() {
     List<Widget> result = [];
+    if (null == this.lists) { return result ;}
     for (int i = 0 ; i < lists.length ; i ++ ) {
       result.add(
         Container(

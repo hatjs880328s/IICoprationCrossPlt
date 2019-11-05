@@ -22,14 +22,14 @@ class CoperationGroupBLL {
   }
 
   /// 获取某个协同组下面的文件
-  Future<List<String>> getGroups(String coperid) async {
+  Future<CoperationGroupModel> getGroups(String coperid) async {
     var userinfo = await NSLoginGlobal.getInstance().getUserInfo();
     dynamic model =  await this.dal.getCoperitionGroups(userinfo.uid, coperid);
     RealGitFileModel models = RealGitFileModel.fromJson(model);
     var base64Content = models.content.replaceAll("\n", "");
     var realstr = NSDataExtension().base64Decodes(base64Content);
     var realModel = CoperationGroupModel.fromJson(json.decode(realstr));
-    return realModel.files;
+    return realModel;
   }
 
   /// 获取所有协同组信息
