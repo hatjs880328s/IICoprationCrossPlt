@@ -1,8 +1,11 @@
+
+
 import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroup.dart';
+import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
@@ -76,7 +79,7 @@ class MaintabBarState extends State<MaintabBar> {
               NSActionSheet sheet = NSActionSheet();
               sheet.actionOne = (idx) {
                 //文件
-                this.createNewFile();
+                this.createNewFile(context);
               };
               sheet.actionTwo = (idx) {
                 //书架
@@ -120,9 +123,12 @@ class MaintabBarState extends State<MaintabBar> {
   }
 
   // 新建一个文件
-  Future<void> createNewFile() async {
+  Future<void> createNewFile(BuildContext context) async {
     // var model = await NSLoginGlobal.getInstance().getUserInfo();
     // await GitFileBLL().createFile("halowor", "title is halo", model.uid, "最新", "flutter_file_text_create1qqq");
     // NSNotificationCenter.getInstance().postNotification(NSNormalNotificationObserver().notificationKey, {"result": true});
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return EditorPage();
+    }));
   }
 }

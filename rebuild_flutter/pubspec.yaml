@@ -23,6 +23,7 @@ dependencies:
   flutter_email_sender: ^2.1.0
   mailer2: ^1.2.4
   shared_preferences: ^0.5.4
+  zefyr: any
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
+import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
 
 class CoperitionGroupCell extends StatelessWidget {
   String title = "";
