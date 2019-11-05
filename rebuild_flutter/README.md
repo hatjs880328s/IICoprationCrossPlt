@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-10-12 17:30:56
- * @LastEditTime: 2019-10-31 10:22:08
+ * @LastEditTime: 2019-11-05 17:16:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /rebuild_flutter/README.md
@@ -11,7 +11,7 @@
 
 1 协同group创建 - 默认创建一个  groupinfo文件内容包含： 1.当前协同组的用户信息 2.当前协同组维护的文件列表 3.协同组id&name&time等信息
 
-2 ..
+2 创建一个协同文档
 
 # 已开发完成
 
