@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 
 /// 文章列表
@@ -53,6 +54,9 @@ class CoperationFileListForthCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
+      padding: EdgeInsets.fromLTRB(8, 10, 8, 0), 
+      child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(width: 0.5, color: Colors.grey),
@@ -80,7 +84,8 @@ class CoperationFileListForthCell extends StatelessWidget {
             ),
             Column(children: createVws()),
           ],
-        ));
+        ))
+    );
   }
 
   List<Widget> createVws() {
@@ -90,7 +95,7 @@ class CoperationFileListForthCell extends StatelessWidget {
           margin: EdgeInsets.fromLTRB(6, 4, 6, 4),
           padding: EdgeInsets.fromLTRB(6, 10, 6, 10),
           decoration: BoxDecoration(
-              color: Color.fromRGBO(240, 238, 238, 1),
+              color: NSNormalConfig.listCellBgColor,
               borderRadius: BorderRadius.circular(6)),
           child: Column(
             children: <Widget>[

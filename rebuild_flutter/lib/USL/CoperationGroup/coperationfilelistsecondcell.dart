@@ -6,6 +6,9 @@ class CoperationFileListSecondCell extends StatelessWidget {
   @override 
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
+      padding: EdgeInsets.fromLTRB(8, 0, 8, 8),
+      child: Container(
       height: 130,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -54,6 +57,7 @@ class CoperationFileListSecondCell extends StatelessWidget {
           ),
         ],
       )
+    )
     );
   }
 }

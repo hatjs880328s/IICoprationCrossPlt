@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 
 /// 协同组成员cell
 class CoperationFileListCell extends StatelessWidget {
@@ -9,6 +10,9 @@ class CoperationFileListCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.fromLTRB(8, 2, 8, 0),
+      color: Colors.white,
+      child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(width: 0.5, color: Colors.grey),
@@ -37,6 +41,7 @@ class CoperationFileListCell extends StatelessWidget {
           ),
         ],
       )
+    )
     );
   }
 
@@ -47,9 +52,9 @@ class CoperationFileListCell extends StatelessWidget {
       result.add(
         Container(
           decoration: BoxDecoration(
-            color: Colors.black12,
+            color: NSNormalConfig.listCellBgColor,
             borderRadius: BorderRadius.circular(4),
-            border: Border.all(width: 0.5, color: Colors.grey),
+            border: Border.all(width: 0.5, color: NSNormalConfig.listCellBgColor),
           ),
           child: Text(
         lists[i], 
