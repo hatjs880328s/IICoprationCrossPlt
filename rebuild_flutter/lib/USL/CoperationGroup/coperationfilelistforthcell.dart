@@ -82,13 +82,13 @@ class CoperationFileListForthCell extends StatelessWidget {
                 ],
               ),
             ),
-            Column(children: createVws()),
+            Column(children: createVws(context)),
           ],
         ))
     );
   }
 
-  List<Widget> createVws() {
+  List<Widget> createVws(BuildContext context) {
     List<Widget> result = [];
     for (int i = 0; i < this.lists.length; i++) {
       var ss = Container(
@@ -102,18 +102,22 @@ class CoperationFileListForthCell extends StatelessWidget {
               // LINE 1
               Row(
                 children: <Widget>[
-                  Text(this.lists[i].title,
+                  Container(
+                    child: Text(this.lists[i].title,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
                           letterSpacing: 1.5)),
+                    width: MediaQuery.of(context).size.width - 110,
+                  ),
                   Container(
-                    padding: EdgeInsets.only(right: 5),
+                    margin: EdgeInsets.only(left: 15),
                     child: Text(
                       '置顶',
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                       textAlign: TextAlign.end,
                     ),
+                    //decoration: BoxDecoration(),
                   )
                 ],
               ),

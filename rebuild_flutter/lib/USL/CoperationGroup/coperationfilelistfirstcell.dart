@@ -13,7 +13,9 @@ class CoperationFileListFirstCell extends StatelessWidget {
             Positioned(
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
             Positioned(
