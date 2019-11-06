@@ -1,6 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:zefyr/zefyr.dart';
+
+/// doc: https://github.com/memspace/zefyr/blob/master/doc/quick-start.md
 
 class EditorPage extends StatefulWidget {
   @override
@@ -8,43 +14,78 @@ class EditorPage extends StatefulWidget {
 }
 
 class EditorPageState extends State<EditorPage> {
-  /// Allows to control the editor and the document.
+  
   ZefyrController _controller;
-
-  /// Zefyr editor like any other input field requires a focus node.
   FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
-    // Here we must load the document and pass it to Zefyr controller.
-    final document = _loadDocument();
-    _controller = ZefyrController(document);
     _focusNode = FocusNode();
+
+    // 此处注释为加载一个空文档；
+    //final document = _loadDocument();
+    //_controller = ZefyrController(document);
+
+    // 此处注释为加载一个JSON文档；
+    _loadDocumentWithJson().then((document) {
+      setState(() {
+        _controller = ZefyrController(document);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Note that the editor requires special `ZefyrScaffold` widget to be
-    // one of its parents.
+    final Widget body = (_controller == null)
+        ? Center(child: CircularProgressIndicator())
+        : ZefyrScaffold(
+            child: ZefyrEditor(
+              padding: EdgeInsets.all(16),
+              controller: _controller,
+              focusNode: _focusNode,
+            ),
+          );
     return Scaffold(
-      appBar: AppBar(title: Text("创建一个新文件")),
-      body: ZefyrScaffold(
-        child: ZefyrEditor(
-          padding: EdgeInsets.all(16),
-          controller: _controller,
-          focusNode: _focusNode,
-        ),
+      appBar: AppBar(
+        title: Text("Editor page"),
+        actions: <Widget>[
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () => _saveDocument(context),
+            ),
+          )
+        ],
       ),
+      body: body,
     );
   }
 
-  /// Loads the document to be edited in Zefyr.
+  /// 预加载一个文档（空文档）
   NotusDocument _loadDocument() {
-    // For simplicity we hardcode a simple document with one line of text
-    // saying "Zefyr Quick Start".
-    // (Note that delta must always end with newline.)
-    // final Delta delta = Delta()..insert("Zefyr Quick Start\n");
-    return NotusDocument();//.fromDelta(delta);
+    return NotusDocument();
+  }
+
+  /// 存储文件
+  void _saveDocument(BuildContext context) {
+    final contents = jsonEncode(_controller.document);
+    final file = File(Directory.systemTemp.path + "/quick_start.json");
+    file.writeAsString(contents).then((_) {
+      Fluttertoast.showToast(
+        msg: "存储成功!",
+        gravity: ToastGravity.CENTER,
+      );
+    });
+  }
+
+  /// 加载数据，使用json数据源
+  Future<NotusDocument> _loadDocumentWithJson() async {
+    final file = File(Directory.systemTemp.path + "/quick_start.json");
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      return NotusDocument.fromJson(jsonDecode(contents));
+    }
+    return NotusDocument();
   }
 }
