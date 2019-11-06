@@ -17,7 +17,8 @@ class NewListDAL {
     Future<bool> createFile (
       String content, 
       String userid, 
-      String folderid,
+      String folderorgroupname,
+      bool folderorgroup,
       String filename) async {
         String realContent = base64Encode(utf8.encode(content));
         FileGitCommitSmallModel smallModel = FileGitCommitSmallModel(userid, "451145552@qq.com");
@@ -25,7 +26,8 @@ class NewListDAL {
 
         String api = APIStruct.createFile.
         replaceAll("{uid}", userid).
-        replaceAll("{folderid}", folderid).
+        replaceAll("{folderid}", folderorgroupname).
+        replaceAll("{folderorgroup}", folderorgroup ? "Folders" : "Groups").
         replaceAll("{filename}", filename);
 
         Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();

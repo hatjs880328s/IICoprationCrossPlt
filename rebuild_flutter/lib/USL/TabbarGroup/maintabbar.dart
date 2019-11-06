@@ -131,7 +131,7 @@ class MaintabBarState extends State<MaintabBar> {
     // await GitFileBLL().createFile("halowor", "title is halo", model.uid, "最新", "flutter_file_text_create1qqq");
     // NSNotificationCenter.getInstance().postNotification(NSNormalNotificationObserver().notificationKey, {"result": true});
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return EditorPage(null);
+      return EditorPage(null, null);
     }));
   }
 }

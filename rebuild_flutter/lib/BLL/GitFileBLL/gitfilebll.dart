@@ -20,12 +20,14 @@ class GitFileBLL {
    * 
    * 1.创建文件的标题 为    realtitle + time 使用分隔符隔开，获取数据时需要处理
    * 2.创建内容时，是一个model,tojson.tostring()
+   * 3.如果folderorgroupname为null,则是创建一个普通文件，需要放到最新文件夹下面；否则就是一个协同文档
    */
   Future createFile(
     String content, 
-      String folderid,
+      String folderorgroupname,
       String filename) async {
-
+        var folderorgroupnames = (folderorgroupname == null) ? "最新" : folderorgroupname;
+        var iffolder = (folderorgroupname == null) ? true : false;
         var model = await NSLoginGlobal.getInstance().getUserInfo();
         String uid = model.uid;
         NewListDAL dal = NewListDAL();
@@ -37,7 +39,7 @@ class GitFileBLL {
           "", 
           title, 
           content.substring(0, content.length > 10 ? 10 : content.length - 1));
-        await dal.createFile(json.encode(realmodel.toJson()), uid, folderid, title);
+        await dal.createFile(json.encode(realmodel.toJson()), uid, folderorgroupnames, iffolder, title);
   }
 
   /*

@@ -2,6 +2,7 @@ import 'dart:wasm';
 import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/material.dart';
+import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
 import 'package:rebuild_flutter/USL/DetailPage/detailpage.dart';
 
 class FileListCell extends StatelessWidget {
@@ -42,7 +43,7 @@ class FileListCell extends StatelessWidget {
       ),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return DetailPage(this.path);
+          return EditorPage(this.path, null);
         }));
       },
       ),

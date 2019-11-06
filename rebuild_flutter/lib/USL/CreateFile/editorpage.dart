@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:zefyr/zefyr.dart';
 
 /// doc: https://github.com/memspace/zefyr/blob/master/doc/quick-start.md
@@ -13,10 +14,15 @@ class EditorPage extends StatefulWidget {
   @override
   EditorPageState createState() => EditorPageState();
 
-  List<dynamic> jsonDatas;
+  String filePath;
 
-  EditorPage(List<dynamic> jsonData) {
-    this.jsonDatas = jsonData;
+  String coperationGroupname;
+
+  /// filepath： 如果为空就是新建一个文档；如果不为空则是需要从网络加载一个json文档
+  /// coperationGroupname：协作组名称，如果有这个属性就是创建一个协同组文章；否则就是创建一个普通文章
+  EditorPage(String filePath, String coperationGroupname) {
+    this.filePath = filePath;
+    this.coperationGroupname = coperationGroupname;
   }
 }
 
@@ -32,7 +38,7 @@ class EditorPageState extends State<EditorPage> {
     _focusNode = FocusNode();
     fieldCon = TextEditingController();
 
-    if (widget.jsonDatas == null) {
+    if (widget.filePath == null) {
       // 此处注释为加载一个空文档；
       final document = _loadDocument();
       _controller = ZefyrController(document);
@@ -84,27 +90,24 @@ class EditorPageState extends State<EditorPage> {
     return NotusDocument();
   }
 
-  /// 存储文件
+  /// 发表文章
   void _saveDocument(BuildContext context) {
+    if (this.fieldCon.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "标题不可为空"
+      );
+      return;
+    }
     final contents = jsonEncode(_controller.document);
     GitFileBLL bll = GitFileBLL();
-    bll.createFile(contents, "最新", "haloworld");
-    final file = File(Directory.systemTemp.path + "/quick_start.json");
-    file.writeAsString(contents).then((_) {
-      Fluttertoast.showToast(
-        msg: "存储成功!",
-        gravity: ToastGravity.CENTER,
-      );
-    });
+    bll.createFile(contents, widget.coperationGroupname, this.fieldCon.text);
   }
 
   /// 加载数据，使用json数据源
   Future<NotusDocument> _loadDocumentWithJson() async {
-    final file = File(Directory.systemTemp.path + "/quick_start.json");
-    if (await file.exists()) {
-      final contents = await file.readAsString();
-      return NotusDocument.fromJson(jsonDecode(contents));
-    }
-    return NotusDocument();
+    GitFileBLL dal = GitFileBLL();
+    RealGitFileModel model = await dal.getOneFileContent(widget.filePath);  
+    this.fieldCon.text = model.getTitleInfo();
+    return NotusDocument.fromJson(jsonDecode(model.content));
   }
 }

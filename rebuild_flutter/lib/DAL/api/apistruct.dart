@@ -19,7 +19,7 @@ class APIStruct {
   static String getSomeoneFolderFileListapi = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Folders/{fid}";
 
   /// 创建一个文件
-  static String createFile = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/Folders/{folderid}/{filename}";
+  static String createFile = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/{uid}/{folderorgroup}/{folderid}/{filename}";
 
   /// 获取某一个文件详细内容的api
   static String getOneItemapi = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/";
