@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
 import 'package:rebuild_flutter/DAL/Folder/folderdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
@@ -52,6 +53,10 @@ class GitFileBLL {
           FolderModel sha = await this.getOneFileSha(realpath);
           groupbll.updateGroupInfo(oldModel.name, oldModel, sha.sha);
         }
+        Fluttertoast.showToast(
+          msg: "创建成功",
+          gravity: ToastGravity.CENTER,
+        );
   }
 
   /*
