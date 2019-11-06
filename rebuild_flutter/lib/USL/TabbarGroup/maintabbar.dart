@@ -1,5 +1,3 @@
-
-
 import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
@@ -33,7 +31,12 @@ class MaintabBarState extends State<MaintabBar> {
 
   int _currentIndex = 0;
   PageController _controller;
-  List<Widget> infos = [NewestFile(true, "最新", ""), FolderPage(), CoperationGroup(), LoginPage()];
+  List<Widget> infos = [
+    NewestFile(true, "最新", ""),
+    FolderPage(),
+    CoperationGroup(),
+    LoginPage()
+  ];
 
   @override
   void initState() {
@@ -41,7 +44,7 @@ class MaintabBarState extends State<MaintabBar> {
     _controller = PageController(initialPage: 0);
   }
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contexts) {
     return Scaffold(
       body: PageView.builder(
           physics: NeverScrollableScrollPhysics(),
@@ -74,29 +77,28 @@ class MaintabBarState extends State<MaintabBar> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           return showCupertinoModalPopup(
-            context: context,
-            builder: (context) {
-              NSActionSheet sheet = NSActionSheet();
-              sheet.actionOne = (idx) {
-                //文件
-                this.createNewFile(context);
-              };
-              sheet.actionTwo = (idx) {
-                //书架
-                return showCupertinoDialog(
-                  context: context, 
-                  builder: (context) {
-                    NSActionField fid = NSActionField("创建文件夹", "请输入文件夹名称", "创建");
-                    fid.actionOne = (String foldername) {
-                      this.createNewFolder(foldername);
-                    };
-                    return fid;
-                  }
-                );
-              };
-              return sheet;
-            } 
-          );
+              context: contexts,
+              builder: (context) {
+                NSActionSheet sheet = NSActionSheet();
+                sheet.actionOne = (idx) {
+                  //文件
+                  this.createNewFile(contexts);
+                };
+                sheet.actionTwo = (idx) {
+                  //书架
+                  return showCupertinoDialog(
+                      context: context,
+                      builder: (context) {
+                        NSActionField fid =
+                            NSActionField("创建文件夹", "请输入文件夹名称", "创建");
+                        fid.actionOne = (String foldername) {
+                          this.createNewFolder(foldername);
+                        };
+                        return fid;
+                      });
+                };
+                return sheet;
+              });
         },
         child: Icon(Icons.add),
       ),
@@ -119,7 +121,8 @@ class MaintabBarState extends State<MaintabBar> {
   // 新建一个文件夹
   Future<void> createNewFolder(String foldername) async {
     await GitFolderBLL().createFolder(foldername);
-    NSNotificationCenter.getInstance().postNotification(NSNormalNotificationObserver().notificationKey, {"result": true});
+    NSNotificationCenter.getInstance().postNotification(
+        NSNormalNotificationObserver().notificationKey, {"result": true});
   }
 
   // 新建一个文件

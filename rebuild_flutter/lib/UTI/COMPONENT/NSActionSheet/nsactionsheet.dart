@@ -34,8 +34,8 @@ class NSActionSheet extends StatelessWidget {
       actions: <Widget>[
         CupertinoActionSheetAction(
           onPressed: () {
-            this.actionOne(0);
             Navigator.pop(context);
+            this.actionOne(0);
           },
           child: Text("新建文件",
               style: TextStyle(
