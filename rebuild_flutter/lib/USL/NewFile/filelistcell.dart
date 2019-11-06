@@ -43,7 +43,7 @@ class FileListCell extends StatelessWidget {
       ),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return EditorPage(this.path, null);
+          return EditorPage(this.path, null, null);
         }));
       },
       ),

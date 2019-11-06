@@ -13,12 +13,14 @@ FileGitCommitModel _$FileGitCommitModelFromJson(Map<String, dynamic> json) {
       json['committer'] == null
           ? null
           : FileGitCommitSmallModel.fromJson(
-              json['committer'] as Map<String, dynamic>));
+              json['committer'] as Map<String, dynamic>),
+      json['sha'] as String);
 }
 
 Map<String, dynamic> _$FileGitCommitModelToJson(FileGitCommitModel instance) =>
     <String, dynamic>{
       'message': instance.message,
       'content': instance.content,
-      'committer': instance.committer
+      'committer': instance.committer,
+      'sha': instance.sha
     };

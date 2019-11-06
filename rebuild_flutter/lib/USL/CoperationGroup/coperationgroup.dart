@@ -68,7 +68,7 @@ class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliv
   /// 创建协同组 - 然后请求最新数据
   Future<void> createGroup(String groupname) async {
     CoperationGroupBLL bll = CoperationGroupBLL();
-    await bll.createGroup(groupname);
+    await bll.createGroup(groupname, null);
     this.getGroupinfo();
   }
 

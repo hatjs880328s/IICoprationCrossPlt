@@ -1,8 +1,10 @@
 
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
 import 'package:rebuild_flutter/DAL/Folder/folderdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
+import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistdal.dart';
@@ -23,6 +25,7 @@ class GitFileBLL {
    * 3.如果folderorgroupname为null,则是创建一个普通文件，需要放到最新文件夹下面；否则就是一个协同文档
    */
   Future createFile(
+    CoperationGroupModel oldModel,
     String content, 
       String folderorgroupname,
       String filename) async {
@@ -40,6 +43,26 @@ class GitFileBLL {
           title, 
           content.substring(0, content.length > 10 ? 10 : content.length - 1));
         await dal.createFile(json.encode(realmodel.toJson()), uid, folderorgroupnames, iffolder, title);
+
+        if (oldModel != null) {
+          /// 如果不为空 - 新建一个协同组文章的时候，需要更新协同组info文件
+          CoperationGroupBLL groupbll = CoperationGroupBLL();
+          oldModel.files.add(title);
+          String realpath = "/${model.uid}/Groups/${oldModel.name}/GroupInfoFile";
+          FolderModel sha = await this.getOneFileSha(realpath);
+          groupbll.updateGroupInfo(oldModel.name, oldModel, sha.sha);
+        }
+  }
+
+  /*
+   * 获取一个文件的网络数据 - sha
+   */
+  Future<FolderModel> getOneFileSha(String path) async {
+    FolderDAL dal = FolderDAL();
+    Map item = await dal.getOneItem(path);
+    FolderModel newmodel = FolderModel.fromJson(item);
+    
+    return newmodel;
   }
 
   /*

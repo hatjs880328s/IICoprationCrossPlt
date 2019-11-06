@@ -13,7 +13,9 @@ class FileGitCommitModel {
   FileGitCommitModel(
     this.message, 
     this.content, 
-    this.committer);
+    this.committer,
+    this.sha
+    );
 
   manualInit(String message, String content, FileGitCommitSmallModel model) {
     this.content = content;
@@ -21,9 +23,17 @@ class FileGitCommitModel {
     this.committer = model;
   }
 
+  manualInitHaveSha(String message, String content, FileGitCommitSmallModel model, String sha) {
+    this.content = content;
+    this.message = message;
+    this.committer = model;
+    this.sha = sha;
+  }
+
   String message;
   String content;
   FileGitCommitSmallModel committer;
+  String sha;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

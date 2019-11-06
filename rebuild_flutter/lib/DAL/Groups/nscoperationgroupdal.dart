@@ -21,30 +21,15 @@ class NSCoperationGroupDAL {
 
   /// 创建 & 更新 一个协同组
   Future<bool> createGroup(
-    String name,
-    String groupid,
+    String groupname,
     String uid,
+    FileGitCommitModel model,
   ) async {
 
     String api = APIStruct.createCoperationGroup
-      .replaceAll("{groupname}", name)
+      .replaceAll("{groupname}", groupname)
       .replaceAll("{uid}", uid)
       .replaceAll("{filename}", this.groupContentInfoFilename);
-
-    /// 初始化一个群组model - 用户目前只有自己， file为空，不包含groupinfofile
-    CoperationGroupModel groupModel = new CoperationGroupModel(
-      name, 
-      groupid, 
-      [uid], 
-      DateTime.now().millisecondsSinceEpoch.toDouble(), 
-      []);
-    String contentInfo = json.encode(groupModel.toJson());
-
-    String realContent = base64Encode(utf8.encode(contentInfo));
-    FileGitCommitSmallModel smallModel =
-        FileGitCommitSmallModel(uid, "451145552@qq.com");
-    FileGitCommitModel model =
-        FileGitCommitModel(uid + "commit.", realContent, smallModel);
 
     Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
     headers["content-type"] = "application/json";

@@ -28,7 +28,7 @@ class FolderDAL {
     FileGitCommitSmallModel smallModel =
         FileGitCommitSmallModel(uid, "451145552@qq.com");
     FileGitCommitModel model =
-        FileGitCommitModel(uid + "commit.", realContent, smallModel);
+        FileGitCommitModel(uid + "commit.", realContent, smallModel, "");
 
     Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
     headers["content-type"] = "application/json";

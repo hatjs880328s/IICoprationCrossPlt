@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/DAL/Groups/nscoperationgroupdal.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitsmallmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/UTI/COMMON/nsdataextension.dart';
@@ -14,11 +16,48 @@ class CoperationGroupBLL {
 
   /// 创建一个协同群组
   Future<bool> createGroup(
-    String name
+    String name,
+    CoperationGroupModel updatedModel
   ) async {
     String groupid = Uuid().v1();
     var userinfo = await NSLoginGlobal.getInstance().getUserInfo();
-    return await this.dal.createGroup(name, groupid, userinfo.uid);
+
+    /// 初始化一个群组model - 用户目前只有自己， file为空，不包含groupinfofile
+    CoperationGroupModel groupModel = new CoperationGroupModel(
+      name, 
+      groupid, 
+      [userinfo.uid], 
+      DateTime.now().millisecondsSinceEpoch.toDouble(), 
+      []);
+
+    String contentInfo = json.encode(groupModel.toJson());
+
+    String realContent = base64Encode(utf8.encode(contentInfo));
+    FileGitCommitSmallModel smallModel =
+        FileGitCommitSmallModel(userinfo.uid, "451145552@qq.com");
+    FileGitCommitModel model =
+        FileGitCommitModel(userinfo.uid + "commit.", realContent, smallModel, "");
+
+    return await this.dal.createGroup(name, userinfo.uid, model);
+  }
+
+   /// 更新一个协同群组的gourpinfo
+  Future<bool> updateGroupInfo(
+    String name,
+    CoperationGroupModel updatedModel,
+    String modelSha
+  ) async {
+    var userinfo = await NSLoginGlobal.getInstance().getUserInfo();
+
+    String contentInfo = json.encode(updatedModel.toJson());
+
+    String realContent = base64Encode(utf8.encode(contentInfo));
+    FileGitCommitSmallModel smallModel =
+        FileGitCommitSmallModel(userinfo.uid, "451145552@qq.com");
+    FileGitCommitModel model =
+        FileGitCommitModel(userinfo.uid + "commit.", realContent, smallModel, modelSha);
+
+    return await this.dal.createGroup(name, userinfo.uid, model);
   }
 
   /// 获取某个协同组下面的文件

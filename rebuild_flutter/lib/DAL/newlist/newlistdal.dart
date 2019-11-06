@@ -22,7 +22,7 @@ class NewListDAL {
       String filename) async {
         String realContent = base64Encode(utf8.encode(content));
         FileGitCommitSmallModel smallModel = FileGitCommitSmallModel(userid, "451145552@qq.com");
-        FileGitCommitModel model = FileGitCommitModel(userid + "commit.", realContent, smallModel);
+        FileGitCommitModel model = FileGitCommitModel(userid + "commit.", realContent, smallModel, "");
 
         String api = APIStruct.createFile.
         replaceAll("{uid}", userid).

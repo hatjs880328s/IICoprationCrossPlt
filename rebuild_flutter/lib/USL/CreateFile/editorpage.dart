@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
+import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:zefyr/zefyr.dart';
 
@@ -18,11 +19,15 @@ class EditorPage extends StatefulWidget {
 
   String coperationGroupname;
 
+  CoperationGroupModel oldGroupInfo;
+
   /// filepath： 如果为空就是新建一个文档；如果不为空则是需要从网络加载一个json文档
   /// coperationGroupname：协作组名称，如果有这个属性就是创建一个协同组文章；否则就是创建一个普通文章
-  EditorPage(String filePath, String coperationGroupname) {
+  /// oldGroupInfo : 协同组旧的info-model 如果创建新文件需要更新它
+  EditorPage(String filePath, String coperationGroupname, CoperationGroupModel oldGroupInfo) {
     this.filePath = filePath;
     this.coperationGroupname = coperationGroupname;
+    this.oldGroupInfo = oldGroupInfo;
   }
 }
 
@@ -101,7 +106,7 @@ class EditorPageState extends State<EditorPage> {
     }
     final contents = jsonEncode(_controller.document);
     GitFileBLL bll = GitFileBLL();
-    bll.createFile(contents, widget.coperationGroupname, this.fieldCon.text);
+    bll.createFile(widget.oldGroupInfo, contents, widget.coperationGroupname, this.fieldCon.text);
   }
 
   /// 加载数据，使用json数据源

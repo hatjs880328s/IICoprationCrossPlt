@@ -60,7 +60,7 @@ class CoperationFileListState extends State<CoperationFileList> {
                 controller: this.scrollCon,
                 children: this.list == null ? [] : [
                   //第一部分（返回按钮 & 顶部分享、邀请等按钮）
-                  CoperationFileListFirstCell(this.list.name),
+                  CoperationFileListFirstCell(this.list.name, this.list),
                   //第二部分协同组基本信息
                   CoperationFileListSecondCell(this.list.files.length, this.list.users.length, this.list.time),
                   //第三部分协同成员信息
