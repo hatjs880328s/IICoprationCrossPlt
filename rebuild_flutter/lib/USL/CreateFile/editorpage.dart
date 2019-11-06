@@ -28,7 +28,7 @@ class EditorPageState extends State<EditorPage> {
     // Note that the editor requires special `ZefyrScaffold` widget to be
     // one of its parents.
     return Scaffold(
-      appBar: AppBar(title: Text("Editor page")),
+      appBar: AppBar(title: Text("创建一个新文件")),
       body: ZefyrScaffold(
         child: ZefyrEditor(
           padding: EdgeInsets.all(16),
@@ -44,7 +44,7 @@ class EditorPageState extends State<EditorPage> {
     // For simplicity we hardcode a simple document with one line of text
     // saying "Zefyr Quick Start".
     // (Note that delta must always end with newline.)
-    final Delta delta = Delta()..insert("Zefyr Quick Start\n");
-    return NotusDocument.fromDelta(delta);
+    // final Delta delta = Delta()..insert("Zefyr Quick Start\n");
+    return NotusDocument();//.fromDelta(delta);
   }
 }
