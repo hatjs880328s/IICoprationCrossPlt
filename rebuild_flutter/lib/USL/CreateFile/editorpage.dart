@@ -10,7 +10,6 @@ import 'package:zefyr/zefyr.dart';
 /// doc: https://github.com/memspace/zefyr/blob/master/doc/quick-start.md
 
 class EditorPage extends StatefulWidget {
-
   @override
   EditorPageState createState() => EditorPageState();
 
@@ -24,11 +23,14 @@ class EditorPage extends StatefulWidget {
 class EditorPageState extends State<EditorPage> {
   ZefyrController _controller;
   FocusNode _focusNode;
+  String titleInfo;
+  TextEditingController fieldCon;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
+    fieldCon = TextEditingController();
 
     if (widget.jsonDatas == null) {
       // 此处注释为加载一个空文档；
@@ -49,15 +51,21 @@ class EditorPageState extends State<EditorPage> {
     final Widget body = (_controller == null)
         ? Center(child: CircularProgressIndicator())
         : ZefyrScaffold(
-            child: ZefyrEditor(
-              padding: EdgeInsets.all(16),
-              controller: _controller,
-              focusNode: _focusNode,
-            ),
-          );
+      child: ZefyrEditor(
+            padding: EdgeInsets.all(16),
+            controller: _controller,
+            focusNode: _focusNode,
+          ),
+    );
     return Scaffold(
       appBar: AppBar(
-        title: Text("Editor page"),
+        title: TextField(
+          ///textAlign: TextAlign.center,
+          controller: this.fieldCon,
+          decoration: InputDecoration(
+            hintText: "请输入标题",
+          ),
+        ),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
