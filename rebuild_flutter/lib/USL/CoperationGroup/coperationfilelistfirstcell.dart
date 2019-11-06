@@ -96,7 +96,8 @@ class CoperationFileListFirstCell extends StatelessWidget {
                                 ],
                               ),
                               onTap: () {
-                                print("点击收藏");
+                                //print("点击收藏");
+                                this.createNewCoperationFile(context);
                               },
                             ))
                       ],

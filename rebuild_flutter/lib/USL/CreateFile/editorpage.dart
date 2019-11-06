@@ -94,7 +94,8 @@ class EditorPageState extends State<EditorPage> {
   void _saveDocument(BuildContext context) {
     if (this.fieldCon.text.isEmpty) {
       Fluttertoast.showToast(
-        msg: "标题不可为空"
+        msg: "标题不可为空",
+        gravity: ToastGravity.CENTER,
       );
       return;
     }
