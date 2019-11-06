@@ -19,7 +19,7 @@ class NSCoperationGroupDAL {
 
   String groupContentInfoFilename = "GroupInfoFile";
 
-  /// 创建一个协同组
+  /// 创建 & 更新 一个协同组
   Future<bool> createGroup(
     String name,
     String groupid,
