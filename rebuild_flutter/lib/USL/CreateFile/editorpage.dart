@@ -9,12 +9,18 @@ import 'package:zefyr/zefyr.dart';
 /// doc: https://github.com/memspace/zefyr/blob/master/doc/quick-start.md
 
 class EditorPage extends StatefulWidget {
+  
   @override
   EditorPageState createState() => EditorPageState();
+
+  List<dynamic> jsonDatas;
+
+  EditorPage(List<dynamic> jsonData) {
+    this.jsonDatas = jsonData;
+  }
 }
 
 class EditorPageState extends State<EditorPage> {
-  
   ZefyrController _controller;
   FocusNode _focusNode;
 
@@ -23,16 +29,18 @@ class EditorPageState extends State<EditorPage> {
     super.initState();
     _focusNode = FocusNode();
 
-    // 此处注释为加载一个空文档；
-    //final document = _loadDocument();
-    //_controller = ZefyrController(document);
-
-    // 此处注释为加载一个JSON文档；
-    _loadDocumentWithJson().then((document) {
-      setState(() {
-        _controller = ZefyrController(document);
+    if (widget.jsonDatas == null) {
+      // 此处注释为加载一个空文档；
+      final document = _loadDocument();
+      _controller = ZefyrController(document);
+    } else {
+      // 此处注释为加载一个JSON文档；
+      _loadDocumentWithJson().then((document) {
+        setState(() {
+          _controller = ZefyrController(document);
+        });
       });
-    });
+    }
   }
 
   @override
