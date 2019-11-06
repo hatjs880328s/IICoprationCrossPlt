@@ -1,8 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
 
 /// 协同组顶部漂亮cell
 class CoperationFileListFirstCell extends StatelessWidget {
+
+  String coperationName;
+
+  CoperationFileListFirstCell(String coperationGroupname) {
+    this.coperationName = coperationGroupname;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,8 +89,8 @@ class CoperationFileListFirstCell extends StatelessWidget {
                               child: Column(
                                 children: <Widget>[
                                   Icon(Icons.save_alt),
-                                  Text('收藏', style: TextStyle(fontSize: 15)),
-                                  Text('群组',
+                                  Text('创建', style: TextStyle(fontSize: 15)),
+                                  Text('新文章',
                                       style: TextStyle(
                                           fontSize: 13, color: Colors.grey)),
                                 ],
@@ -122,4 +130,13 @@ class CoperationFileListFirstCell extends StatelessWidget {
           ],
         ));
   }
+
+  /// 创建一个新的协同组文章
+  void createNewCoperationFile(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return EditorPage(null, this.coperationName);
+    }));
+
+  }
+
 }
