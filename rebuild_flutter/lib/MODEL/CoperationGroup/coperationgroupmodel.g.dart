@@ -12,7 +12,11 @@ CoperationGroupModel _$CoperationGroupModelFromJson(Map<String, dynamic> json) {
       json['id'] as String,
       (json['users'] as List)?.map((e) => e as String)?.toList(),
       (json['time'] as num)?.toDouble(),
-      (json['files'] as List)?.map((e) => e as String)?.toList());
+      (json['files'] as List)
+          ?.map((e) => e == null
+              ? null
+              : RealGitFileModel.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 Map<String, dynamic> _$CoperationGroupModelToJson(

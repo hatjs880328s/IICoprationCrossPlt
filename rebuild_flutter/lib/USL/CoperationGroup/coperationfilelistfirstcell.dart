@@ -128,7 +128,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
             Positioned(
                 top: 110,
                 right: 40,
-                child: Text('协同组名称: 协同组A',
+                child: Text("组名:   ${this.oldGroupInfoModel.name}",
                     textAlign: TextAlign.end,
                     style:
                         TextStyle(fontSize: 17, fontWeight: FontWeight.w500)))

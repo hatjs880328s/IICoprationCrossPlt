@@ -46,9 +46,10 @@ class GitFileBLL {
         await dal.createFile(json.encode(realmodel.toJson()), uid, folderorgroupnames, iffolder, title);
 
         if (oldModel != null) {
-          /// 如果不为空 - 新建一个协同组文章的时候，需要更新协同组info文件
+          /// 如果不为空 - 新建一个协同组文章的时候，需要更新协同组info文件; 记得将model的具体内容干掉
           CoperationGroupBLL groupbll = CoperationGroupBLL();
-          oldModel.files.add(title);
+          realmodel.content = "";
+          oldModel.files.add(realmodel);
           String realpath = "/${model.uid}/Groups/${oldModel.name}/GroupInfoFile";
           FolderModel sha = await this.getOneFileSha(realpath);
           groupbll.updateGroupInfo(oldModel.name, oldModel, sha.sha);

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 
 /// This allows the `User` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
@@ -16,7 +17,7 @@ class CoperationGroupModel {
   String id;
   List<String> users;
   double time;
-  List<String> files;
+  List<RealGitFileModel> files;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

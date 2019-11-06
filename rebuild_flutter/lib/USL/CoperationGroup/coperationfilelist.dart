@@ -66,7 +66,7 @@ class CoperationFileListState extends State<CoperationFileList> {
                   //第三部分协同成员信息
                   CoperationFileListCell(this.list.users),
                   //第四部分协同组文章
-                  CoperationFileListForthCell(),
+                  CoperationFileListForthCell(this.list),
                 ]
               )),
         ],

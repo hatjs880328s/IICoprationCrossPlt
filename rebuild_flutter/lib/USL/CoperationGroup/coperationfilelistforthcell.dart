@@ -2,54 +2,20 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 
 /// 文章列表
 class CoperationFileListForthCell extends StatelessWidget {
-  List<RealGitFileModel> lists = [
-    RealGitFileModel(
-        'ID',
-        'Article of the papers,Article of the papers,Article of the papers,Article of the papers,Article of the papers',
-        0,
-        '???',
-        'Article of the papers',
-        'Describution of the papers'),
-    RealGitFileModel(
-        'ID',
-        'Article of the papers,Article of the papers,Article of the papers,Article of the papers,Article of the papers',
-        0,
-        '???',
-        'Article of the papers',
-        'Describution of the papers'),
-    RealGitFileModel(
-        'ID',
-        'Article of the papers,Article of the papers,Article of the papers,Article of the papers,Article of the papers',
-        0,
-        '???',
-        'Article of the papers',
-        'Describution of the papers'),
-    RealGitFileModel(
-        'ID',
-        'Article of the papers,Article of the papers,Article of the papers,Article of the papers,Article of the papers',
-        0,
-        '???',
-        'Article of the papers',
-        'Describution of the papers'),
-    RealGitFileModel(
-        'ID',
-        'Article of the papers,Article of the papers,Article of the papers,Article of the papers,Article of the papers',
-        0,
-        '???',
-        'Article of the papers',
-        'Describution of the papers'),
-    RealGitFileModel(
-        'ID',
-        'Article of the papers,Article of the papers,Article of the papers,Article of the papers,Article of the papers',
-        0,
-        '???',
-        'Article of the papers',
-        'Describution of the papers'),
-  ];
+
+  List<RealGitFileModel> lists;
+
+  CoperationGroupModel oldModel;
+
+  CoperationFileListForthCell(CoperationGroupModel oldModel) {
+    this.oldModel = oldModel;
+    this.lists = oldModel.files;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +64,7 @@ class CoperationFileListForthCell extends StatelessWidget {
               color: NSNormalConfig.listCellBgColor,
               borderRadius: BorderRadius.circular(6)),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               // LINE 1
               Row(
@@ -125,7 +92,8 @@ class CoperationFileListForthCell extends StatelessWidget {
               Container(
                 padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
                 child: Text(
-                  this.lists[i].content,
+                  this.lists[i].subtitle,
+                  textAlign: TextAlign.start,
                   style: TextStyle(
                       color: Colors.black87, fontSize: 15, height: 1.7),
                 ),
