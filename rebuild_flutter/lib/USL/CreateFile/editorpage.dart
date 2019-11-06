@@ -4,12 +4,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quill_delta/quill_delta.dart';
+import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:zefyr/zefyr.dart';
 
 /// doc: https://github.com/memspace/zefyr/blob/master/doc/quick-start.md
 
 class EditorPage extends StatefulWidget {
-  
+
   @override
   EditorPageState createState() => EditorPageState();
 
@@ -78,6 +79,8 @@ class EditorPageState extends State<EditorPage> {
   /// 存储文件
   void _saveDocument(BuildContext context) {
     final contents = jsonEncode(_controller.document);
+    GitFileBLL bll = GitFileBLL();
+    bll.createFile(contents, "最新", "haloworld");
     final file = File(Directory.systemTemp.path + "/quick_start.json");
     file.writeAsString(contents).then((_) {
       Fluttertoast.showToast(

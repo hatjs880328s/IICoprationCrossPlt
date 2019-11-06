@@ -23,11 +23,11 @@ class GitFileBLL {
    */
   Future createFile(
     String content, 
-    String title,
-      String userid, 
       String folderid,
       String filename) async {
 
+        var model = await NSLoginGlobal.getInstance().getUserInfo();
+        String uid = model.uid;
         NewListDAL dal = NewListDAL();
         String title = filename + "EXEOF" + DateTime.now().millisecondsSinceEpoch.toString();
         RealGitFileModel realmodel = RealGitFileModel(
@@ -37,7 +37,7 @@ class GitFileBLL {
           "", 
           title, 
           content.substring(0, content.length > 10 ? 10 : content.length - 1));
-        await dal.createFile(json.encode(realmodel.toJson()), userid, folderid, title);
+        await dal.createFile(json.encode(realmodel.toJson()), uid, folderid, title);
   }
 
   /*
