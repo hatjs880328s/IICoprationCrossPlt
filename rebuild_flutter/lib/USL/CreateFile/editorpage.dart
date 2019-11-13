@@ -106,7 +106,9 @@ class EditorPageState extends State<EditorPage> {
     }
     final contents = jsonEncode(_controller.document);
     GitFileBLL bll = GitFileBLL();
-    bll.createFile(widget.oldGroupInfo, contents, widget.coperationGroupname, this.fieldCon.text);
+    String plainTxt = _controller.document.toPlainText();
+    String subTtitle = plainTxt.length > 10 ? plainTxt.substring(0, 9) : plainTxt;
+    bll.createFile(widget.oldGroupInfo, contents, widget.coperationGroupname, this.fieldCon.text, subTitle: subTtitle);
   }
 
   /// 加载数据，使用json数据源

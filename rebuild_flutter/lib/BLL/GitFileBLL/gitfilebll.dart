@@ -29,7 +29,7 @@ class GitFileBLL {
     CoperationGroupModel oldModel,
     String content, 
       String folderorgroupname,
-      String filename) async {
+      String filename, {String subTitle}) async {
         var folderorgroupnames = (folderorgroupname == null) ? "最新" : folderorgroupname;
         var iffolder = (folderorgroupname == null) ? true : false;
         var model = await NSLoginGlobal.getInstance().getUserInfo();
@@ -42,7 +42,8 @@ class GitFileBLL {
           DateTime.now().millisecondsSinceEpoch.toDouble(), 
           "", 
           title, 
-          content.substring(0, content.length > 10 ? 10 : content.length - 1));
+          subTitle == null ? content.substring(0, content.length > 10 ? 10 : content.length - 1) : subTitle
+          );
         await dal.createFile(json.encode(realmodel.toJson()), uid, folderorgroupnames, iffolder, title);
 
         if (oldModel != null) {
