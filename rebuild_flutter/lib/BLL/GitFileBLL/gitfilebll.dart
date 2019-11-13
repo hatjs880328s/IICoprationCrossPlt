@@ -17,7 +17,7 @@ class GitFileBLL {
   NewListLocalDAL localDal = NewListLocalDAL();
 
   /*
-   * 创建 & 更新 一个文件 
+   * 创建 一个文件 【同时更新此协同组下的infofile】
    * 
    * 1.创建文件的标题 为    realtitle + time 使用分隔符隔开，获取数据时需要处理
    * 2.创建内容时，是一个model,tojson.tostring()
