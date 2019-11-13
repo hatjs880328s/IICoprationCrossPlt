@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/DAL/Groups/nscoperationgroupdal.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitsmallmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
@@ -81,5 +82,12 @@ class CoperationGroupBLL {
       list.add(model);
     }
     return list;
+  }
+
+  /// 根据groupallinfo _ filename 获取path信息
+  Future<String> getFilePath(CoperationGroupModel allmodel, String filename) async {
+    NSLoginModel uModel = await NSLoginGlobal.getInstance().getUserInfo();
+    String uid = uModel.uid;
+    return "" + uid + "/Groups/" + allmodel.name + "/" + filename;
   }
 }

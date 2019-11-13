@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
+import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
 
 /// 文章列表
 class CoperationFileListForthCell extends StatelessWidget {
@@ -63,7 +65,8 @@ class CoperationFileListForthCell extends StatelessWidget {
           decoration: BoxDecoration(
               color: NSNormalConfig.listCellBgColor,
               borderRadius: BorderRadius.circular(6)),
-          child: Column(
+          child: GestureDetector(
+            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               // LINE 1
@@ -77,15 +80,15 @@ class CoperationFileListForthCell extends StatelessWidget {
                           letterSpacing: 1.5)),
                     width: MediaQuery.of(context).size.width - 110,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 15),
-                    child: Text(
-                      '置顶',
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
-                      textAlign: TextAlign.end,
-                    ),
-                    //decoration: BoxDecoration(),
-                  )
+                  // 目前没有指定操作
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 15),
+                  //   child: Text(
+                  //     '置顶',
+                  //     style: TextStyle(color: Colors.grey, fontSize: 14),
+                  //     textAlign: TextAlign.end,
+                  //   ),
+                  // )
                 ],
               ),
               // LINE 2
@@ -114,10 +117,23 @@ class CoperationFileListForthCell extends StatelessWidget {
                 ],
               )
             ],
-          ));
+          ),
+          onTap: () {
+            print("halo,wolrd");
+            this.jump2EditorPage(context, i);
+          },
+          )
+          );
       result.add(ss);
     }
-
     return result;
+  }
+
+  /// 跳转到编辑页面
+  Future jump2EditorPage(BuildContext context, int idx) async {
+    String path = await CoperationGroupBLL().getFilePath(this.oldModel, this.lists[idx].title);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return EditorPage(path, "", this.oldModel);
+    }));
   }
 }
