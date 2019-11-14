@@ -95,7 +95,10 @@ class GitFileProgressBLL {
   }
 
   /// 创建folder -path - 用户id, 文件夹name, 普通文件夹|协同文件夹
-  String createFolderPath(String folderName, String uid, bool isnormalFolder) {
+  String createFolderPath(
+    String folderName, 
+    String uid, 
+    bool isnormalFolder) {
     String normalFolder = "Folders";
     String coperationFolder = "Groups";
     if (isnormalFolder) {
@@ -114,7 +117,9 @@ class GitFileProgressBLL {
   }
 
   /// 创建一个文件夹 普通|协同 (创建一个包含在此文件夹下的文件而已) [如果重名这里会失败]
-  Future<void> createFolder(bool isnormalFolder, String folderName) async {
+  Future<void> createFolder(
+    bool isnormalFolder, 
+    String folderName) async {
     // 0.处理文件path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
@@ -244,7 +249,9 @@ class GitFileProgressBLL {
   }
 
   /// 获取一个文件夹下面的所有的文件信息（文件不含具体信息，但有摘要）
-  Future<CoperationGroupModel> getOneFolderFileLists(bool isNormalFolder, String folderName) async {
+  Future<CoperationGroupModel> getOneFolderFileLists(
+    bool isNormalFolder, 
+    String folderName) async {
     // 1.获取path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
