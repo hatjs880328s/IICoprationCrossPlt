@@ -27,6 +27,8 @@ import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:uuid/uuid.dart';
+import 'package:convert/src/hex.dart';
+import 'package:crypto/crypto.dart';
 
 class GitFileProgressBLL {
 
@@ -198,21 +200,19 @@ class GitFileProgressBLL {
 
   /// 获取一个文件的信息(需要此文件的path信息)
   Future<RealGitFileModel> getFileContent(RealGitFileModel itemModel) async {
-    // 1.获取此文件的id值
-    // var content = Utf8Encoder().convert(itemModel.path);
-    // var digest = md5.convert(content);
-    // String md5Str = hex.encode(digest.bytes);
-
-
+    // 1.获取此文件的path生成db的id值
+    var content = Utf8Encoder().convert(itemModel.path);
+    var digest = md5.convert(content);
+    String md5Str = hex.encode(digest.bytes);
     // 2.从本地获取，是否存在此信息
-    // String wheresql = "where id = '${itemModel.id}'";
-    // List<Map> result = await this.localDal.getInfo(wheresql);
-    // if (result.length > 0) {
-    //   RealGitFileModel model = RealGitFileModel.fromJson(result.first);
-    //   if (model != null) {
-    //     return model;
-    //   }
-    // }
+    String wheresql = "where id = '$md5Str'";
+    List<Map> result = await this.localDal.getInfo(wheresql);
+    if (result.length > 0) {
+      RealGitFileModel model = RealGitFileModel.fromJson(result.first);
+      if (model != null) {
+        return model;
+      }
+    }
     // 3.没有则从网络获取 [获取下来的首先是gitmodel -> content -> base64decode -> realgitfilemodel]
     Map item = await this.dal.getFileInfo(itemModel.path);
     FolderModel newmodel = FolderModel.fromJson(item);
@@ -220,8 +220,10 @@ class GitFileProgressBLL {
     String contents = utf8.decode(data);
     Map infos = json.decode(contents);
     RealGitFileModel realnewmodel = RealGitFileModel.fromJson(infos);
-    // 4.存入数据库
-    // this.localDal.insertInfo(realnewmodel);
+    // 4.存入数据库[变更id]
+    realnewmodel.id = md5Str;
+    this.localDal.insertInfo(realnewmodel);
+    // 5.返回
     return realnewmodel;
   }
 
