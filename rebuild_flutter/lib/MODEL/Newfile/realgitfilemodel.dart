@@ -10,7 +10,7 @@ part 'realgitfilemodel.g.dart';
 @JsonSerializable()
 
 class RealGitFileModel {
-  RealGitFileModel(this.id, this.content, this.time, this.img, this.title, this.subtitle);
+  RealGitFileModel(this.id, this.content, this.time, this.img, this.title, this.subtitle, this.path);
 
   String content;
   double time;
@@ -18,6 +18,7 @@ class RealGitFileModel {
   String title;
   String subtitle;
   String id;
+  String path;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
@@ -31,7 +32,7 @@ class RealGitFileModel {
 
   // 获取标题
   String getTitleInfo() {
-    return this.title.split("EXEOF").first;
+    return this.title;
   }
 
   // 获取日期格式化信息

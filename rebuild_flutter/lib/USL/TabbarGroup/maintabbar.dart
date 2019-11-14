@@ -1,8 +1,10 @@
 import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/GitFileBLL/gitfilebll.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroup.dart';
+import 'package:rebuild_flutter/USL/CreateFile/createNewestFile.dart';
 import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
@@ -120,18 +122,16 @@ class MaintabBarState extends State<MaintabBar> {
 
   // 新建一个文件夹
   Future<void> createNewFolder(String foldername) async {
-    await GitFolderBLL().createFolder(foldername);
+    var bll = GitFileProgressBLL();
+    await bll.createFolder(true, foldername);
     NSNotificationCenter.getInstance().postNotification(
         NSNormalNotificationObserver().notificationKey, {"result": true});
   }
 
   // 新建一个文件
   Future<void> createNewFile(BuildContext context) async {
-    // var model = await NSLoginGlobal.getInstance().getUserInfo();
-    // await GitFileBLL().createFile("halowor", "title is halo", model.uid, "最新", "flutter_file_text_create1qqq");
-    // NSNotificationCenter.getInstance().postNotification(NSNormalNotificationObserver().notificationKey, {"result": true});
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return EditorPage(null, null, null);
+      return CreatNewestFile();
     }));
   }
 }

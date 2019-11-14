@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/USL/CreateFile/createCoperationFile.dart';
 import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
 
 /// 协同组顶部漂亮cell
@@ -139,7 +140,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
   /// 创建一个新的协同组文章
   void createNewCoperationFile(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return EditorPage(null, this.coperationName, this.oldGroupInfoModel);
+      return CreateCoperationFile(this.oldGroupInfoModel);
     }));
 
   }

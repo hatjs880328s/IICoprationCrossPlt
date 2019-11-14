@@ -13,7 +13,8 @@ RealGitFileModel _$RealGitFileModelFromJson(Map<String, dynamic> json) {
       (json['time'] as num)?.toDouble(),
       json['img'] as String,
       json['title'] as String,
-      json['subtitle'] as String);
+      json['subtitle'] as String,
+      json['path'] as String);
 }
 
 Map<String, dynamic> _$RealGitFileModelToJson(RealGitFileModel instance) =>
@@ -23,5 +24,6 @@ Map<String, dynamic> _$RealGitFileModelToJson(RealGitFileModel instance) =>
       'img': instance.img,
       'title': instance.title,
       'subtitle': instance.subtitle,
-      'id': instance.id
+      'id': instance.id,
+      'path': instance.path
     };

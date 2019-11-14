@@ -29,7 +29,9 @@ class CoperationGroupBLL {
       groupid, 
       [userinfo.uid], 
       DateTime.now().millisecondsSinceEpoch.toDouble(), 
-      []);
+      [],
+      ""
+      );
 
     String contentInfo = json.encode(groupModel.toJson());
 

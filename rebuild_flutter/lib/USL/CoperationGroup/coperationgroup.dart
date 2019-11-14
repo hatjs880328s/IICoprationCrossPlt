@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperitiongroupcell.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
@@ -67,17 +68,17 @@ class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliv
 
   /// 创建协同组 - 然后请求最新数据
   Future<void> createGroup(String groupname) async {
-    CoperationGroupBLL bll = CoperationGroupBLL();
-    await bll.createGroup(groupname, null);
+    var infobll = GitFileProgressBLL();
+    await infobll.createFolder(false, groupname);
     this.getGroupinfo();
   }
 
   /// 获取协同组信息
   Future<void> getGroupinfo() async {
-    CoperationGroupBLL bll = CoperationGroupBLL();
-    List<FolderModel> list = await bll.getallGroups();
+    var filebll = GitFileProgressBLL();
+    var listsInfo = await filebll.getOneUsersAllFolders(false);
     setState(() {
-      this.list = list;
+      this.list = listsInfo;
     });
   }
 

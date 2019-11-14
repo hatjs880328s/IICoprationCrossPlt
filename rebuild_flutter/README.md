@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-10-12 17:30:56
- * @LastEditTime: 2019-11-13 14:12:55
+ * @LastEditTime: 2019-11-14 15:56:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /rebuild_flutter/README.md
@@ -14,6 +14,8 @@
 2 创建一个协同文档
 
 3.协同文档中的 摘要需要处理
+
+4.更新文档时，先删除|后添加，如果title没变，则直接更新
 
 # 已开发完成
 

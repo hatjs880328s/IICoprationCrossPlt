@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistfirstcell.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistforthcell.dart';
@@ -76,10 +77,10 @@ class CoperationFileListState extends State<CoperationFileList> {
 
   /// 获取协同组信息
   Future<void> getGroupinfo() async {
-    CoperationGroupBLL bll = CoperationGroupBLL();
-    CoperationGroupModel list = await bll.getGroups(widget.coperid);
+    var filebll = GitFileProgressBLL();
+    CoperationGroupModel result = await filebll.getOneFolderFileLists(false, widget.coperid);
     setState(() {
-      this.list = list;
+      this.list = result;
     });
   }
 }

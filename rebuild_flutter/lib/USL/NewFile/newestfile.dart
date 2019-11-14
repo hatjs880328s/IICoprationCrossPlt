@@ -4,6 +4,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
+import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/NewFile/filelistcell.dart';
@@ -32,11 +35,16 @@ class NewestFile extends StatefulWidget {
 
 class NewestFileState extends State<NewestFile>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  List<FolderModel> list = [];
+  List<RealGitFileModel> list = [];
+
+  CoperationGroupModel overinfo;
 
   AnimationController controller;
+
   Animation<double> animation;
+
   CurvedAnimation curve;
+
   bool isforward = false;
 
   NSNormalNotificationObserver observer = NSNormalNotificationObserver();
@@ -115,10 +123,8 @@ class NewestFileState extends State<NewestFile>
               return search;
             }
             return FileListCell(
-                title: list[i - 1].getTitleInfo(),
-                img: "",
-                time: list[i - 1].getCreateTime(),
-                path: list[i - 1].path);
+                this.overinfo,
+                list[i - 1]);
           },
         ),
       ),
@@ -128,12 +134,13 @@ class NewestFileState extends State<NewestFile>
   //
   // 获取最新数据
   void getSelfFolderList() async {
-    List<FolderModel> lists;
+    List<RealGitFileModel> lists;
     if (widget.isNewset) {
-      lists = await GitFolderBLL().getNewestInfosWithUserid();
+      overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, "最新");
     } else {
-      lists = await GitFolderBLL().getSomeoneFolderInfosWithUserid(widget.folderid);
+      overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, widget.folderid);
     }
+    lists = overinfo.files;
     list = lists;
     setState(() {
       list = lists;

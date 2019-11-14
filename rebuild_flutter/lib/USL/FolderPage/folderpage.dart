@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/GitFolderBLL/gitfolderbll.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
@@ -113,10 +114,10 @@ class FolderPageState extends State<FolderPage>
   }
 
   void loadData() async {
-    GitFolderBLL bll = GitFolderBLL();
-    List<FolderModel> models = await bll.getUserFolders();
+    var filebll = GitFileProgressBLL();
+    var infos = await filebll.getOneUsersAllFolders(true);
     setState(() {
-      this.folderlist = models;
+      this.folderlist = infos;
     });
   }
 

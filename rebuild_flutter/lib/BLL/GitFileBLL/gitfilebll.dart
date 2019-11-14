@@ -43,7 +43,9 @@ class GitFileBLL {
         subTitle == null
             ? content.substring(
                 0, content.length > 10 ? 10 : content.length - 1)
-            : subTitle);
+            : subTitle,
+        ""
+        );
     await dal.createFile(json.encode(realmodel.toJson()), uid,
         folderorgroupnames, iffolder, title);
 

@@ -11,13 +11,14 @@ part 'coperationgroupmodel.g.dart';
 @JsonSerializable()
 
 class CoperationGroupModel {
-  CoperationGroupModel(this.name, this.id, this.users, this.time, this.files);
+  CoperationGroupModel(this.name, this.id, this.users, this.time, this.files, this.path);
 
   String name;
   String id;
   List<String> users;
   double time;
   List<RealGitFileModel> files;
+  String path;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

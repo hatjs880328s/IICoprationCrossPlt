@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/BLL/LoginBll/loginbll.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSShare/nsahresdk.dart';
 
@@ -226,6 +227,7 @@ class LoginPageState extends State<LoginPage> {
   void getUserInfoWithThirdPlt(String plt) {
     LoginBll().loginwithThirdPlt(plt, (){
       //登陆成功
+      
       this.goMainpage();
     });
   }
@@ -240,6 +242,7 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void goMainpage() {
+    GitFileProgressBLL().createFolder(true, "最新");
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return MaintabBar();
     }));

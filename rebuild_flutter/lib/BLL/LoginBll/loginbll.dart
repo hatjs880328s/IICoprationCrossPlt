@@ -52,6 +52,7 @@ class LoginBll {
         codeaction(null);
       } else {
         //发送成功
+        Fluttertoast.showToast(msg: '发送成功！', gravity: ToastGravity.CENTER);
         codeaction(code);
       }
     });

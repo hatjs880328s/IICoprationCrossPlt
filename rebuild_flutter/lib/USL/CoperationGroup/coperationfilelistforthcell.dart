@@ -6,6 +6,7 @@ import 'package:rebuild_flutter/BLL/CoperationGroupBLL/coperationgroupbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/CreateFile/editorpage.dart';
+import 'package:rebuild_flutter/USL/CreateFile/updateFile.dart';
 
 /// 文章列表
 class CoperationFileListForthCell extends StatelessWidget {
@@ -119,7 +120,6 @@ class CoperationFileListForthCell extends StatelessWidget {
             ],
           ),
           onTap: () {
-            print("halo,wolrd");
             this.jump2EditorPage(context, i);
           },
           )
@@ -131,9 +131,9 @@ class CoperationFileListForthCell extends StatelessWidget {
 
   /// 跳转到编辑页面
   Future jump2EditorPage(BuildContext context, int idx) async {
-    String path = await CoperationGroupBLL().getFilePath(this.oldModel, this.lists[idx].title);
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return EditorPage(path, "", this.oldModel);
+      var page = UpdateFile(this.oldModel, this.lists[idx], false);
+      return page;
     }));
   }
 }
