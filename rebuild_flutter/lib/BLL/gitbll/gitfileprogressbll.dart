@@ -142,10 +142,15 @@ class GitFileProgressBLL {
     RealGitFileModel oldFileModel,
     CoperationGroupModel oldfolderInfo
   ) async {
-    // 0.获取用户id
+    var titleIsChange = oldFileModel.title != fileTitle;
+    // 0.获取用户id * 获取网络旧model的sha值PATH值
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
     String uemail = "451145552@qq.com";
+    Map oldItemMaps = await this.dal.getFileInfo(oldFileModel.path);
+    FolderModel netOldModel = this.createFolderModel(oldItemMaps);
+    String sha = netOldModel.sha;
+    String oldPath = netOldModel.path;
     // 1.更新这个新的itemmodel
     var newItem = oldFileModel;
     newItem.title = fileTitle;
@@ -156,10 +161,13 @@ class GitFileProgressBLL {
     newItem.time = DateTime.now().millisecondsSinceEpoch.toDouble();
     // 2.base64编码新的model 【RealGitFileModel】,并获取sha值
     String base64realContent = base64Encode(utf8.encode(json.encode(newItem.toJson())));
-    FolderModel netModel = this.createFolderModel(await this.dal.getFileInfo(newItem.path));
-    String sha = netModel.sha;
     // 3.通过dal更新此文件 [这里应该是删除，新建]
-    this.dal.updateFile(newItem.path, base64realContent, uid, uemail, sha);
+    if (titleIsChange) {
+      await this.dal.deleteOneFile(oldPath, sha, uid, uemail);
+      await this.dal.createFile(newItem.path, base64realContent, uid, uemail);
+    } else {
+      await this.dal.updateFile(newItem.path, base64realContent, uid, uemail, sha);
+    }
     // 4.更新folderinfo信息[根据id替换掉原来的files数组中数据即可]
     CoperationGroupModel newFolderModel = oldfolderInfo;
     newItem.content = "";

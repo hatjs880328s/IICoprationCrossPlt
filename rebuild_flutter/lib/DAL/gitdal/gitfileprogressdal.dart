@@ -7,7 +7,7 @@
  * 
  * 3.文件内容获取 ✅
  * 
- * 4.文件删除 ✘
+ * 4.文件删除 ✅
  */
 import 'dart:core';
 import 'package:dio/dio.dart';
@@ -82,6 +82,36 @@ class GitFileProgressDAL {
     } on Exception {
       _alertError();
       return {};
+    }
+  }
+
+  /// 根据path sha，删除一个文件
+  Future<void> deleteOneFile(
+    String path, 
+    String sha, 
+    String creatorName,
+    String creatorEmail
+    ) async {
+
+    try {
+      FileGitCommitSmallModel smallModel =
+          FileGitCommitSmallModel(creatorName, creatorEmail);
+      FileGitCommitModel model = FileGitCommitModel(
+          creatorName + "update.", "", smallModel, sha);
+      String url = APIStruct.gitAPINormalURL + path;
+      Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
+      headers["content-type"] = headerContentType;
+      Map<String, dynamic> params = model.toJson();
+      params.remove("content");
+      Response res = await NSHTTP.startRequest(
+          NSHTTPRequestType.DELETE, url, headers, params);
+      if (res.data != null) {
+        return true;
+      }
+      return false;
+    } on Exception {
+      _alertError();
+      return false;
     }
   }
 }

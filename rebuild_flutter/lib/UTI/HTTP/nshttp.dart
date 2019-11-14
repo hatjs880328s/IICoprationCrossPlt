@@ -54,6 +54,13 @@ class NSHTTP {
               receiveTimeout: 30);
           return manager.put(url, data: params, options: opt);
           break;
+        case NSHTTPRequestType.DELETE:
+          Options opt = Options(
+              method: "delete",
+              headers: header,
+              receiveTimeout: 30);
+          return manager.delete(url, data: params, options: opt);
+          break;
         default:
           return null;
           break;
