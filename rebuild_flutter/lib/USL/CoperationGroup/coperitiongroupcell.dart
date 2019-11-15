@@ -47,15 +47,7 @@ class CoperitionGroupCell extends StatelessWidget {
                                   fontSize: 17,
                                   color: Colors.black,
                                   fontFamily: NSNormalConfig.fontFamily)),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text(this.file.getCreateTime(),
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                  fontFamily: NSNormalConfig.fontFamily)),
-                        ),
+                        ),                      
                         Container(
                           padding: EdgeInsets.only(top: 8),
                           child: Text("文件数目: ${this.file.files.length}",
@@ -67,6 +59,14 @@ class CoperitionGroupCell extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.only(top: 8),
                           child: Text("成员人数: ${this.file.users.length}",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                  fontFamily: NSNormalConfig.fontFamily)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 8),
+                          child: Text(this.file.getCreateTime(),
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,

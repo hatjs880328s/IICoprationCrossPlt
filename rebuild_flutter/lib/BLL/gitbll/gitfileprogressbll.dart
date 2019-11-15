@@ -90,6 +90,10 @@ class GitFileProgressBLL {
     newFolderModel.files.add(newFileModel);
     // 6.通过当前bll更新folderinfo信息
     await this.updateOneFolder(newFolderModel);
+    // 7.如果是协同文件，需要更新gen-folder
+    if (!isNormalFolder) {
+      await this.createGenFolderInfo(isNormalFolder, newFolderModel);
+    }
     Fluttertoast.showToast(
       msg: "创建成功",
     );
@@ -193,7 +197,7 @@ class GitFileProgressBLL {
       await this
           .dal
           .updateFile(newItem.path, base64realContent, uid, uemail, sha);
-      // 1.获取此文件的path生成db的id值
+      // a.更新db
       var content = Utf8Encoder().convert(newItem.path);
       var digest = md5.convert(content);
       String md5Str = hex.encode(digest.bytes);
@@ -347,10 +351,15 @@ class GitFileProgressBLL {
     var oldGenModel = await this.analyzeISExistGenFolderInfo(isnormalfolder);
     if (oldGenModel != null) {
       // 更新
-      // 1.将文件夹转为filemodel
-      // 2.构造gen folderinfo(将文件添加进去)
+      // 0.构造gen folderinfo(将文件添加进去)
+      for (var item in oldGenModel.dirs) {
+        if (item.id == folderModel.id) {
+          oldGenModel.dirs.remove(item);
+          break;
+        }
+      }
       oldGenModel.dirs.add(folderModel);
-      // 3.获取sha
+      // 1.获取sha
       await this.updateOneFolder(oldGenModel);
     } else {
       // 新建
