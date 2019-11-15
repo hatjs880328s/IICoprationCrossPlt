@@ -1,12 +1,8 @@
-import 'dart:wasm';
-import 'package:path/path.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/material.dart';
-import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/CreateFile/updateFile.dart';
-import 'package:rebuild_flutter/USL/DetailPage/detailpage.dart';
 
 class FileListCell extends StatelessWidget {
 
