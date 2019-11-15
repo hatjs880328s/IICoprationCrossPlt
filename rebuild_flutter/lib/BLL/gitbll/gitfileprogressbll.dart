@@ -25,7 +25,6 @@ import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
-import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:uuid/uuid.dart';
@@ -68,14 +67,14 @@ class GitFileProgressBLL {
     String base64realContent =
         base64Encode(utf8.encode(json.encode(fileModel.toJson())));
     // 3.通过dal创建此文件
-    this.dal.createFile(path, base64realContent, uid, uemail);
+    await this.dal.createFile(path, base64realContent, uid, uemail);
     // 5.更新folderinfo信息
     CoperationGroupModel newFolderModel = folderInfo;
     RealGitFileModel newFileModel = fileModel;
     newFileModel.content = "";
     newFolderModel.files.add(newFileModel);
     // 6.通过当前bll更新folderinfo信息
-    this.updateOneFolder(newFolderModel);
+    await this.updateOneFolder(newFolderModel);
   }
 
   /// 创建具体文件的path - 用户id, 文件夹name， 文件name, 普通文件夹|协同文件夹
@@ -321,8 +320,6 @@ class GitFileProgressBLL {
     var oldGenModel = await this.analyzeISExistGenFolderInfo(isnormalfolder);
     if (oldGenModel != null) {
       // 更新
-      // 0.获取path
-      var path = this.createGenFolderInfoPath(isnormalfolder, userinfo.uid);
       // 1.将文件夹转为filemodel
       // 2.构造gen folderinfo(将文件添加进去)
       oldGenModel.dirs.add(folderModel);
