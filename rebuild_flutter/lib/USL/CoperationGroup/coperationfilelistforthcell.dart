@@ -94,7 +94,7 @@ class CoperationFileListForthCell extends StatelessWidget {
               Container(
                 padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
                 child: Text(
-                  this.lists[i].subtitle,
+                  this.lists[i].subtitle.replaceAll("\n", ""),
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       color: Colors.black87, fontSize: 15, height: 1.7),
