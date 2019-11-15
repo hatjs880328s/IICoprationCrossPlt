@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/UTI/NSNotificationCenter/nsnotificationcenter.dart';
 import 'package:zefyr/zefyr.dart';
 
 /// doc: https://github.com/memspace/zefyr/blob/master/doc/quick-start.md
@@ -84,9 +85,8 @@ class CreatNewestFileState extends State<CreatNewestFile> {
     var bll = GitFileProgressBLL();
     try {
       await bll.createNewestFolderFile(contents, title, subTtitle);
-      Fluttertoast.showToast(
-        msg: "创建成功",
-      );
+      NSNotificationCenter.getInstance().postNotification(
+        NSNormalNotificationObserver().notificationKey, {"result": true});
     } on Exception {
       
     }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/UTI/NSNotificationCenter/nsnotificationcenter.dart';
 import 'package:zefyr/zefyr.dart';
 
 /// doc: https://github.com/memspace/zefyr/blob/master/doc/quick-start.md
@@ -88,13 +89,8 @@ class CreateCoperationFileState extends State<CreateCoperationFile> {
     String subTtitle = plainTxt.length > 10 ? plainTxt.substring(0, 9) : plainTxt;
     String title = this.fieldCon.text;
     var bll = GitFileProgressBLL();
-    try {
-      await bll.createFile(false, widget.oldGroupInfo, contents, title, subTtitle);
-      Fluttertoast.showToast(
-        msg: "创建成功",
-      );
-    } on Exception {
-      
-    }
+    await bll.createFile(false, widget.oldGroupInfo, contents, title, subTtitle);
+    NSNotificationCenter.getInstance().postNotification(
+        NSNormalNotificationObserver().notificationKey, {"result": true});
   }
 }

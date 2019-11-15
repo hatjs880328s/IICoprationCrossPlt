@@ -21,6 +21,7 @@
  
  */
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
@@ -32,6 +33,7 @@ import 'package:convert/src/hex.dart';
 import 'package:crypto/crypto.dart';
 
 class GitFileProgressBLL {
+
   /// net - dal
   GitFileProgressDAL dal = GitFileProgressDAL();
 
@@ -49,6 +51,16 @@ class GitFileProgressBLL {
   /// 是否是普通文件夹下的文件： isNormalFolder
   Future<void> createFile(bool isNormalFolder, CoperationGroupModel folderInfo,
       String fileContent, String fileTitle, String fileSubtitle) async {
+    // 0.识别是否有重名的
+    for (int i = 0 ; i < folderInfo.files.length ; i++) {
+      if (folderInfo.files[i].title == fileTitle) {
+        Fluttertoast.showToast(
+          msg: "请修改名字，目前有此名字的文件",
+          gravity: ToastGravity.CENTER,
+        );
+        return;
+      }
+    }
     // 1.获取用户id - 创建path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
@@ -78,6 +90,9 @@ class GitFileProgressBLL {
     newFolderModel.files.add(newFileModel);
     // 6.通过当前bll更新folderinfo信息
     await this.updateOneFolder(newFolderModel);
+    Fluttertoast.showToast(
+      msg: "创建成功",
+    );
   }
 
   /// 创建具体文件的path - 用户id, 文件夹name， 文件name, 普通文件夹|协同文件夹
@@ -205,7 +220,7 @@ class GitFileProgressBLL {
     String uemail = "451145552@qq.com";
     String base64realFolderContent =
         base64Encode(utf8.encode(json.encode(newFolderinfo.toJson())));
-    this.dal.updateFile(
+    await this.dal.updateFile(
         newFolderinfo.path, base64realFolderContent, uid, uemail, folderSha);
   }
 
@@ -348,7 +363,7 @@ class GitFileProgressBLL {
       String base64realFolderContent =
           base64Encode(utf8.encode(json.encode(genModel.toJson())));
       // 3.创建之
-      this.dal.createFile(
+      await this.dal.createFile(
           path, base64realFolderContent, userinfo.uid, "451145552@qq.com");
     }
   }
