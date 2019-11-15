@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
-import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperitiongroupcell.dart';
-import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
-import 'package:rebuild_flutter/UTI/NSNotificationCenter/nsnotificationcenter.dart';
 
 class CoperationGroup extends StatefulWidget {
   @override 
@@ -15,7 +13,7 @@ class CoperationGroup extends StatefulWidget {
 
 class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin{
 
-  List<FolderModel> list = [];
+  List<RealGitFileModel> list = [];
 
   @override
   void initState() {
@@ -77,7 +75,7 @@ class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliv
     var filebll = GitFileProgressBLL();
     var listsInfo = await filebll.getOneUsersAllFolders(false);
     setState(() {
-      this.list = listsInfo;
+      this.list = listsInfo.files;
     });
   }
 

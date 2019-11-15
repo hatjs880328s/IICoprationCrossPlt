@@ -5,6 +5,7 @@
 1.创建一个文件（创建文件的同时，更新文件夹下的folderinfo） ✅
 
 2.创建一个文件夹（普通|协同组）(创建文件夹的同时，创建下面的folerinfo) ✅
+2'.创建文件夹的同时需要更新文件夹根目录的folderinfo
 
 3.更新一个文件（同时更新文件夹下的folderinfo）✅
 
@@ -24,6 +25,7 @@ import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:uuid/uuid.dart';
@@ -31,7 +33,6 @@ import 'package:convert/src/hex.dart';
 import 'package:crypto/crypto.dart';
 
 class GitFileProgressBLL {
-
   /// net - dal
   GitFileProgressDAL dal = GitFileProgressDAL();
 
@@ -41,35 +42,31 @@ class GitFileProgressBLL {
   /// 文件夹自动生成的文件名字
   String defaultFolderFileName = "GroupInfoFile";
 
-  /// 创建一个文件 
-  /// 文件名称 fileName, 
-  /// 文件夹model: folderInfo , 
-  /// 内容： fileContent, 
-  /// 标题： fileTitle , 
+  /// 创建一个文件
+  /// 文件名称 fileName,
+  /// 文件夹model: folderInfo ,
+  /// 内容： fileContent,
+  /// 标题： fileTitle ,
   /// 是否是普通文件夹下的文件： isNormalFolder
-  Future<void> createFile(
-    bool isNormalFolder,
-    CoperationGroupModel folderInfo, 
-    String fileContent, 
-    String fileTitle, 
-    String fileSubtitle) async {
-
+  Future<void> createFile(bool isNormalFolder, CoperationGroupModel folderInfo,
+      String fileContent, String fileTitle, String fileSubtitle) async {
     // 1.获取用户id - 创建path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
     String uemail = "451145552@qq.com";
-    String path = this.createPath(fileTitle, folderInfo.name, uid, isNormalFolder);
+    String path =
+        this.createPath(fileTitle, folderInfo.name, uid, isNormalFolder);
     // 2.构造提交作为内容的model并base64编码 【RealGitFileModel】
     RealGitFileModel fileModel = RealGitFileModel(
         new Uuid().v1(),
         fileContent,
         DateTime.now().millisecondsSinceEpoch.toDouble(),
-        "",// img ignore
+        "", // img ignore
         fileTitle,
         fileSubtitle,
-        path
-        );
-    String base64realContent = base64Encode(utf8.encode(json.encode(fileModel.toJson())));
+        path);
+    String base64realContent =
+        base64Encode(utf8.encode(json.encode(fileModel.toJson())));
     // 3.通过dal创建此文件
     this.dal.createFile(path, base64realContent, uid, uemail);
     // 5.更新folderinfo信息
@@ -82,7 +79,8 @@ class GitFileProgressBLL {
   }
 
   /// 创建具体文件的path - 用户id, 文件夹name， 文件name, 普通文件夹|协同文件夹
-  String createPath(String fileName, String folderName, String uid, bool isnormalFolder) {
+  String createPath(
+      String fileName, String folderName, String uid, bool isnormalFolder) {
     String normalFolder = "Folders";
     String coperationFolder = "Groups";
     if (isnormalFolder) {
@@ -95,10 +93,7 @@ class GitFileProgressBLL {
   }
 
   /// 创建folder -path - 用户id, 文件夹name, 普通文件夹|协同文件夹
-  String createFolderPath(
-    String folderName, 
-    String uid, 
-    bool isnormalFolder) {
+  String createFolderPath(String folderName, String uid, bool isnormalFolder) {
     String normalFolder = "Folders";
     String coperationFolder = "Groups";
     if (isnormalFolder) {
@@ -110,45 +105,43 @@ class GitFileProgressBLL {
     }
   }
 
-
   /// 根据api接口返回的model - 创建一个git 信息model,包含sha,包含业务model信息
   FolderModel createFolderModel(Map maps) {
     return FolderModel.fromJson(maps);
   }
 
   /// 创建一个文件夹 普通|协同 (创建一个包含在此文件夹下的文件而已) [如果重名这里会失败]
-  Future<void> createFolder(
-    bool isnormalFolder, 
-    String folderName) async {
+  Future<void> createFolder(bool isnormalFolder, String folderName) async {
     // 0.处理文件path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
     String uemail = "451145552@qq.com";
-    String path = this.createPath(defaultFolderFileName, folderName, uid, isnormalFolder);
+    String path =
+        this.createPath(defaultFolderFileName, folderName, uid, isnormalFolder);
     // 1.初始化一个文件夹model CoperationGroupModel
     CoperationGroupModel groupModel = new CoperationGroupModel(
-      folderName, 
-      Uuid().v1(), 
-      [uid], 
-      DateTime.now().millisecondsSinceEpoch.toDouble(), 
-      [],
-      path
-      );
+        folderName,
+        Uuid().v1(),
+        [uid],
+        DateTime.now().millisecondsSinceEpoch.toDouble(),
+        [],
+        path);
     // 2.dal创建文件夹
     String contentInfo = json.encode(groupModel.toJson());
     String realContent = base64Encode(utf8.encode(contentInfo));
     this.dal.createFile(path, realContent, uid, uemail);
+    // 3.创建 | 更新 gen 文件
+    this.createGenFolderInfo(isnormalFolder, groupModel);
   }
 
   /// 更新一个文件（还需要更新所在文件夹下的folderinfo文件）
   Future<void> updateOneFile(
-    bool isNormalFolder,
-    String fileContent, 
-    String fileTitle, 
-    String fileSubtitle,
-    RealGitFileModel oldFileModel,
-    CoperationGroupModel oldfolderInfo
-  ) async {
+      bool isNormalFolder,
+      String fileContent,
+      String fileTitle,
+      String fileSubtitle,
+      RealGitFileModel oldFileModel,
+      CoperationGroupModel oldfolderInfo) async {
     var titleIsChange = oldFileModel.title != fileTitle;
     // 0.获取用户id * 获取网络旧model的sha值PATH值
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
@@ -163,22 +156,26 @@ class GitFileProgressBLL {
     newItem.title = fileTitle;
     newItem.subtitle = fileSubtitle;
     newItem.content = fileContent;
-    var path = this.createPath(fileTitle, oldfolderInfo.name, uid, isNormalFolder);
+    var path =
+        this.createPath(fileTitle, oldfolderInfo.name, uid, isNormalFolder);
     newItem.path = path;
     newItem.time = DateTime.now().millisecondsSinceEpoch.toDouble();
     // 2.base64编码新的model 【RealGitFileModel】,并获取sha值
-    String base64realContent = base64Encode(utf8.encode(json.encode(newItem.toJson())));
+    String base64realContent =
+        base64Encode(utf8.encode(json.encode(newItem.toJson())));
     // 3.通过dal更新此文件 [这里应该是删除，新建]
     if (titleIsChange) {
       await this.dal.deleteOneFile(oldPath, sha, uid, uemail);
       await this.dal.createFile(newItem.path, base64realContent, uid, uemail);
     } else {
-      await this.dal.updateFile(newItem.path, base64realContent, uid, uemail, sha);
+      await this
+          .dal
+          .updateFile(newItem.path, base64realContent, uid, uemail, sha);
     }
     // 4.更新folderinfo信息[根据id替换掉原来的files数组中数据即可]
     CoperationGroupModel newFolderModel = oldfolderInfo;
     newItem.content = "";
-    for (int i = 0 ; i < oldfolderInfo.files.length ; i++) {
+    for (int i = 0; i < oldfolderInfo.files.length; i++) {
       if (oldfolderInfo.files[i].id == newItem.id) {
         oldfolderInfo.files.removeAt(i);
         oldfolderInfo.files.add(newItem);
@@ -189,8 +186,8 @@ class GitFileProgressBLL {
     this.updateOneFolder(newFolderModel);
   }
 
-  /// 更新一个文件夹(更新这个文件夹下的folderinfo)  
-  Future<void> updateOneFolder( CoperationGroupModel newFolderinfo ) async {
+  /// 更新一个文件夹(更新这个文件夹下的folderinfo)
+  Future<void> updateOneFolder(CoperationGroupModel newFolderinfo) async {
     // 1.获取folderinfo的sha
     Map result = await this.dal.getFileInfo(newFolderinfo.path);
     FolderModel gitResultModel = this.createFolderModel(result);
@@ -199,8 +196,10 @@ class GitFileProgressBLL {
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
     String uemail = "451145552@qq.com";
-    String base64realFolderContent = base64Encode(utf8.encode(json.encode(newFolderinfo.toJson())));
-    this.dal.updateFile(newFolderinfo.path, base64realFolderContent, uid, uemail, folderSha);
+    String base64realFolderContent =
+        base64Encode(utf8.encode(json.encode(newFolderinfo.toJson())));
+    this.dal.updateFile(
+        newFolderinfo.path, base64realFolderContent, uid, uemail, folderSha);
   }
 
   /// 获取一个文件的信息(需要此文件的path信息)
@@ -233,29 +232,29 @@ class GitFileProgressBLL {
   }
 
   /// 获取此用户所有的普通文件夹|协同文件夹 列表
-  Future<List<FolderModel>> getOneUsersAllFolders(bool isNormalFolder) async {
+  Future<CoperationGroupModel> getOneUsersAllFolders(bool isNormalFolder) async {
     // 1.获取path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
-    String path = this.createFolderPath("", uid, isNormalFolder);
+    String genPath = this.createGenFolderInfoPath(isNormalFolder, uid);
     // 2.获取此path下的信息[由于是文件夹列表，response返回的是一个list]
-    List lists = await this.dal.getFileInfo(path);
-    List<FolderModel> result = [];
-    for (int i = 0 ; i < lists.length ; i++) {
-      FolderModel model = FolderModel.fromJson(lists[i]);
-      result.add(model);
-    }
-    return result;
+    Map maps = await this.dal.getFileInfo(genPath);
+    FolderModel newmodel = FolderModel.fromJson(maps);
+    var data = base64Decode(newmodel.content.replaceAll("\n", ""));
+    String contents = utf8.decode(data);
+    Map infos = json.decode(contents);
+    CoperationGroupModel realnewmodel = CoperationGroupModel.fromJson(infos);
+    return realnewmodel;
   }
 
   /// 获取一个文件夹下面的所有的文件信息（文件不含具体信息，但有摘要）
   Future<CoperationGroupModel> getOneFolderFileLists(
-    bool isNormalFolder, 
-    String folderName) async {
+      bool isNormalFolder, String folderName) async {
     // 1.获取path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
-    String folderRealPath = this.createPath(this.defaultFolderFileName, folderName, uid, isNormalFolder);
+    String folderRealPath = this.createPath(
+        this.defaultFolderFileName, folderName, uid, isNormalFolder);
     // 2.没有则从网络获取 [获取下来的首先是gitmodel -> content -> base64decode -> realgitfilemodel]
     Map item = await this.dal.getFileInfo(folderRealPath);
     FolderModel newmodel = FolderModel.fromJson(item);
@@ -273,9 +272,80 @@ class GitFileProgressBLL {
     String subTitle,
   ) async {
     // 1.获取最新文件夹
-    var itemName = "最新"; 
+    var itemName = "最新";
     var result = await this.getOneFolderFileLists(true, itemName);
     // 2.创建之
     await this.createFile(true, result, fileContent, title, subTitle);
+  }
+
+  /// 获取gen文件的path
+  String createGenFolderInfoPath(bool isnormalfolder, String uid) {
+    String normalFolder = "Folders";
+    String coperationFolder = "Groups";
+    if (isnormalfolder) {
+      //普通文件夹gen文件
+      return "$uid/$normalFolder/$defaultFolderFileName";
+    } else {
+      //协同文件夹gen文件
+      return "$uid/$coperationFolder/$defaultFolderFileName";
+    }
+  }
+
+  /// 判定是否存在gen文件信息 true: 存在
+  Future<CoperationGroupModel> analyzeISExistGenFolderInfo(
+      bool isNormalFolder) async {
+    var userinfo = await NSLoginGlobal.getInstance().getUserInfo();
+    var path = this.createGenFolderInfoPath(isNormalFolder, userinfo.uid);
+    Map exist = await this.dal.getFileInfo(path);
+    if (exist.keys.length == 0) {
+      return null;
+    } else {
+      FolderModel newmodel = FolderModel.fromJson(exist);
+      var data = base64Decode(newmodel.content.replaceAll("\n", ""));
+      String contents = utf8.decode(data);
+      Map infos = json.decode(contents);
+      CoperationGroupModel realnewmodel = CoperationGroupModel.fromJson(infos);
+      return realnewmodel;
+    }
+  }
+
+  /// 创建 * 更新  gen-folderinfo （创建某种文件夹的同时修改之）
+  Future<void> createGenFolderInfo(
+      bool isnormalfolder, CoperationGroupModel folderModel) async {
+    String normalFolder = "Folders";
+    String coperationFolder = "Groups";
+    var userinfo = await NSLoginGlobal.getInstance().getUserInfo();
+    var folderName = isnormalfolder ? normalFolder : coperationFolder;
+    var oldGenModel = await this.analyzeISExistGenFolderInfo(isnormalfolder);
+    if (oldGenModel != null) {
+      // 更新
+      // 0.获取path
+      var path = this.createGenFolderInfoPath(isnormalfolder, userinfo.uid);
+      // 1.将文件夹转为filemodel
+      var fileModel = folderModel.establishFileModel();
+      // 2.构造gen folderinfo(将文件添加进去)
+      oldGenModel.files.add(fileModel);
+      // 3.获取sha
+      await this.updateOneFolder(oldGenModel);
+    } else {
+      // 新建
+      // 0.获取path
+      var path = this.createGenFolderInfoPath(isnormalfolder, userinfo.uid);
+      // 1.将文件夹转为filemodel
+      var fileModel = folderModel.establishFileModel();
+      // 2.构造gen-folderinfo this.name, this.id, this.users, this.time, this.files, this.path
+      CoperationGroupModel genModel = CoperationGroupModel(
+          folderName,
+          Uuid().v1(),
+          [],
+          DateTime.now().millisecondsSinceEpoch.toDouble(),
+          [fileModel],
+          path);
+      String base64realFolderContent =
+          base64Encode(utf8.encode(json.encode(genModel.toJson())));
+      // 3.创建之
+      this.dal.createFile(
+          path, base64realFolderContent, userinfo.uid, "451145552@qq.com");
+    }
   }
 }

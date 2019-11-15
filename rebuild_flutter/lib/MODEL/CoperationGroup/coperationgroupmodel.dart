@@ -30,4 +30,21 @@ class CoperationGroupModel {
   /// helper method `_$UserToJson`.
   Map<String, dynamic> toJson() => _$CoperationGroupModelToJson(this);
 
+  /// 根据自身创建一个fileModel gen folder使用
+  RealGitFileModel establishFileModel() {
+
+    //RealGitFileModel(this.id, this.content, this.time, this.img, this.title, this.subtitle, this.path);
+    RealGitFileModel filemodel = RealGitFileModel(
+      this.id,
+      "",
+      this.time,
+      "",
+      this.name,
+      "",
+      this.path,
+    );
+
+    return filemodel;
+  }
+
 }

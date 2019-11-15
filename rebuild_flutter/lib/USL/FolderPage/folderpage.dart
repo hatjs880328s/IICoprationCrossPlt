@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
-import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
@@ -21,7 +21,7 @@ class FolderPage extends StatefulWidget {
 
 class FolderPageState extends State<FolderPage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  List<FolderModel> folderlist = [];
+  List<RealGitFileModel> folderlist = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -114,12 +114,12 @@ class FolderPageState extends State<FolderPage>
     var filebll = GitFileProgressBLL();
     var infos = await filebll.getOneUsersAllFolders(true);
     setState(() {
-      this.folderlist = infos;
+      this.folderlist = infos.files;
     });
   }
 
   void goFilelistPage(int idx) {
-    NewestFile page = NewestFile(false, folderlist[idx].name, folderlist[idx].name);
+    NewestFile page = NewestFile(false, folderlist[idx].title, folderlist[idx].title);
 
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return page;
