@@ -33,7 +33,7 @@ class FileListCell extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-            child: Text(this.itemmodel.subtitle, style: TextStyle(fontSize: 14, fontFamily: NSNormalConfig.fontFamily, color: Colors.grey)),
+            child: Text(nonEnterSubtitle(), style: TextStyle(fontSize: 14, fontFamily: NSNormalConfig.fontFamily, color: Colors.grey)),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -49,5 +49,11 @@ class FileListCell extends StatelessWidget {
       },
       ),
     );
+  }
+
+  /// 去掉结尾的换行
+  String nonEnterSubtitle() {
+    var result = this.itemmodel.subtitle.replaceAll("\n", "");
+    return result;
   }
 }
