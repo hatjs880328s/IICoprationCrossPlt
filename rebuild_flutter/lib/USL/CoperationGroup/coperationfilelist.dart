@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistfirstcell.dart';
@@ -76,9 +77,15 @@ class CoperationFileListState extends State<CoperationFileList> {
 
   /// 获取协同组信息
   Future<void> getGroupinfo() async {
+    Fluttertoast.showToast(
+      msg: "数据加载,请稍后.",
+      gravity: ToastGravity.CENTER,
+      backgroundColor: Colors.grey
+    );
     var filebll = GitFileProgressBLL();
     CoperationGroupModel result = await filebll.getOneFolderFileLists(false, widget.coperid);
     setState(() {
+      Fluttertoast.cancel();
       this.list = result;
     });
   }
