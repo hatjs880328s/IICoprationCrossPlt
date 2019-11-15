@@ -33,7 +33,6 @@ import 'package:convert/src/hex.dart';
 import 'package:crypto/crypto.dart';
 
 class GitFileProgressBLL {
-
   /// net - dal
   GitFileProgressDAL dal = GitFileProgressDAL();
 
@@ -52,7 +51,7 @@ class GitFileProgressBLL {
   Future<void> createFile(bool isNormalFolder, CoperationGroupModel folderInfo,
       String fileContent, String fileTitle, String fileSubtitle) async {
     // 0.识别是否有重名的
-    for (int i = 0 ; i < folderInfo.files.length ; i++) {
+    for (int i = 0; i < folderInfo.files.length; i++) {
       if (folderInfo.files[i].title == fileTitle) {
         Fluttertoast.showToast(
           msg: "请修改名字，目前有此名字的文件",
@@ -79,7 +78,8 @@ class GitFileProgressBLL {
     String base64realContent =
         base64Encode(utf8.encode(json.encode(fileModel.toJson())));
     // 3.通过dal创建此文件
-    bool createResult = await this.dal.createFile(path, base64realContent, uid, uemail);
+    bool createResult =
+        await this.dal.createFile(path, base64realContent, uid, uemail);
     if (!createResult) {
       return;
     }
@@ -143,12 +143,12 @@ class GitFileProgressBLL {
         DateTime.now().millisecondsSinceEpoch.toDouble(),
         [],
         path,
-        []
-        );
+        []);
     // 2.dal创建文件夹
     String contentInfo = json.encode(groupModel.toJson());
     String realContent = base64Encode(utf8.encode(contentInfo));
-    var createResult = await this.dal.createFile(path, realContent, uid, uemail);
+    var createResult =
+        await this.dal.createFile(path, realContent, uid, uemail);
     if (!createResult) {
       return;
     }
@@ -193,6 +193,11 @@ class GitFileProgressBLL {
       await this
           .dal
           .updateFile(newItem.path, base64realContent, uid, uemail, sha);
+      // 1.获取此文件的path生成db的id值
+      var content = Utf8Encoder().convert(newItem.path);
+      var digest = md5.convert(content);
+      String md5Str = hex.encode(digest.bytes);
+      await this.localDal.updateInfo(newItem, md5Str);
     }
     // 4.更新folderinfo信息[根据id替换掉原来的files数组中数据即可]
     CoperationGroupModel newFolderModel = oldfolderInfo;
@@ -254,7 +259,8 @@ class GitFileProgressBLL {
   }
 
   /// 获取此用户所有的普通文件夹|协同文件夹 列表
-  Future<CoperationGroupModel> getOneUsersAllFolders(bool isNormalFolder) async {
+  Future<CoperationGroupModel> getOneUsersAllFolders(
+      bool isNormalFolder) async {
     // 1.获取path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
@@ -358,8 +364,7 @@ class GitFileProgressBLL {
           DateTime.now().millisecondsSinceEpoch.toDouble(),
           [],
           path,
-          [folderModel]
-          );
+          [folderModel]);
       String base64realFolderContent =
           base64Encode(utf8.encode(json.encode(genModel.toJson())));
       // 3.创建之

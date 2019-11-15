@@ -48,9 +48,9 @@ class NewListLocalDAL {
   }
 
   /// 更新数据
-  Future<void> updateInfo(RealGitFileModel model) async {
+  Future<void> updateInfo(RealGitFileModel model, String id) async {
     await _openDB();
-    String sql = "update " + tabName + " set content = '${model.content}' where id = '${model.id}'";
+    String sql = "update " + tabName + " set content = '${model.content}' where id = '$id'";
     await db.rawUpdate(sql);
   }
 
