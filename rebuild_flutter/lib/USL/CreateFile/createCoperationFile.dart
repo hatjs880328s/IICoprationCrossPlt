@@ -75,7 +75,7 @@ class CreateCoperationFileState extends State<CreateCoperationFile> {
   }
 
   /// 发表文章
-  void _saveDocument(BuildContext context) {
+  Future<void> _saveDocument(BuildContext context) async {
     if (this.fieldCon.text.isEmpty) {
       Fluttertoast.showToast(
         msg: "标题不可为空",
@@ -89,7 +89,7 @@ class CreateCoperationFileState extends State<CreateCoperationFile> {
     String title = this.fieldCon.text;
     var bll = GitFileProgressBLL();
     try {
-      bll.createFile(false, widget.oldGroupInfo, contents, title, subTtitle);
+      await bll.createFile(false, widget.oldGroupInfo, contents, title, subTtitle);
       Fluttertoast.showToast(
         msg: "创建成功",
       );

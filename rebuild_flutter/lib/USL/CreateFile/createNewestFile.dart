@@ -69,7 +69,7 @@ class CreatNewestFileState extends State<CreatNewestFile> {
   }
 
   /// 发表文章
-  void _saveDocument(BuildContext context) {
+  Future<void> _saveDocument(BuildContext context) async {
     if (this.fieldCon.text.isEmpty) {
       Fluttertoast.showToast(
         msg: "标题不可为空",
@@ -83,7 +83,7 @@ class CreatNewestFileState extends State<CreatNewestFile> {
     String title = this.fieldCon.text;
     var bll = GitFileProgressBLL();
     try {
-      bll.createNewestFolderFile(contents, title, subTtitle);
+      await bll.createNewestFolderFile(contents, title, subTtitle);
       Fluttertoast.showToast(
         msg: "创建成功",
       );

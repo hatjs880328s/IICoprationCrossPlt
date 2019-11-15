@@ -83,7 +83,7 @@ class UpdateFileState extends State<UpdateFile> {
   }
 
   /// 发表文章
-  void _saveDocument(BuildContext context) {
+  Future<void> _saveDocument(BuildContext context) async {
     if (this.fieldCon.text.isEmpty) {
       Fluttertoast.showToast(
         msg: "标题不可为空",
@@ -96,7 +96,7 @@ class UpdateFileState extends State<UpdateFile> {
     String subTtitle = plainTxt.length > 10 ? plainTxt.substring(0, 9) : plainTxt;
     String title = this.fieldCon.text;
     var bll = GitFileProgressBLL();
-    bll.updateOneFile(widget.isNormalFolder, contents, title, subTtitle, widget.oldItemmodel, widget.oldGroupInfo);
+    await bll.updateOneFile(widget.isNormalFolder, contents, title, subTtitle, widget.oldItemmodel, widget.oldGroupInfo);
   }
 
   /// 加载数据，使用json数据源

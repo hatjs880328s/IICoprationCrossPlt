@@ -67,7 +67,10 @@ class GitFileProgressBLL {
     String base64realContent =
         base64Encode(utf8.encode(json.encode(fileModel.toJson())));
     // 3.通过dal创建此文件
-    await this.dal.createFile(path, base64realContent, uid, uemail);
+    bool createResult = await this.dal.createFile(path, base64realContent, uid, uemail);
+    if (!createResult) {
+      return;
+    }
     // 5.更新folderinfo信息
     CoperationGroupModel newFolderModel = folderInfo;
     RealGitFileModel newFileModel = fileModel;
@@ -130,9 +133,12 @@ class GitFileProgressBLL {
     // 2.dal创建文件夹
     String contentInfo = json.encode(groupModel.toJson());
     String realContent = base64Encode(utf8.encode(contentInfo));
-    this.dal.createFile(path, realContent, uid, uemail);
+    var createResult = await this.dal.createFile(path, realContent, uid, uemail);
+    if (!createResult) {
+      return;
+    }
     // 3.创建 | 更新 gen 文件
-    this.createGenFolderInfo(isnormalFolder, groupModel);
+    await this.createGenFolderInfo(isnormalFolder, groupModel);
   }
 
   /// 更新一个文件（还需要更新所在文件夹下的folderinfo文件）
@@ -184,7 +190,7 @@ class GitFileProgressBLL {
       }
     }
     // 5.通过当前bll更新folderinfo信息
-    this.updateOneFolder(newFolderModel);
+    await this.updateOneFolder(newFolderModel);
   }
 
   /// 更新一个文件夹(更新这个文件夹下的folderinfo)
