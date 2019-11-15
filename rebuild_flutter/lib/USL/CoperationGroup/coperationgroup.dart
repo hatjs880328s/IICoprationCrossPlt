@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
+import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperitiongroupcell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
@@ -13,7 +14,7 @@ class CoperationGroup extends StatefulWidget {
 
 class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin{
 
-  List<RealGitFileModel> list = [];
+  List<CoperationGroupModel> list = [];
 
   @override
   void initState() {
@@ -54,8 +55,7 @@ class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliv
                       backgroundColor: Colors.white,
                       valueColor: IIAnimationColor()));
             }
-            return CoperitionGroupCell(list[i].getTitleInfo(),
-                list[i].getCreateTime(), () {
+            return CoperitionGroupCell(list[i], () {
                 });
           },
         ),
@@ -75,7 +75,7 @@ class CoperationGroupState extends State<CoperationGroup> with AutomaticKeepAliv
     var filebll = GitFileProgressBLL();
     var listsInfo = await filebll.getOneUsersAllFolders(false);
     setState(() {
-      this.list = listsInfo.files;
+      this.list = listsInfo.dirs;
     });
   }
 

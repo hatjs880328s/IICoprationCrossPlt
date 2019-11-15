@@ -11,13 +11,14 @@ part 'coperationgroupmodel.g.dart';
 @JsonSerializable()
 
 class CoperationGroupModel {
-  CoperationGroupModel(this.name, this.id, this.users, this.time, this.files, this.path);
+  CoperationGroupModel(this.name, this.id, this.users, this.time, this.files, this.path, this.dirs);
 
   String name;
   String id;
   List<String> users;
   double time;
   List<RealGitFileModel> files;
+  List<CoperationGroupModel> dirs;
   String path;
 
   /// A necessary factory constructor for creating a new User instance
@@ -30,21 +31,9 @@ class CoperationGroupModel {
   /// helper method `_$UserToJson`.
   Map<String, dynamic> toJson() => _$CoperationGroupModelToJson(this);
 
-  /// 根据自身创建一个fileModel gen folder使用
-  RealGitFileModel establishFileModel() {
-
-    //RealGitFileModel(this.id, this.content, this.time, this.img, this.title, this.subtitle, this.path);
-    RealGitFileModel filemodel = RealGitFileModel(
-      this.id,
-      "",
-      this.time,
-      "",
-      this.name,
-      "",
-      this.path,
-    );
-
-    return filemodel;
+  String getCreateTime() {
+    var time = DateTime.fromMillisecondsSinceEpoch(this.time.toInt());
+    return "${time.year}.${time.month}.${time.day}";
   }
 
 }

@@ -125,7 +125,9 @@ class GitFileProgressBLL {
         [uid],
         DateTime.now().millisecondsSinceEpoch.toDouble(),
         [],
-        path);
+        path,
+        []
+        );
     // 2.dal创建文件夹
     String contentInfo = json.encode(groupModel.toJson());
     String realContent = base64Encode(utf8.encode(contentInfo));
@@ -322,25 +324,24 @@ class GitFileProgressBLL {
       // 0.获取path
       var path = this.createGenFolderInfoPath(isnormalfolder, userinfo.uid);
       // 1.将文件夹转为filemodel
-      var fileModel = folderModel.establishFileModel();
       // 2.构造gen folderinfo(将文件添加进去)
-      oldGenModel.files.add(fileModel);
+      oldGenModel.dirs.add(folderModel);
       // 3.获取sha
       await this.updateOneFolder(oldGenModel);
     } else {
       // 新建
       // 0.获取path
       var path = this.createGenFolderInfoPath(isnormalfolder, userinfo.uid);
-      // 1.将文件夹转为filemodel
-      var fileModel = folderModel.establishFileModel();
-      // 2.构造gen-folderinfo this.name, this.id, this.users, this.time, this.files, this.path
+      // 1.构造gen-folderinfo this.name, this.id, this.users, this.time, this.files, this.path
       CoperationGroupModel genModel = CoperationGroupModel(
           folderName,
           Uuid().v1(),
           [],
           DateTime.now().millisecondsSinceEpoch.toDouble(),
-          [fileModel],
-          path);
+          [],
+          path,
+          [folderModel]
+          );
       String base64realFolderContent =
           base64Encode(utf8.encode(json.encode(genModel.toJson())));
       // 3.创建之

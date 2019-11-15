@@ -17,7 +17,12 @@ CoperationGroupModel _$CoperationGroupModelFromJson(Map<String, dynamic> json) {
               ? null
               : RealGitFileModel.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      json['path'] as String);
+      json['path'] as String,
+      (json['dirs'] as List)
+          ?.map((e) => e == null
+              ? null
+              : CoperationGroupModel.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 Map<String, dynamic> _$CoperationGroupModelToJson(
@@ -28,5 +33,6 @@ Map<String, dynamic> _$CoperationGroupModelToJson(
       'users': instance.users,
       'time': instance.time,
       'files': instance.files,
+      'dirs': instance.dirs,
       'path': instance.path
     };
