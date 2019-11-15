@@ -49,14 +49,14 @@ class CoperitionGroupCell extends StatelessWidget {
                                   color: Colors.black,
                                   fontFamily: NSNormalConfig.fontFamily)),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text(time,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                  fontFamily: NSNormalConfig.fontFamily)),
-                        ),
+                        // Container(
+                        //   padding: EdgeInsets.only(top: 8),
+                        //   child: Text(time,
+                        //       style: TextStyle(
+                        //           fontSize: 14,
+                        //           color: Colors.grey,
+                        //           fontFamily: NSNormalConfig.fontFamily)),
+                        // ),
                         // Container(
                         //   padding: EdgeInsets.only(top: 8),
                         //   child: Text("文件数目: 6",

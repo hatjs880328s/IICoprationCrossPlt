@@ -19,13 +19,13 @@ class FolderPageCell extends StatelessWidget {
     return GestureDetector(
       onTap: () { action(); },
       child: Container(
-      height: 80,
+      height: 60,
       padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 4),
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: Row(
               children: <Widget>[
                 Icon(Icons.folder_open),
@@ -35,16 +35,16 @@ class FolderPageCell extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 4, 0, 3),
-            child: Row(
-              children: <Widget>[
-                Text(time,
-                    style: TextStyle(fontSize: 14, color: Colors.grey, fontFamily: NSNormalConfig.fontFamily),
-                    textAlign: TextAlign.start),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.fromLTRB(0, 4, 0, 3),
+          //   child: Row(
+          //     children: <Widget>[
+          //       Text(time,
+          //           style: TextStyle(fontSize: 13, color: Colors.grey, fontFamily: NSNormalConfig.fontFamily),
+          //           textAlign: TextAlign.start),
+          //     ],
+          //   ),
+          // ),
           Divider(height: 1, color: Colors.black12, endIndent: 0),
         ],
       ),

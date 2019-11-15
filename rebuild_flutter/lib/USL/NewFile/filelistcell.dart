@@ -32,8 +32,12 @@ class FileListCell extends StatelessWidget {
             child: Text(this.itemmodel.title, style: TextStyle(fontSize: 17, fontFamily: NSNormalConfig.fontFamily)),
           ),
           Container(
+            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+            child: Text(this.itemmodel.subtitle, style: TextStyle(fontSize: 14, fontFamily: NSNormalConfig.fontFamily, color: Colors.grey)),
+          ),
+          Container(
             padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Text(this.itemmodel.getCreateTime(), style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400, fontFamily: NSNormalConfig.fontFamily)),
+            child: Text(this.itemmodel.getCreateTime(), style: TextStyle(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w400, fontFamily: NSNormalConfig.fontFamily)),
           ),
           Divider(height: 1, color: Colors.black12, endIndent: 0),
         ],

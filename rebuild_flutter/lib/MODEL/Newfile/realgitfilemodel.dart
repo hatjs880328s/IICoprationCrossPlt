@@ -37,13 +37,7 @@ class RealGitFileModel {
 
   // 获取日期格式化信息
   String getCreateTime() {
-    int lastTime = this.title.split("EXEOF").length;
-    if (lastTime == 1) {
-      DateTime time = DateTime.now();
-      return "${time.year}年${time.month}月${time.day}日";
-    }
-    int millSec = int.parse(this.title.split("EXEOF").last.toString());
-    DateTime time = DateTime.fromMillisecondsSinceEpoch(millSec);
-    return "${time.year}年${time.month}月${time.day}日";
+    var timeStr = DateTime.fromMillisecondsSinceEpoch(this.time.toInt());
+    return "${timeStr.year}年${timeStr.month}月${timeStr.day}日";
   }
 }
