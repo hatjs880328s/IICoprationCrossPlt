@@ -27,14 +27,7 @@ class PersoncenterCenterList extends StatelessWidget {
                   children: <Widget>[
                     Icon(Icons.cake),
                     SizedBox(width: 15),
-                    Text(eachitem, style: TextStyle(fontSize: 18)),
-                    Stack(
-                      children: <Widget>[
-                        Positioned(
-                          child: Icon(Icons.arrow_forward)
-                        )
-                      ],
-                    )
+                    Text(eachitem, style: TextStyle(fontSize: 18)), 
                   ],
                 ),
                 SizedBox(height: 30),
