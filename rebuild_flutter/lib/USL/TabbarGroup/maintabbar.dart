@@ -2,6 +2,7 @@ import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroup.dart';
 import 'package:rebuild_flutter/USL/CreateFile/createNewestFile.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
+import 'package:rebuild_flutter/USL/PersonCenter/personcenter.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabitem.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionsheet.dart';
@@ -29,7 +30,7 @@ class MaintabBarState extends State<MaintabBar> {
     NewestFile(true, "最新", ""),
     FolderPage(),
     CoperationGroup(),
-    LoginPage()
+    PersonCenter()
   ];
 
   @override
