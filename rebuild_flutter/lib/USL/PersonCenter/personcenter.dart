@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
+import 'package:rebuild_flutter/USL/PersonCenter/personcentercenterlist.dart';
 import 'package:rebuild_flutter/USL/PersonCenter/personcenterheader.dart';
 
 /// 个人中心页面
@@ -26,6 +27,7 @@ class PersonCenterStata extends State<PersonCenter> {
       body: ListView(
         children: <Widget>[
           PersonCenterHeader(this.userinfo),
+          PersoncenterCenterList(),
         ],
       ),
     );

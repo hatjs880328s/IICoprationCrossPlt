@@ -84,9 +84,16 @@ class PersonCenterHeader extends StatelessWidget {
                   width: (MediaQuery.of(context).size.width - 32) / 2,
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        '购买会员',
-                        style: TextStyle(fontSize: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.cake),
+                          SizedBox(width: 8),
+                          Text(
+                            '购买会员',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 8),
                       Text(
@@ -102,9 +109,16 @@ class PersonCenterHeader extends StatelessWidget {
                   width: (MediaQuery.of(context).size.width - 32) / 2,
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        '签到',
-                        style: TextStyle(fontSize: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.videocam),
+                          SizedBox(width: 8),
+                          Text(
+                            '签到',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 8),
                       Text(
@@ -115,14 +129,11 @@ class PersonCenterHeader extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: (MediaQuery.of(context).size.width - 32) / 2 - 0.5,
-                  top: 15,
-                  bottom: 15,
-                  width: 1,
-                  child: Container(
-                    color: Colors.black12
-                  )
-                ),
+                    left: (MediaQuery.of(context).size.width - 32) / 2 - 0.5,
+                    top: 15,
+                    bottom: 15,
+                    width: 1,
+                    child: Container(color: Colors.black12)),
               ],
             ))
       ],
