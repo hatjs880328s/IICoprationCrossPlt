@@ -75,6 +75,12 @@ class LoginBll {
     return await NSLoginGlobal.getInstance().getUserInfo();
   }
 
+  /// 删除用户信息
+  Future<bool> deleteUserInfo() async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     return await prefs.remove(this.userInfoKey);
+  }
+
   /*
    * 将email转为用户model
    */

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rebuild_flutter/BLL/LoginBll/loginbll.dart';
+import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 
 /// 个人中心底部的退出登录按钮
 class PersoncenterBottom extends StatelessWidget {
@@ -18,7 +21,7 @@ class PersoncenterBottom extends StatelessWidget {
               child: Text('退出登录',
                   style: TextStyle(color: Colors.red, fontSize: 16)),
               onTap: () {
-                
+                this.logout(context);
               },
             )),
         SizedBox(
@@ -26,5 +29,19 @@ class PersoncenterBottom extends StatelessWidget {
         )
       ],
     );
+  }
+
+  /// 退出登录
+  Future<void> logout(BuildContext context) async {
+    var result = await LoginBll().deleteUserInfo();
+    if (result) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return LoginPage();
+      }));
+    } else {
+      Fluttertoast.showToast(
+        msg: "退出登录，请稍候再试."
+      );
+    }
   }
 }

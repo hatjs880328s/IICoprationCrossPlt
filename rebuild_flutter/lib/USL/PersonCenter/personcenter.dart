@@ -18,7 +18,6 @@ class PersonCenterStata extends State<PersonCenter> {
   NSLoginModel userinfo;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     this.getUserinfo();
   }
