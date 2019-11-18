@@ -12,4 +12,7 @@ class NSNormalConfig {
 
   /// 列表背景灰色
   static Color listCellBgColor = Color.fromRGBO(240, 238, 238, 1);
+
+  /// 主题色
+  static Color themeColor = Colors.blue;
 }

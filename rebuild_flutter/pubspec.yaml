@@ -39,6 +39,7 @@ flutter:
     - images/login_weixin.png
     - images/login_weibo.png
     - images/login_qq.png
+    - images/personcenter_arrow_right.png
 
     - images/main_tab_bookstore.png
     - images/2.0x/main_tab_bookstore.png

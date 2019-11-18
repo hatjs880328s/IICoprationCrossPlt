@@ -21,55 +21,90 @@ class PersoncenterCenterList extends StatelessWidget {
       if (this.datasource[0].last == eachitem) {
         var eachWidget = Container(
             padding: EdgeInsets.all(17),
-            child: Column(
+            child: Stack(
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(Icons.cake),
-                    SizedBox(width: 15),
-                    Text(eachitem, style: TextStyle(fontSize: 18)), 
-                  ],
+                Positioned(
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.cake),
+                          SizedBox(width: 15),
+                          Text(eachitem, style: TextStyle(fontSize: 18)),
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                      Divider(
+                          height: 1,
+                          color: Colors.grey,
+                          endIndent: 0,
+                          indent: 0)
+                    ],
+                  ),
                 ),
-                SizedBox(height: 30),
-                Divider(
-                    height: 1,
-                    color: Colors.grey,
-                    endIndent: 0,
-                    indent: 0)
+                Positioned(
+                  right: 9,
+                  child: Image(
+                  image: AssetImage('images/personcenter_arrow_right.png'),
+                  width: 20,
+                  height: 20
+                ),
+                )
               ],
             ));
         result.add(eachWidget);
       } else {
         var eachWidget = Container(
-            padding: EdgeInsets.all(17),
-            child: Column(
-              children: <Widget>[
-                Row(
+          padding: EdgeInsets.all(17),
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                child: Row(
                   children: <Widget>[
                     Icon(Icons.cake),
                     SizedBox(width: 15),
                     Text(eachitem, style: TextStyle(fontSize: 18)),
                   ],
                 ),
-              ],
-            ));
+              ),
+              Positioned(
+                right: 9,
+                child: Image(
+                  image: AssetImage('images/personcenter_arrow_right.png'),
+                  width: 20,
+                  height: 20
+                ),
+              )
+            ],
+          ),
+        );
         result.add(eachWidget);
       }
     }
     for (String eachitem in this.datasource[1]) {
       var eachWidget = Container(
         padding: EdgeInsets.all(17),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(Icons.cake),
-                SizedBox(width: 15),
-                Text(eachitem, style: TextStyle(fontSize: 18)),
-              ],
-            ),
-          ],
-        ),
+        child: Stack(
+            children: <Widget>[
+              Positioned(
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.cake),
+                    SizedBox(width: 15),
+                    Text(eachitem, style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+              ),
+              Positioned(
+                right: 9,
+                child: Image(
+                  image: AssetImage('images/personcenter_arrow_right.png'),
+                  width: 20,
+                  height: 20
+                ),
+              )
+            ],
+          ),
       );
       result.add(eachWidget);
     }
