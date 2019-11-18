@@ -20,7 +20,7 @@ class PersonCenterHeader extends StatelessWidget {
             child: IconButton(icon: Icon(Icons.settings), onPressed: () {})),
         //个人信息
         Container(
-            margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+            margin: EdgeInsets.fromLTRB(16, 5, 16, 5),
             child: Row(
               children: <Widget>[
                 //头像
