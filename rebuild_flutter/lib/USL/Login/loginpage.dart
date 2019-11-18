@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/BLL/LoginBll/loginbll.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gituserprogressbll.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSShare/nsahresdk.dart';
 
@@ -241,7 +244,9 @@ class LoginPageState extends State<LoginPage> {
     });
   }
 
-  void goMainpage() {
+  void goMainpage() async {
+    NSLoginModel model = await NSLoginGlobal.getInstance().getUserInfo();
+    await GitUserProgressBLL().createNewUser2Git(model);
     GitFileProgressBLL().createFolder(true, "最新");
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return MaintabBar();

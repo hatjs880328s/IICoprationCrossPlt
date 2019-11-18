@@ -30,7 +30,7 @@ class PersoncenterCenterList extends StatelessWidget {
                         children: <Widget>[
                           Icon(Icons.cake),
                           SizedBox(width: 15),
-                          Text(eachitem, style: TextStyle(fontSize: 18)),
+                          Text(eachitem, style: TextStyle(fontSize: 15)),
                         ],
                       ),
                       SizedBox(height: 30),
@@ -63,7 +63,7 @@ class PersoncenterCenterList extends StatelessWidget {
                   children: <Widget>[
                     Icon(Icons.cake),
                     SizedBox(width: 15),
-                    Text(eachitem, style: TextStyle(fontSize: 18)),
+                    Text(eachitem, style: TextStyle(fontSize: 15)),
                   ],
                 ),
               ),
@@ -91,7 +91,7 @@ class PersoncenterCenterList extends StatelessWidget {
                   children: <Widget>[
                     Icon(Icons.cake),
                     SizedBox(width: 15),
-                    Text(eachitem, style: TextStyle(fontSize: 18)),
+                    Text(eachitem, style: TextStyle(fontSize: 15)),
                   ],
                 ),
               ),

@@ -15,9 +15,17 @@ class PersonCenterHeader extends StatelessWidget {
       children: <Widget>[
         //配置
         Container(
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.bottomRight,
-            child: IconButton(icon: Icon(Icons.settings), onPressed: () {})),
+          padding: EdgeInsets.fromLTRB(0, 10, 16, 0),
+          width: MediaQuery.of(context).size.width,
+          alignment: Alignment.bottomRight,
+          child: GestureDetector(
+            child: Image(
+                image: AssetImage("images/personcenter_setting.png"),
+                height: 25,
+                width: 25),
+            onTap: () {},
+          ),
+        ),
         //个人信息
         Container(
             margin: EdgeInsets.fromLTRB(16, 5, 16, 5),
@@ -40,7 +48,7 @@ class PersonCenterHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         //名字
-                        Text(this.model == null ? "" : this.model.uid,
+                        Text(this.model == null ? "" : this.model.nickname,
                             style:
                                 TextStyle(fontSize: 16, color: Colors.black)),
                         //用量
