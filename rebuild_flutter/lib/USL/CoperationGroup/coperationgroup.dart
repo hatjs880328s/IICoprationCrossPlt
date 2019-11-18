@@ -31,6 +31,7 @@ class CoperationGroupState extends State<CoperationGroup>
     super.build(context);
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 1,
           title:
               Text('协作', style: TextStyle(color: Colors.black, fontSize: 20)),

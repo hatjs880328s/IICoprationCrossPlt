@@ -36,9 +36,9 @@ class GitUserProgressBLL {
       List<NSLoginModel> users = [];
       for (Map eachmap in infos) {
         NSLoginModel eachUser = NSLoginModel.fromJson(eachmap);
-        // b.排重
+        // b.排重（直接返回true即可）
         if (eachUser.uid == userInfo.uid) {
-          continue;
+          return true;
         }
         users.add(eachUser);
       }
