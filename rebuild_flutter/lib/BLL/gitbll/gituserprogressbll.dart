@@ -57,4 +57,24 @@ class GitUserProgressBLL {
     var result = await this.netdal.createFile(this.userInfosFileName, base64Str, userInfo.uid, userInfo.nickname);
     return result;
   } 
+
+  /// 获取用户信息 - 根据用户id
+  Future<NSLoginModel> getUserInfo(String userid) async  {
+    Map info = await this.netdal.getFileInfo(this.userInfosFileName);
+    // 1. 通过 foldermodel - 获取content
+    FolderModel gitmodel = FolderModel.fromJson(info);
+    // 2. 解析model
+    var data = base64Decode(gitmodel.content.replaceAll("\n", ""));
+    var strInfo = utf8.decode(data);
+    List<dynamic> listinfo = json.decode(strInfo);
+    // 3.循环取出所有的model
+    for (Map eachitem in listinfo) {
+      NSLoginModel model = NSLoginModel.fromJson(eachitem);      
+      if (userid == model.uid) {
+        return model;
+      }
+    }
+    return null;
+  }
+
 }
