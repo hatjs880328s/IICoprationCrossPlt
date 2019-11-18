@@ -27,7 +27,7 @@ class LoginPageState extends State<LoginPage> {
 
   Color loginBtnColor = Colors.grey;
 
-  String sentCode = "";
+  String sentCode = "8888";
 
   String errorText;
 
