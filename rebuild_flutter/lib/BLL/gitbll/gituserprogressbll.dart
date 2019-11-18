@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
+import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
+import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 /**
  * git user progress bll
  * 
@@ -17,6 +20,9 @@ class GitUserProgressBLL {
 
   /// 用户信息文件名字
   var userInfosFileName = "GlobalUserInfos";
+
+  /// 此用户自己的指令文件
+  var currentUserInfosFileName = "CurrentUserInfosFile";
 
   /// dal
   var netdal = GitFileProgressDAL();
@@ -77,4 +83,47 @@ class GitUserProgressBLL {
     return null;
   }
 
+  ///邀请某人进群 - 根据用户id
+  Future<bool> inviteSomeOne2Group(
+    NSLoginModel receiver,
+    CoperationGroupModel group,
+    ) async {
+    // 1.创建path
+    String path = "/${receiver.uid}/${this.currentUserInfosFileName}";
+    // 2.获取此path下的文件，如果存在则获取其sha
+    Map maps = await this.netdal.getFileInfo(path);
+    if (maps.keys.length != 0) {
+      // a 处理元数据
+      FolderModel gitmodel = FolderModel.fromJson(maps);
+      var jsondata = base64Decode(gitmodel.content.replaceAll("\n", ""));
+      var strInfo = utf8.decode(jsondata);
+      List<dynamic> listresult = json.decode(strInfo);
+      List<GitCMDModel> result = [];
+      for (Map eachcmd in listresult) {
+        GitCMDModel cmd = GitCMDModel.fromJson(eachcmd);
+        result.add(cmd);
+      }
+      var sha = gitmodel.sha;
+      // b 创建新数据
+      var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
+      var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
+      var newCMD = GitCMDModel(selfUser, receiver, 'invite', timeNow, group);
+      // c 拼接并编码
+      listresult.add(newCMD);
+      var jsonStr = json.encode(listresult);
+      var base64Content = base64Encode(utf8.encode(jsonStr));
+      // d 上传
+      var updateresult = this.netdal.updateFile(path, base64Content, selfUser.uid, selfUser.nickname, sha);
+      return updateresult;
+    }
+    // 3.不存在就创建此文件
+    // a 创建新cmd并编码
+    var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
+    var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
+    var newCMD = GitCMDModel(selfUser, receiver, 'invite', timeNow, group);
+    var jsonStr = json.encode([newCMD]);
+    var base64Content = base64Encode(utf8.encode(jsonStr));
+    var createresult = this.netdal.createFile(path, base64Content, selfUser.uid, selfUser.nickname);
+    return createresult;
+  }
 }
