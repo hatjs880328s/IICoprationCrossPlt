@@ -125,4 +125,23 @@ class GitUserProgressBLL {
     var createresult = this.netdal.createFile(path, base64Content, selfUser.uid, selfUser.nickname);
     return createresult;
   }
+
+  /// 获取所有的自己的指令消息
+  Future<List<GitCMDModel>> getOwnCMDs() async {
+    var model = await NSLoginGlobal.getInstance().getUserInfo();
+    var uid = model.uid;
+    // 0 path
+    var path = "$uid/${this.currentUserInfosFileName}";
+    // 1 获取信息 -> content -> base64 decode -> list
+    Map map = await this.netdal.getFileInfo(path);
+    FolderModel gitresult = FolderModel.fromJson(map);
+    var data = base64Decode(gitresult.content.replaceAll("\n", ""));
+    var lists = json.decode(utf8.decode(data));
+    List<GitCMDModel> result = [];
+    for (Map eachMap in lists) {
+      GitCMDModel model = GitCMDModel.fromJson(eachMap);
+      result.add(model);
+    }
+    return result;
+  }
 }
