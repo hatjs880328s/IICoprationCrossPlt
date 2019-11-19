@@ -131,7 +131,7 @@ class GitFileProgressBLL {
     return FolderModel.fromJson(maps);
   }
 
-  /// 创建一个文件夹 普通|协同 (创建一个包含在此文件夹下的文件而已) [如果重名这里会失败]
+  /// 创建一个文件夹 普通|协同 (创建一个包含在此文件夹下的文件而已)
   Future<void> createFolder(bool isnormalFolder, String folderName) async {
     // 0.处理文件path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
