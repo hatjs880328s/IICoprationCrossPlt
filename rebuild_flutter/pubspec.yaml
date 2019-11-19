@@ -45,6 +45,9 @@ flutter:
     - images/mainpage_refresh.png
     - images/coperation_addnew_group.png
     - images/personcenter_vip.png
+    - images/coperation_detail_edit.png
+    - images/coperation_detail_share.png
+    - images/app_back.png
 
     - images/main_tab_bookstore.png
     - images/2.0x/main_tab_bookstore.png

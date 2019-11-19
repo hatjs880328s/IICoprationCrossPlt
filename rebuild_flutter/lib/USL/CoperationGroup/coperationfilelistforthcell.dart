@@ -38,7 +38,7 @@ class CoperationFileListForthCell extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Image(
-                    image: AssetImage('images/main_tab_bookstore.png'),
+                    image: AssetImage('images/coperation_detail_edit.png'),
                     height: 25,
                     width: 25,
                   ),

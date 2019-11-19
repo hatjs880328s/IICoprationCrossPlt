@@ -25,7 +25,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
           children: <Widget>[
             Positioned(
               child: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: Image(image: AssetImage('images/app_back.png'), width: 22, height: 35),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -58,7 +58,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
                             child: GestureDetector(
                                 child: Column(
                                   children: <Widget>[
-                                    Icon(Icons.palette),
+                                    Image(image: AssetImage('images/coperation_folder_invitepeople.png'), height: 24, width: 24),
                                     Text('邀请', style: TextStyle(fontSize: 15)),
                                     Text('加入',
                                         style: TextStyle(
@@ -76,7 +76,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
                             child: GestureDetector(
                               child: Column(
                                 children: <Widget>[
-                                  Icon(Icons.share),
+                                  Image(image: AssetImage('images/coperation_detail_share.png'), height: 24, width: 24),
                                   Text('分享', style: TextStyle(fontSize: 15)),
                                   Text('此群组',
                                       style: TextStyle(
@@ -93,7 +93,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
                             child: GestureDetector(
                               child: Column(
                                 children: <Widget>[
-                                  Icon(Icons.save_alt),
+                                  Image(image: AssetImage('images/coperation_detail_edit.png'), height: 24, width: 24),
                                   Text('创建', style: TextStyle(fontSize: 15)),
                                   Text('新文章',
                                       style: TextStyle(

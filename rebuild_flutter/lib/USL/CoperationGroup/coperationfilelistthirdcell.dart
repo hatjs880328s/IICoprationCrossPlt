@@ -30,7 +30,7 @@ class CoperationFileListCell extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(4, 8, 4, 4),
             child: Row(
             children: <Widget>[
-              Image(image: AssetImage('images/main_tab_bookstore.png'), height: 25, width: 25,),
+              Image(image: AssetImage('images/main_tab_person.png'), height: 25, width: 25,),
               Text('  协同组成员', style: TextStyle(fontSize: 16),)
             ],
           ),
