@@ -29,7 +29,7 @@ class FolderPageCell extends StatelessWidget {
                 Image(image: AssetImage("images/main_tab_bookstore.png"), height: 24, width: 24),
                 Container(width: 15),
                 Text(this.file.name,
-                    style: TextStyle(fontSize: 17, color: Colors.black, fontFamily: NSNormalConfig.fontFamily)),
+                    style: TextStyle(fontSize: 16, color: Colors.black, fontFamily: NSNormalConfig.fontFamily)),
               ],
             ),
           ),

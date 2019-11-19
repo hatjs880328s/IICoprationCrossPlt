@@ -25,7 +25,7 @@ class FileListCell extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Text(this.itemmodel.title, style: TextStyle(fontSize: 17, fontFamily: NSNormalConfig.fontFamily)),
+            child: Text(this.itemmodel.title, style: TextStyle(fontSize: 16, fontFamily: NSNormalConfig.fontFamily)),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 8, 0, 8),

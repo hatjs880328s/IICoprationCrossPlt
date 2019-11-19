@@ -44,7 +44,7 @@ class CoperitionGroupCell extends StatelessWidget {
                         Container(
                           child: Text(this.file.name,
                               style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 16,
                                   color: Colors.black,
                                   fontFamily: NSNormalConfig.fontFamily)),
                         ),                      

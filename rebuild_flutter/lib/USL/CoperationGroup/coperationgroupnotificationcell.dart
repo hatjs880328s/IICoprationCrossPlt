@@ -37,7 +37,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
                 Container(
                   child: Text("邀请人员: ${this.file.sender.nickname}",
                       style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 16,
                           color: Colors.black,
                           fontFamily: NSNormalConfig.fontFamily)),
                 ),
