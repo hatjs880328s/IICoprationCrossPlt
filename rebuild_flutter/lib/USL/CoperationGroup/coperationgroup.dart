@@ -47,10 +47,10 @@ class CoperationGroupState extends State<CoperationGroup>
                 children: {
                   "0": Padding(
                     padding: EdgeInsets.all(4), 
-                    child: Text('  协作组  ', style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400))),
+                    child: Text('  协作组  ', style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500))),
                   "1": Padding(
                     padding: EdgeInsets.all(4), 
-                    child: Text('消息', style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400)))},
+                    child: Text('消息', style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500)))},
                 onValueChanged: (keys) {
                   setState(() {
                     this.segmentkey = keys;

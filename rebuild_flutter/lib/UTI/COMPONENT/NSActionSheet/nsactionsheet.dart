@@ -22,6 +22,7 @@ class NSActionSheet extends StatelessWidget {
             "取消",
             style: TextStyle(
                 fontSize: 16,
+                fontWeight: FontWeight.w500,
                 fontFamily: NSNormalConfig.fontFamily,
                 decoration: TextDecoration.none),
             textAlign: TextAlign.center,
@@ -52,6 +53,7 @@ class NSActionSheet extends StatelessWidget {
           child: Text("新建书架",
               style: TextStyle(
                   fontSize: 15,
+                  fontWeight: FontWeight.w400,
                   decoration: TextDecoration.none,
                   color: Colors.black,
                   fontFamily: NSNormalConfig.fontFamily),

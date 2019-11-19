@@ -33,12 +33,15 @@ class PersonCenterHeader extends StatelessWidget {
               children: <Widget>[
                 //头像
                 Container(
-                  width: 80,
-                  height: 80,
+                  width: 75,
+                  height: 75,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     image: DecorationImage(
-                        image: AssetImage("images/cop_128.png"),
+                        image: this.model == null ? Image(image: AssetImage("images/cop_128.png")).image : 
+                        this.model.icon.contains("http") 
+                        ? NetworkImage('${this.model.icon}')
+                        : Image(image: AssetImage("images/cop_128.png")).image,
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -50,7 +53,7 @@ class PersonCenterHeader extends StatelessWidget {
                         //名字
                         Text(this.model == null ? "" : this.model.nickname,
                             style:
-                                TextStyle(fontSize: 16, color: Colors.black)),
+                                TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600,)),
                         //用量
                         Container(
                             margin: EdgeInsets.fromLTRB(0, 8, 0, 8),

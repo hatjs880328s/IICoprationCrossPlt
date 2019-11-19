@@ -70,7 +70,7 @@ class FolderPageState extends State<FolderPage>
         elevation: 0,
         title: Text('文件夹',
             style:
-                TextStyle(fontSize: 20, fontFamily: NSNormalConfig.fontFamily)),
+                TextStyle(fontSize: 18, fontFamily: NSNormalConfig.fontFamily)),
         actions: <Widget>[
           Transform.rotate(
               angle: curve.value * pi,

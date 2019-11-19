@@ -82,7 +82,7 @@ class NewestFileState extends State<NewestFile>
         automaticallyImplyLeading: widget.isNewset ? false : true,
         title: Text(
           widget.titleInfo,
-           style: TextStyle(fontSize: 20, fontFamily: NSNormalConfig.fontFamily)),
+           style: TextStyle(fontSize: 18, fontFamily: NSNormalConfig.fontFamily)),
         elevation: 0,
         actions: <Widget>[
           Transform.rotate(

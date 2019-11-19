@@ -48,6 +48,7 @@ class NSActionField extends StatelessWidget {
               "取消",
               style: TextStyle(
                   fontSize: 16,
+                  fontWeight: FontWeight.w500,
                   fontFamily: NSNormalConfig.fontFamily,
                   decoration: TextDecoration.none),
               textAlign: TextAlign.center,
@@ -65,6 +66,7 @@ class NSActionField extends StatelessWidget {
               confirmStr,
               style: TextStyle(
                   fontSize: 16,
+                  fontWeight: FontWeight.w500,
                   fontFamily: NSNormalConfig.fontFamily,
                   decoration: TextDecoration.none,
                   color: Colors.black),
