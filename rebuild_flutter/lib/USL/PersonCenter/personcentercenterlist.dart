@@ -28,7 +28,7 @@ class PersoncenterCenterList extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.cake),
+                          Image(image: AssetImage('images/main_tab_person.png'), height: 24, width: 24),
                           SizedBox(width: 15),
                           Text(eachitem, style: TextStyle(fontSize: 15)),
                         ],
@@ -61,7 +61,7 @@ class PersoncenterCenterList extends StatelessWidget {
               Positioned(
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.cake),
+                    Image(image: AssetImage('images/main_tab_person.png'), height: 24, width: 24),
                     SizedBox(width: 15),
                     Text(eachitem, style: TextStyle(fontSize: 15)),
                   ],
@@ -89,7 +89,7 @@ class PersoncenterCenterList extends StatelessWidget {
               Positioned(
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.cake),
+                    Image(image: AssetImage('images/main_tab_person.png'), height: 24, width: 24),
                     SizedBox(width: 15),
                     Text(eachitem, style: TextStyle(fontSize: 15)),
                   ],
