@@ -65,7 +65,7 @@ class GitUserProgressBLL {
   } 
 
   /// 获取用户信息 - 根据用户id
-  Future<NSLoginModel> getUserInfo(String userid) async  {
+  Future<List<NSLoginModel>> getALLUserInfo() async  {
     Map info = await this.netdal.getFileInfo(this.userInfosFileName);
     // 1. 通过 foldermodel - 获取content
     FolderModel gitmodel = FolderModel.fromJson(info);
@@ -73,23 +73,22 @@ class GitUserProgressBLL {
     var data = base64Decode(gitmodel.content.replaceAll("\n", ""));
     var strInfo = utf8.decode(data);
     List<dynamic> listinfo = json.decode(strInfo);
+    List<NSLoginModel> result = [];
     // 3.循环取出所有的model
     for (Map eachitem in listinfo) {
       NSLoginModel model = NSLoginModel.fromJson(eachitem);      
-      if (userid == model.uid) {
-        return model;
-      }
+      result.add(model);
     }
-    return null;
+    return result;
   }
 
-  ///邀请某人进群 - 根据用户id
+  ///邀请某人进群 - 根据被邀请用户nsloginmodel
   Future<bool> inviteSomeOne2Group(
     NSLoginModel receiver,
     CoperationGroupModel group,
     ) async {
     // 1.创建path
-    String path = "/${receiver.uid}/${this.currentUserInfosFileName}";
+    String path = "${receiver.uid}/${this.currentUserInfosFileName}";
     // 2.获取此path下的文件，如果存在则获取其sha
     Map maps = await this.netdal.getFileInfo(path);
     if (maps.keys.length != 0) {

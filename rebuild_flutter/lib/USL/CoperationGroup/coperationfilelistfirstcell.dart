@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/USL/CreateFile/createCoperationFile.dart';
+import 'package:rebuild_flutter/USL/InvitePeople/invitepeople.dart';
 
 /// 协同组顶部漂亮cell
 class CoperationFileListFirstCell extends StatelessWidget {
@@ -65,7 +66,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
                                   ],
                                 ),
                                 onTap: () {
-                                  print("点击邀请");
+                                  this.invitePeople(context);
                                 })),
                         Positioned(
                             width: 60,
@@ -142,6 +143,12 @@ class CoperationFileListFirstCell extends StatelessWidget {
       return CreateCoperationFile(this.oldGroupInfoModel);
     }));
 
+  }
+
+  void invitePeople(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return InvitePeople(this.oldGroupInfoModel);
+    }));
   }
 
 }

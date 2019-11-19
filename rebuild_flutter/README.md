@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-10-12 17:30:56
- * @LastEditTime: 2019-11-18 13:50:07
+ * @LastEditTime: 2019-11-19 09:13:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /rebuild_flutter/README.md
@@ -12,6 +12,7 @@
 1. 邀请某人加入协同组
    ## 所有的用户需要在一个位置可查找 - 创建用户的时候需要去同步
    ## 每一个用户需要有一个指令消息文件 - 邀请时，需要写入此文件信息
+   ## 创建一个搜索用户的界面
 
 2. 新建文件移动到其他文件夹
 
