@@ -59,7 +59,7 @@ class CoperationGroupState extends State<CoperationGroup>
               ),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.add),
+                icon: Image(image: AssetImage('images/coperation_addnew_group.png'),width: 25, height: 25),
                 onPressed: () {
                   showCupertinoDialog(
                       context: context,

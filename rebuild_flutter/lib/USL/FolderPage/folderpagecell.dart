@@ -26,7 +26,7 @@ class FolderPageCell extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(0, 0, 0, 4),
             child: Row(
               children: <Widget>[
-                Icon(Icons.folder_open),
+                Image(image: AssetImage("images/main_tab_bookstore.png"),),
                 Container(width: 15),
                 Text(this.file.name,
                     style: TextStyle(fontSize: 17, color: Colors.black, fontFamily: NSNormalConfig.fontFamily)),

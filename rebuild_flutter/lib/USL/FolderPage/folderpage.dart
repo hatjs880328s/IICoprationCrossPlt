@@ -75,7 +75,7 @@ class FolderPageState extends State<FolderPage>
           Transform.rotate(
               angle: curve.value * pi,
               child: IconButton(
-                  icon: Icon(Icons.sync),
+                  icon: Image(image: AssetImage('images/mainpage_refresh.png'),height: 25, width: 25),
                   onPressed: () {
                     isForward ? controller.reverse() : controller.forward();
                     isForward = !isForward;

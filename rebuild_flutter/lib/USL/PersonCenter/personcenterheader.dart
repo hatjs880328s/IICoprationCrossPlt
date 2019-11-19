@@ -95,7 +95,7 @@ class PersonCenterHeader extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.cake),
+                          Image(image: AssetImage('images/personcenter_vip.png'), width: 20, height: 20),
                           SizedBox(width: 8),
                           Text(
                             '购买会员',
@@ -120,7 +120,7 @@ class PersonCenterHeader extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.videocam),
+                          Image(image: AssetImage('images/main_tab_bookstore.png'), width: 20, height: 20),
                           SizedBox(width: 8),
                           Text(
                             '签到',

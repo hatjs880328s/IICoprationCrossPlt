@@ -42,6 +42,9 @@ flutter:
     - images/personcenter_arrow_right.png
     - images/personcenter_setting.png
     - images/coperation_folder_invitepeople.png
+    - images/mainpage_refresh.png
+    - images/coperation_addnew_group.png
+    - images/personcenter_vip.png
 
     - images/main_tab_bookstore.png
     - images/2.0x/main_tab_bookstore.png

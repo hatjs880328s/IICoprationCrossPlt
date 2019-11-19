@@ -88,7 +88,7 @@ class NewestFileState extends State<NewestFile>
           Transform.rotate(
             angle: animation.value * pi,
             child: IconButton(
-                icon: Icon(Icons.sync),
+                icon: Image(image: AssetImage('images/mainpage_refresh.png'),height: 25, width: 25),
                 onPressed: () {
                   if (!isforward) {
                     controller.forward();
