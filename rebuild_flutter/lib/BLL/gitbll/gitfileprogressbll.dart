@@ -90,10 +90,8 @@ class GitFileProgressBLL {
     newFolderModel.files.add(newFileModel);
     // 6.通过当前bll更新folderinfo信息
     await this.updateOneFolder(newFolderModel);
-    // 7.如果是协同文件，需要更新gen-folder
-    if (!isNormalFolder) {
+    // 7.需要更新gen-folder
       await this.createGenFolderInfo(isNormalFolder, newFolderModel);
-    }
     Fluttertoast.showToast(
       msg: "创建成功",
     );
