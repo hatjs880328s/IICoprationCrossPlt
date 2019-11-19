@@ -6,7 +6,6 @@ import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart'
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 
 class InvitePeople extends StatefulWidget {
-
   State<InvitePeople> createState() {
     return InvitePeopleState();
   }
@@ -107,16 +106,24 @@ class InvitePeopleState extends State<InvitePeople> {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Image(
-                            image: NetworkImage(eachuser.icon),
-                            height: 40,
-                            width: 40),
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: eachuser.icon.contains("http") 
+                                  ? Image.network(eachuser.icon).image 
+                                  : Image(image: AssetImage('images/cop_128.png')).image,
+                                  fit: BoxFit.cover)),
+                        ),
                         SizedBox(
                           width: 15,
                         ),
                         Text(eachuser.nickname),
                       ],
                     ),
+                    SizedBox(height: 8),
                     Divider(
                       indent: 55,
                       color: Colors.black12,
@@ -126,14 +133,17 @@ class InvitePeopleState extends State<InvitePeople> {
                 ),
               ),
               Positioned(
-                right: 8,
-                child: GestureDetector(
-                  child: Image(image: AssetImage('images/coperation_folder_invitepeople.png'), height: 25, width: 25),
-                  onTap: () {
-                    this.inviteSomeOne(eachuser);
-                  },
-                )
-              )
+                  right: 8,
+                  child: GestureDetector(
+                    child: Image(
+                        image: AssetImage(
+                            'images/coperation_folder_invitepeople.png'),
+                        height: 25,
+                        width: 25),
+                    onTap: () {
+                      this.inviteSomeOne(eachuser);
+                    },
+                  ))
             ],
           ));
       result.add(info);
@@ -142,7 +152,8 @@ class InvitePeopleState extends State<InvitePeople> {
   }
 
   void inviteSomeOne(NSLoginModel receiver) async {
-    var result = await GitUserProgressBLL().inviteSomeOne2Group(receiver, widget.group);
+    var result =
+        await GitUserProgressBLL().inviteSomeOne2Group(receiver, widget.group);
     if (result) {
       Fluttertoast.showToast(msg: "邀请成功");
     } else {
