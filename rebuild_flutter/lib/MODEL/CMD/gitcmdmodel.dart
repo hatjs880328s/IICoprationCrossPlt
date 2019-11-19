@@ -34,4 +34,9 @@ class GitCMDModel {
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
   Map<String, dynamic> toJson() => _$GitCMDModelToJson(this);
+
+  String getTime() {
+    var date = DateTime.fromMillisecondsSinceEpoch(this.time.toInt());
+    return "${date.year}-${date.month}-${date.day} ${date.hour}:${date.minute}";
+  }
 }
