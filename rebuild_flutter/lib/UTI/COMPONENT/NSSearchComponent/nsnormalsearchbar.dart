@@ -15,17 +15,14 @@ class NSNormalSearchBar extends StatelessWidget {
           color: Color.fromRGBO(1, 1, 1, 0.04),
         ),
         margin: EdgeInsets.fromLTRB(16, 0, 16, 8),
-        child: GestureDetector(
-            onTap: () { this.onTap(0); },
-            child: Container(
-              margin: EdgeInsets.only(top: 3),
-              child: Text(
-              '🔍  搜索',
-              style: TextStyle(fontSize: 15, color: Colors.grey),
-              textAlign: TextAlign.center,
-            ),
+        child: TextField(
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: '搜索',
+                prefixIcon: Icon(Icons.search),
+                contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 0)
+              ),
             )
-        )
     );
   }
 }

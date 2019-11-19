@@ -21,7 +21,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
         color: Colors.white,
         border: Border.all(color: Colors.black26, width: 0.5),
         borderRadius: BorderRadius.circular(4),
-        boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 0.5, blurRadius: 2)]
+        boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 0.1, blurRadius: 2, offset: Offset(0.5, 0.8))]
       ),
       child: Row(
         children: <Widget>[
