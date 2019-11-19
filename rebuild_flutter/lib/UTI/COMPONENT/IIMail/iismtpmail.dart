@@ -8,16 +8,23 @@ import 'dart:math';
 class IISmtpMail {
   void sendMail(String email, dynamic resultaction) {
     String i = this.randomStr();
-    var options = new GmailSmtpOptions()
-    ..username = 'hatjs880328@gmail.com'
-    ..password = 'ilpibwtkvdcxxdni';
+    // var options = new GmailSmtpOptions()
+    // ..username = 'hatjs880328@gmail.com'
+    // ..password = 'ilpibwtkvdcxxdni';
+
+  var options = SmtpOptions()
+    ..hostName = 'smtp.qq.com'
+    ..port = 465
+    ..secured = true
+    ..username = '451145552@qq.com'
+    ..password = 'uvrhhaygfisqbgih';
 
   // Create our email transport.
   var emailTransport = new SmtpTransport(options);
 
   // Create our mail/envelope.
   var envelope = new Envelope()
-    ..from = 'hatjs880328@gmail.com'
+    ..from = '451145552@qq.com'
     ..recipients.add(email)
     //..bccRecipients.add('hidden@recipient.com')
     ..subject = '[comporation-doc] invite u'
