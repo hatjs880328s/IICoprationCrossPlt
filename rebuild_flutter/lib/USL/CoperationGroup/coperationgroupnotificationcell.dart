@@ -4,6 +4,7 @@ import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
 
+/// 消息cell
 class CoperitionGroupNotificationCell extends StatelessWidget {
   GitCMDModel file;
 
