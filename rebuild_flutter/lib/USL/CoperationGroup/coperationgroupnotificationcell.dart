@@ -21,13 +21,13 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
         color: Colors.white,
         border: Border.all(color: Colors.black26, width: 0.5),
         borderRadius: BorderRadius.circular(4),
-        boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 0.1, blurRadius: 2, offset: Offset(0.5, 0.8))]
+        boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 0.1, blurRadius: 1, offset: Offset(0.1, 0.7))]
       ),
       child: Row(
         children: <Widget>[
           Image(
-              height: 35,
-              width: 35,
+              height: 30,
+              width: 30,
               image: AssetImage("images/coperation_folder_invitepeople.png")),
           Container(
             padding: EdgeInsets.only(left: 15),

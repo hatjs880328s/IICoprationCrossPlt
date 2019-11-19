@@ -14,7 +14,7 @@ class NSNormalSearchBar extends StatelessWidget {
           border: Border.all(width: 1, color: Colors.white),
           color: Color.fromRGBO(1, 1, 1, 0.04),
         ),
-        margin: EdgeInsets.fromLTRB(16, 0, 16, 8),
+        margin: EdgeInsets.fromLTRB(16, 0, 16, 15),
         child: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
