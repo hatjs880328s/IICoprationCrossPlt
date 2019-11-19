@@ -38,15 +38,19 @@ class CoperationGroupState extends State<CoperationGroup>
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          elevation: 1,
+          elevation: 0,
           title:
               CupertinoSegmentedControl(
                 borderColor: Colors.grey,
                 selectedColor: Colors.grey,
                 pressedColor: Colors.grey,
                 children: {
-                  "0": Padding(padding: EdgeInsets.all(4), child: Text('  协作组  ', style: TextStyle(color: Colors.black, fontSize: 17))),
-                  "1": Padding(padding: EdgeInsets.all(4), child: Text('消息', style: TextStyle(color: Colors.black, fontSize: 17)))},
+                  "0": Padding(
+                    padding: EdgeInsets.all(4), 
+                    child: Text('  协作组  ', style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400))),
+                  "1": Padding(
+                    padding: EdgeInsets.all(4), 
+                    child: Text('消息', style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400)))},
                 onValueChanged: (keys) {
                   setState(() {
                     this.segmentkey = keys;
