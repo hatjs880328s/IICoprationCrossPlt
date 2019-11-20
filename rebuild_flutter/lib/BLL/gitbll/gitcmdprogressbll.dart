@@ -4,6 +4,7 @@ import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
+import 'package:uuid/uuid.dart';
 
 enum CMDType {
   //邀请
@@ -70,12 +71,21 @@ class GitCMDProgressBLL {
     }
     // 2 获取自己的gen folder info [自己的有可能为空，需要创建]
     var selfGroup = await this.getSenderCoperationGroupModel(cmd.receiver.uid);
-
+    var path = '${cmd.receiver.uid}/Groups/${this.genfoldername}';
     if (selfGroup['group'] == null) {
       //新建
-
-      // ????
-      return false;
+      var newGroup = CoperationGroupModel(
+        "Groups",
+        Uuid().v1(),
+        [],
+        DateTime.now().millisecondsSinceEpoch.toDouble(),
+        [],
+        path,
+        [realItemGroup],
+      );
+      var base64Str = base64Encode(utf8.encode(json.encode(newGroup)));
+      var result = await this.netdal.createFile(path, base64Str, cmd.receiver.uid, cmd.receiver.nickname);
+      return result;
     } else {
       //更新
       var selfRealGroup = selfGroup['group'];
@@ -89,7 +99,6 @@ class GitCMDProgressBLL {
       }
       selfRealGroup.dirs.add(realItemGroup);
       // 4 base64 content
-      var path = '${cmd.receiver.uid}/Groups/${this.genfoldername}';
       var base64Str = base64Encode(utf8.encode(json.encode(selfRealGroup)));
       var result = await this.netdal.updateFile(path, base64Str,
           cmd.receiver.uid, cmd.receiver.nickname, selfFolder.sha);
@@ -119,22 +128,26 @@ class GitCMDProgressBLL {
 
   /// 处理完自己数据需要发送一条指令给原来的邀请方
   Future<bool> sendNewCMD2Sender(GitCMDModel origincmd, CMDType realcmd) async {
-    // a sender path
-    var senderpath = '${origincmd.sender.uid}/${this.currentUserInfosFileName}';
-    // b sender old content [这里有可能也没有数据，需要新建]
-
-    // ????
-    Map senderoldinfo = await this.netdal.getFileInfo(senderpath);
-    if (senderoldinfo.keys.length == 0) {
-      return false;
-    }
-    FolderModel sendercontent = FolderModel.fromJson(senderoldinfo);
-    var sendersha = sendercontent.sha;
-    List<GitCMDModel> sendercmds = json.decode((sendercontent.content));
-    // c new content
+    // z new cmd
     var time = DateTime.now().millisecondsSinceEpoch.toDouble();
     GitCMDModel sendernewcmdmodel = GitCMDModel(
         origincmd.receiver, origincmd.sender, realcmd, time, origincmd.group);
+    // a sender path
+    var senderpath = '${origincmd.sender.uid}/${this.currentUserInfosFileName}';
+    // b sender old content [这里有可能也没有数据，需要新建]
+    Map senderoldinfo = await this.netdal.getFileInfo(senderpath);
+    if (senderoldinfo.keys.length == 0) {
+      //新建
+      var content = [sendernewcmdmodel];
+      var base64contentinfo = base64Encode(utf8.encode(json.encode(content)));
+      var result = await this.netdal.createFile(senderpath, base64contentinfo, origincmd.receiver.uid, origincmd.receiver.nickname);
+      return result;
+    }
+    // 更新
+    FolderModel sendercontent = FolderModel.fromJson(senderoldinfo);
+    var sendersha = sendercontent.sha;
+    List<GitCMDModel> sendercmds = json.decode((utf8.decode(base64Decode(sendercontent.content.replaceAll("\n", "")))));
+    // c new content
     sendercmds.add(sendernewcmdmodel);
     var base64contentinfo = base64Encode(utf8.encode(json.encode(sendercmds)));
     // d send the cmd 2 origin-sender

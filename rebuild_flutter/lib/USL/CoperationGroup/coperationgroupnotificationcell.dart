@@ -40,6 +40,13 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
+                  child: Text("指令类型：${this.file.cmd}",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontFamily: NSNormalConfig.fontFamily)),
+                ),
+                Container(
                   child: Text("邀请人员: ${this.file.sender.nickname}",
                       style: TextStyle(
                           fontSize: 16,
