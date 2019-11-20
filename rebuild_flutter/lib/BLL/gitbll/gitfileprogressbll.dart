@@ -287,6 +287,9 @@ class GitFileProgressBLL {
         this.defaultFolderFileName, folderName, uid, isNormalFolder);
     // 2.没有则从网络获取 [获取下来的首先是gitmodel -> content -> base64decode -> realgitfilemodel]
     Map item = await this.dal.getFileInfo(folderRealPath);
+    if (item.keys.length == 0) {
+      return null;
+    }
     FolderModel newmodel = FolderModel.fromJson(item);
     var data = base64Decode(newmodel.content.replaceAll("\n", ""));
     String contents = utf8.decode(data);

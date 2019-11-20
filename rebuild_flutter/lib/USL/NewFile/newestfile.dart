@@ -137,7 +137,7 @@ class NewestFileState extends State<NewestFile>
     } else {
       overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, widget.folderid);
     }
-    lists = overinfo.files;
+    lists = overinfo == null ? [] : overinfo.files;
     list = lists;
     setState(() {
       list = lists;
