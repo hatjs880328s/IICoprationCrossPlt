@@ -7,6 +7,7 @@ import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart'
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroupnotificationcell.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperitiongroupcell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSActionSheet/nsactionfield.dart';
 
 class CoperationGroup extends StatefulWidget {
@@ -28,7 +29,7 @@ class CoperationGroupState extends State<CoperationGroup>
   @override
   void initState() {
     super.initState();
-    this.getGroupinfo();
+    this.getGroupinfo(true);
     this.getNotificationInfos();
   }
 
@@ -81,13 +82,17 @@ class CoperationGroupState extends State<CoperationGroup>
   Future<void> createGroup(String groupname) async {
     var infobll = GitFileProgressBLL();
     await infobll.createFolder(false, groupname);
-    this.getGroupinfo();
+    this.getGroupinfo(false);
   }
 
   /// 获取协同组信息
-  Future<void> getGroupinfo() async {
+  Future<void> getGroupinfo(bool havehud) async {
+    if (havehud) {
+      IIWaitAni.showWait('');
+    }
     var filebll = GitFileProgressBLL();
     var listsInfo = await filebll.getOneUsersAllFolders(false);
+    IIWaitAni.hideWait();
     setState(() {
       this.list = listsInfo.dirs;
     });
@@ -101,37 +106,45 @@ class CoperationGroupState extends State<CoperationGroup>
 
   Widget getBody(String keys) {
     if (keys == "0") {
-      return Container(
+      return RefreshIndicator(
+        child: Container(
           color: Colors.white,
           child: ListView.builder(
             itemCount: list.length == 0 ? 1 : list.length,
             itemBuilder: (context, i) {
               if (this.list.length == 0) {
-                return Center(
-                    child: LinearProgressIndicator(
-                        backgroundColor: Colors.white,
-                        valueColor: IIAnimationColor()));
+                return Center();
               }
               return CoperitionGroupCell(list[i], () {});
             },
           ),
-        );
+        ),
+        onRefresh: this._loaddata,
+      );
     } else {
-      return Container(
+      return RefreshIndicator(
+        child: Container(
           color: Colors.white,
           child: ListView.builder(
             itemCount: cmdlists.length == 0 ? 1 : cmdlists.length,
             itemBuilder: (context, i) {
               if (this.cmdlists.length == 0) {
-                return Center(
-                    child: LinearProgressIndicator(
-                        backgroundColor: Colors.white,
-                        valueColor: IIAnimationColor()));
+                return Center();
               }
               return CoperitionGroupNotificationCell(cmdlists[i]);
             },
           ),
-        );
+        ),
+        onRefresh: this._loaddata,
+      );
+    }
+  }
+
+  Future<void> _loaddata() async {
+    if (this.segmentkey == "0") {
+      await this.getGroupinfo(false);
+    } else {
+      await this.getNotificationInfos();
     }
   }
 
