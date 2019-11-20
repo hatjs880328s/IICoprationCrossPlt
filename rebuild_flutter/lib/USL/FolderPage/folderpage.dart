@@ -8,6 +8,7 @@ import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart'
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
@@ -46,10 +47,10 @@ class FolderPageState extends State<FolderPage>
         setState(() {});
       });
     controller.forward();
-    this.loadData();
+    this.loadData(true);
 
     this.observer.executeAction = (Map<String, dynamic> maps) {
-      this.loadData();
+      this.loadData(true);
     };
     NSNotificationCenter.getInstance().addOneItem2SomeTable(this.observer, this.observer.notificationKey);
   }
@@ -91,9 +92,7 @@ class FolderPageState extends State<FolderPage>
           itemBuilder: (context, i) {
             if (this.folderlist.length == 0) {
               return Center(
-                  child: LinearProgressIndicator(
-                      backgroundColor: Colors.white,
-                      valueColor: IIAnimationColor()));
+                      );
             }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();
@@ -109,14 +108,22 @@ class FolderPageState extends State<FolderPage>
           },
         ),
       ),
-      onRefresh: this.loadData,
+      onRefresh: this._loadPageOne,
       )
     );
   }
 
-  Future<void> loadData() async {
+  Future<void> _loadPageOne() async {
+    await this.loadData(false);
+  }
+
+  Future<void> loadData(bool havehud) async {
+    if (havehud) {
+      IIWaitAni.showWait('');
+    }
     var filebll = GitFileProgressBLL();
     var infos = await filebll.getOneUsersAllFolders(true);
+    IIWaitAni.hideWait();
     setState(() {
       this.folderlist = infos.dirs;
     });

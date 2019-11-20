@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
 import 'package:rebuild_flutter/USL/NewFile/filelistcell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
@@ -59,10 +60,10 @@ class NewestFileState extends State<NewestFile>
     animation.addListener(() {
       setState(() {});
     });
-    this.getSelfFolderList();
+    this.getSelfFolderList(true);
 
     observer.executeAction = (Map<String, dynamic> mapInfo) {
-      this.getSelfFolderList();
+      this.getSelfFolderList(true);
     };
     NSNotificationCenter.getInstance().addOneItem2SomeTable(observer, observer.notificationKey);
   }
@@ -109,9 +110,7 @@ class NewestFileState extends State<NewestFile>
           itemBuilder: (context, i) {
             if (this.list.length == 0) {
               return Center(
-                  child: LinearProgressIndicator(
-                      backgroundColor: Colors.white,
-                      valueColor: IIAnimationColor()));
+                      );
             }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();
@@ -132,18 +131,22 @@ class NewestFileState extends State<NewestFile>
   }
 
   Future<void> _loadPageOne() async {
-    await this.getSelfFolderList();
+    await this.getSelfFolderList(false);
   }
 
   //
   // 获取最新数据
-  Future<void> getSelfFolderList() async {
+  Future<void> getSelfFolderList(bool havehud) async {
+    if (havehud) {
+      IIWaitAni.showWait('');
+    }
     List<RealGitFileModel> lists;
     if (widget.isNewset) {
       overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, "最新");
     } else {
       overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, widget.folderid);
     }
+    IIWaitAni.hideWait();
     lists = overinfo == null ? [] : overinfo.files;
     list = lists;
     setState(() {
