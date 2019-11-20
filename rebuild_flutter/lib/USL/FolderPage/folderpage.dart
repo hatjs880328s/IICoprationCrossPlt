@@ -71,19 +71,20 @@ class FolderPageState extends State<FolderPage>
         title: Text('文件夹',
             style:
                 TextStyle(fontSize: 18, fontFamily: NSNormalConfig.fontFamily)),
-        actions: <Widget>[
-          Transform.rotate(
-              angle: curve.value * pi,
-              child: IconButton(
-                  icon: Image(image: AssetImage('images/mainpage_refresh.png'),height: 25, width: 25),
-                  onPressed: () {
-                    isForward ? controller.reverse() : controller.forward();
-                    isForward = !isForward;
-                    this.loadData();
-                  }))
-        ],
+        // actions: <Widget>[
+        //   Transform.rotate(
+        //       angle: curve.value * pi,
+        //       child: IconButton(
+        //           icon: Image(image: AssetImage('images/mainpage_refresh.png'),height: 25, width: 25),
+        //           onPressed: () {
+        //             isForward ? controller.reverse() : controller.forward();
+        //             isForward = !isForward;
+        //             this.loadData();
+        //           }))
+        // ],
       ),
-      body: Container(
+      body: RefreshIndicator(
+        child: Container(
         color: Colors.white,
         child: ListView.builder(
           itemCount: folderlist.length + 1,
@@ -108,10 +109,12 @@ class FolderPageState extends State<FolderPage>
           },
         ),
       ),
+      onRefresh: this.loadData,
+      )
     );
   }
 
-  void loadData() async {
+  Future<void> loadData() async {
     var filebll = GitFileProgressBLL();
     var infos = await filebll.getOneUsersAllFolders(true);
     setState(() {

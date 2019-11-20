@@ -84,26 +84,27 @@ class NewestFileState extends State<NewestFile>
           widget.titleInfo,
            style: TextStyle(fontSize: 18, fontFamily: NSNormalConfig.fontFamily)),
         elevation: 0,
-        actions: <Widget>[
-          Transform.rotate(
-            angle: animation.value * pi,
-            child: IconButton(
-                icon: Image(image: AssetImage('images/mainpage_refresh.png'),height: 25, width: 25),
-                onPressed: () {
-                  if (!isforward) {
-                    controller.forward();
-                  } else {
-                    controller.reverse();
-                  }
-                  isforward = !isforward;
-                  this.getSelfFolderList();
-                }),
-          )
-        ],
+        // actions: <Widget>[
+        //   Transform.rotate(
+        //     angle: animation.value * pi,
+        //     child: IconButton(
+        //         icon: Image(image: AssetImage('images/mainpage_refresh.png'),height: 25, width: 25),
+        //         onPressed: () {
+        //           if (!isforward) {
+        //             controller.forward();
+        //           } else {
+        //             controller.reverse();
+        //           }
+        //           isforward = !isforward;
+        //           this.getSelfFolderList();
+        //         }),
+        //   )
+        // ],
       ),
       body: Container(
         color: Colors.white,
-        child: ListView.builder(
+        child: RefreshIndicator(
+          child: ListView.builder(
           itemCount: list.length + 1,
           itemBuilder: (context, i) {
             if (this.list.length == 0) {
@@ -124,13 +125,19 @@ class NewestFileState extends State<NewestFile>
                 list[i - 1]);
           },
         ),
+        onRefresh: _loadPageOne,
+        )
       ),
     );
   }
 
+  Future<void> _loadPageOne() async {
+    await this.getSelfFolderList();
+  }
+
   //
   // 获取最新数据
-  void getSelfFolderList() async {
+  Future<void> getSelfFolderList() async {
     List<RealGitFileModel> lists;
     if (widget.isNewset) {
       overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, "最新");
