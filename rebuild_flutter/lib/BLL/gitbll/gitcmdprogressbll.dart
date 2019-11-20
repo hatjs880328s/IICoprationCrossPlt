@@ -122,6 +122,8 @@ class GitCMDProgressBLL {
     // a sender path
     var senderpath = '${origincmd.sender.uid}/${this.currentUserInfosFileName}';
     // b sender old content [这里有可能也没有数据，需要新建]
+
+    // ????
     Map senderoldinfo = await this.netdal.getFileInfo(senderpath);
     if (senderoldinfo.keys.length == 0) {
       return false;
