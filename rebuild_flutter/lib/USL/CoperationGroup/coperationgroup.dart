@@ -131,7 +131,7 @@ class CoperationGroupState extends State<CoperationGroup>
               if (this.cmdlists.length == 0) {
                 return Center();
               }
-              return CoperitionGroupNotificationCell(cmdlists[i]);
+              return CoperitionGroupNotificationCell(cmdlists[i], cmdlists);
             },
           ),
         ),

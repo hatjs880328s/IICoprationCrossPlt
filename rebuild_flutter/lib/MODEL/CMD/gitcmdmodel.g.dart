@@ -53,5 +53,6 @@ T _$enumDecodeNullable<T>(Map<T, dynamic> enumValues, dynamic source) {
 
 const _$CMDTypeEnumMap = <CMDType, dynamic>{
   CMDType.invite: 'invite',
-  CMDType.inviteresult: 'inviteresult'
+  CMDType.inviteresultok: 'inviteresultok',
+  CMDType.inviteresultno: 'inviteresultno'
 };

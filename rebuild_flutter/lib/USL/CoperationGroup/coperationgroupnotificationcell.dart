@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
 
 /// 消息cell
 class CoperitionGroupNotificationCell extends StatelessWidget {
+
   GitCMDModel file;
 
-  CoperitionGroupNotificationCell(GitCMDModel file) {
+  List<GitCMDModel> allcmd;
+
+  CoperitionGroupNotificationCell(GitCMDModel file, List<GitCMDModel> allcmd) {
     this.file = file;
+    this.allcmd = allcmd;
   }
 
   @override
@@ -75,7 +80,9 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
                                     Border.all(color: Colors.grey, width: 0.5),
                                 borderRadius: BorderRadius.circular(3)),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            this.agreeInvite(true);
+                          },
                         ),
                         SizedBox(width: 40),
                         GestureDetector(
@@ -91,7 +98,9 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
                                     Border.all(color: Colors.grey, width: 0.5),
                                 borderRadius: BorderRadius.circular(3)),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            this.agreeInvite(false);
+                          },
                         )
                       ],
                     )),
@@ -108,5 +117,11 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return widget;
     }));
+  }
+
+  /// 拒绝或者同意
+  Future<void> agreeInvite(bool agree) async {
+    var bll = GitCMDProgressBLL();
+    await bll.progressInviteCMD(agree, this.file, this.allcmd);
   }
 }
