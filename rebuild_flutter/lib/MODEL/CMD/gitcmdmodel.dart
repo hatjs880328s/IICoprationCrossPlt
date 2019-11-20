@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 /// This allows the `User` class to access private members in
@@ -21,7 +22,7 @@ class GitCMDModel {
 
   NSLoginModel sender;
   NSLoginModel receiver;
-  String cmd;
+  CMDType cmd;
   double time;
   CoperationGroupModel group;
 

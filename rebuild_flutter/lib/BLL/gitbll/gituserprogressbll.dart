@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
@@ -106,7 +107,7 @@ class GitUserProgressBLL {
       // b 创建新数据
       var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
       var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
-      var newCMD = GitCMDModel(selfUser, receiver, 'invite', timeNow, group);
+      var newCMD = GitCMDModel(selfUser, receiver, CMDType.invite, timeNow, group);
       // c 拼接并编码
       listresult.add(newCMD);
       var jsonStr = json.encode(listresult);
@@ -119,7 +120,7 @@ class GitUserProgressBLL {
     // a 创建新cmd并编码
     var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
     var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
-    var newCMD = GitCMDModel(selfUser, receiver, 'invite', timeNow, group);
+    var newCMD = GitCMDModel(selfUser, receiver, CMDType.invite, timeNow, group);
     var jsonStr = json.encode([newCMD]);
     var base64Content = base64Encode(utf8.encode(jsonStr));
     var createresult = this.netdal.createFile(path, base64Content, selfUser.uid, selfUser.nickname);
