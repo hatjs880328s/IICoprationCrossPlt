@@ -28,6 +28,7 @@ import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart'
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
+import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 import 'package:uuid/uuid.dart';
 import 'package:convert/src/hex.dart';
 import 'package:crypto/crypto.dart';
@@ -60,6 +61,7 @@ class GitFileProgressBLL {
         return;
       }
     }
+    IIWaitAni.showWait('创建中,请稍候');
     // 1.获取用户id - 创建path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
     String uid = usermodel.uid;
@@ -92,6 +94,7 @@ class GitFileProgressBLL {
     await this.updateOneFolder(newFolderModel);
     // 7.需要更新gen-folder
     await this.createGenFolderInfo(isNormalFolder, newFolderModel);
+    IIWaitAni.hideWait();
     Fluttertoast.showToast(
       msg: "创建成功",
     );
@@ -166,6 +169,7 @@ class GitFileProgressBLL {
       String fileSubtitle,
       RealGitFileModel oldFileModel,
       CoperationGroupModel oldfolderInfo) async {
+        IIWaitAni.showWait('更新中.');
     var titleIsChange = oldFileModel.title != fileTitle;
     // 0.获取用户id * 获取网络旧model的sha值PATH值
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
@@ -213,6 +217,7 @@ class GitFileProgressBLL {
     }
     // 5.通过当前bll更新folderinfo信息
     await this.updateOneFolder(newFolderModel);
+    IIWaitAni.hideWait();
   }
 
   /// 更新一个文件夹(更新这个文件夹下的folderinfo)
