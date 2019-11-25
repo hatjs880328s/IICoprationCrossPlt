@@ -40,4 +40,13 @@ class GitCMDModel {
     var date = DateTime.fromMillisecondsSinceEpoch(this.time.toInt());
     return "${date.year}-${date.month}-${date.day} ${date.hour}:${date.minute}";
   }
+
+  /// 根据cmd指令枚举获取指令文本信息
+  String getRealCMDStr() {
+    switch (this.cmd) {
+      case CMDType.invite: return "邀请指令";
+      case CMDType.inviteresultno: return "拒绝指令";
+      case CMDType.inviteresultok: return "接收指令";
+    }
+  }
 }

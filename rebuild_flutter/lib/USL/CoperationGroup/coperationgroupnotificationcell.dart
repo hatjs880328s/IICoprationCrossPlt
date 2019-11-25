@@ -40,7 +40,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  child: Text("指令类型：${this.file.cmd}",
+                  child: Text("指令类型：${this.file.getRealCMDStr()}",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
