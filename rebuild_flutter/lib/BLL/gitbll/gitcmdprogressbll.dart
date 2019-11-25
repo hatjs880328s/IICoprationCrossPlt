@@ -45,7 +45,7 @@ class GitCMDProgressBLL {
         agress == true ? CMDType.inviteresultok : CMDType.inviteresultno);
     print('step 3: $step3');
     // 3.如果是同意加入,将自己的用户信息添加到当前群组的创建者 folderinfo中；
-    var step4 = addSelf2SpecifiedGroupUserList(origincmd);
+    var step4 = await addSelf2SpecifiedGroupUserList(origincmd);
     print('step 4: $step4');
     return true;
   }
@@ -53,6 +53,19 @@ class GitCMDProgressBLL {
   /// 获取某人的协同组 - gen folder model * foldermodel
   Future<Map<String, dynamic>> getSenderCoperationGroupModel(String uid) async {
     var path = '$uid/Groups/${this.genfoldername}';
+    Map result = await this.netdal.getFileInfo(path);
+    if (result.keys.length == 0) {
+      return {"group": null, "folder": null};
+    }
+    FolderModel model = FolderModel.fromJson(result);
+    CoperationGroupModel resultmodel = CoperationGroupModel.fromJson(json
+        .decode(utf8.decode(base64Decode(model.content.replaceAll("\n", "")))));
+    return {"group": resultmodel, "folder": model};
+  }
+
+  /// 获取某人的协同组内层信息 - gen folder model * foldermodel
+  Future<Map<String, dynamic>> getSenderDeepCoperationGroupModel(String uid, String groupname) async {
+    var path = '$uid/Groups/$groupname/${this.genfoldername}';
     Map result = await this.netdal.getFileInfo(path);
     if (result.keys.length == 0) {
       return {"group": null, "folder": null};
@@ -149,9 +162,14 @@ class GitCMDProgressBLL {
       return result;
     }
     // 更新
+    List<GitCMDModel> sendercmds = [];
     FolderModel sendercontent = FolderModel.fromJson(senderoldinfo);
     var sendersha = sendercontent.sha;
-    List<GitCMDModel> sendercmds = json.decode((utf8.decode(base64Decode(sendercontent.content.replaceAll("\n", "")))));
+    List<dynamic> maplist = json.decode((utf8.decode(base64Decode(sendercontent.content.replaceAll("\n", "")))));
+    for (Map eachmap in maplist) {
+      var model = GitCMDModel.fromJson(eachmap);
+      sendercmds.add(model);
+    }
     // c new content
     sendercmds.add(sendernewcmdmodel);
     var base64contentinfo = base64Encode(utf8.encode(json.encode(sendercmds)));
@@ -168,8 +186,8 @@ class GitCMDProgressBLL {
   /// 将自己的信息添加到创建者的group-folderinfo中
   Future<bool> addSelf2SpecifiedGroupUserList(GitCMDModel originCMD) async {
     // 1. path
-    var path = '${originCMD.sender.uid}/Groups/${this.genfoldername}';
-    var bigDic = await this.getSenderCoperationGroupModel(originCMD.sender.uid);
+    var path = '${originCMD.sender.uid}/Groups/${originCMD.group.name}/${this.genfoldername}';
+    var bigDic = await this.getSenderDeepCoperationGroupModel(originCMD.sender.uid, originCMD.group.name);
     FolderModel shaInfo = bigDic['folder'];
     CoperationGroupModel contentInfo = bigDic['group'];
     // 2. 获取原来文件的sha
