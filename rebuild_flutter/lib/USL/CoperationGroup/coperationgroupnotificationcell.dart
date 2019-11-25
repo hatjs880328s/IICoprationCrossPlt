@@ -7,7 +7,6 @@ import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
 
 /// 消息cell
 class CoperitionGroupNotificationCell extends StatelessWidget {
-
   GitCMDModel file;
 
   List<GitCMDModel> allcmd;
@@ -23,11 +22,16 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
       margin: EdgeInsets.all(15),
       padding: EdgeInsets.fromLTRB(5, 8, 0, 8),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.black26, width: 0.5),
-        borderRadius: BorderRadius.circular(4),
-        boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 0.1, blurRadius: 1, offset: Offset(0.1, 0.7))]
-      ),
+          color: Colors.white,
+          border: Border.all(color: Colors.black26, width: 0.5),
+          borderRadius: BorderRadius.circular(4),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey,
+                spreadRadius: 0.1,
+                blurRadius: 1,
+                offset: Offset(0.1, 0.7))
+          ]),
       child: Row(
         children: <Widget>[
           Image(
@@ -69,48 +73,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
                           color: Colors.grey,
                           fontFamily: NSNormalConfig.fontFamily)),
                 ),
-                Container(
-                    padding: EdgeInsets.only(top: 8),
-                    child: Row(
-                      children: <Widget>[
-                        GestureDetector(
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 55,
-                            height: 30,
-                            child: Text('同意',
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.white)),
-                            decoration: BoxDecoration(
-                                color: NSNormalConfig.themeColor,
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.5),
-                                borderRadius: BorderRadius.circular(3)),
-                          ),
-                          onTap: () {
-                            this.agreeInvite(true);
-                          },
-                        ),
-                        SizedBox(width: 40),
-                        GestureDetector(
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 55,
-                            height: 30,
-                            child: Text('拒绝',
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.black87)),
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.5),
-                                borderRadius: BorderRadius.circular(3)),
-                          ),
-                          onTap: () {
-                            this.agreeInvite(false);
-                          },
-                        )
-                      ],
-                    )),
+                this.getWidgetWithCMDType()
               ],
             ),
           ),
@@ -124,6 +87,52 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return widget;
     }));
+  }
+
+  /// 根据指令类型获取对应的widget
+  Widget getWidgetWithCMDType() {
+    if (this.file.cmd == CMDType.invite) {
+      return Container(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 55,
+                  height: 30,
+                  child: Text('同意',
+                      style: TextStyle(fontSize: 15, color: Colors.white)),
+                  decoration: BoxDecoration(
+                      color: NSNormalConfig.themeColor,
+                      border: Border.all(color: Colors.grey, width: 0.5),
+                      borderRadius: BorderRadius.circular(3)),
+                ),
+                onTap: () {
+                  this.agreeInvite(true);
+                },
+              ),
+              SizedBox(width: 40),
+              GestureDetector(
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 55,
+                  height: 30,
+                  child: Text('拒绝',
+                      style: TextStyle(fontSize: 15, color: Colors.black87)),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 0.5),
+                      borderRadius: BorderRadius.circular(3)),
+                ),
+                onTap: () {
+                  this.agreeInvite(false);
+                },
+              )
+            ],
+          ));
+    } else {
+      return SizedBox();
+    }
   }
 
   /// 拒绝或者同意
