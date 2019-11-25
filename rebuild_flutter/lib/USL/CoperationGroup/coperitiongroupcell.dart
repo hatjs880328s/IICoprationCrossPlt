@@ -2,28 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
-import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
 
-class CoperitionGroupCell extends StatelessWidget {
+class CoperitionGroupCell extends StatefulWidget {
   CoperationGroupModel file;
 
-  dynamic action;
-
-  CoperitionGroupCell(CoperationGroupModel file, dynamic action) {
+  CoperitionGroupCell(CoperationGroupModel file) {
     this.file = file;
-    this.action = action;
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    return CoperitionGroupCellState();
+  }
+}
+
+class CoperitionGroupCellState extends State<CoperitionGroupCell> {
+  String creatorInfo = "";
+
+  @override
+  void initState() {
+    super.initState();
+    this.creator();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //action();
-        this.gopage(this.file.name, context);
+        this.gopage(this.widget.file.name, context);
       },
       child: Container(
-        height: 125,
         padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -42,15 +51,15 @@ class CoperitionGroupCell extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          child: Text(this.file.name,
+                          child: Text(this.widget.file.name,
                               style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black,
                                   fontFamily: NSNormalConfig.fontFamily)),
-                        ),                      
+                        ),
                         Container(
                           padding: EdgeInsets.only(top: 8),
-                          child: Text("文件数目: ${this.file.files.length}",
+                          child: Text("文件数目: ${this.widget.file.files.length}",
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
@@ -58,7 +67,7 @@ class CoperitionGroupCell extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(top: 8),
-                          child: Text("成员人数: ${this.file.users.length}",
+                          child: Text("群拥有者: $creatorInfo",
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
@@ -66,7 +75,7 @@ class CoperitionGroupCell extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(top: 8),
-                          child: Text(this.file.getCreateTime(),
+                          child: Text(this.widget.file.getCreateTime(),
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
@@ -86,9 +95,22 @@ class CoperitionGroupCell extends StatelessWidget {
   }
 
   void gopage(String coperid, BuildContext context) {
-    CoperationFileList widget = CoperationFileList(coperid, this.file.users.first);
-    Navigator.of(context).push(MaterialPageRoute(builder: (context){
+    CoperationFileList widget =
+        CoperationFileList(coperid, this.widget.file.users.first);
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return widget;
     }));
+  }
+
+  /// 创建者信息
+  void creator() async {
+    bool isself = await this.widget.file.isSelfCreator();
+    setState(() {
+      if (isself) {
+        this.creatorInfo = "自己";
+      } else {
+        this.creatorInfo = "其他人";
+      }
+    });
   }
 }

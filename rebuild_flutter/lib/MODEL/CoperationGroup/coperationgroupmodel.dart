@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 
 /// This allows the `User` class to access private members in
@@ -34,6 +35,13 @@ class CoperationGroupModel {
   String getCreateTime() {
     var time = DateTime.fromMillisecondsSinceEpoch(this.time.toInt());
     return "${time.year}.${time.month}.${time.day}";
+  }
+
+  /// 判定创建者是否是自己
+  Future<bool> isSelfCreator() async {
+    var user = await NSLoginGlobal.getInstance().getUserInfo();
+    var realuid = user.uid;
+    return realuid == this.users.first;
   }
 
 }

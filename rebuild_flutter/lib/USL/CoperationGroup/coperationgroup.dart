@@ -115,7 +115,7 @@ class CoperationGroupState extends State<CoperationGroup>
               if (this.list.length == 0) {
                 return Center();
               }
-              return CoperitionGroupCell(list[i], () {});
+              return CoperitionGroupCell(list[i]);
             },
           ),
         ),
