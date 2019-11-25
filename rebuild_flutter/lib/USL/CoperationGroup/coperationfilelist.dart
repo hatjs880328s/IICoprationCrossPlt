@@ -15,11 +15,14 @@ class CoperationFileList extends StatefulWidget {
     return CoperationFileListState();
   }
 
-  CoperationFileList(String coperid) {
+  CoperationFileList(String coperid, String uid) {
     this.coperid = coperid;
+    this.uid = uid;
   }
 
   String coperid;
+
+  String uid; 
 }
 
 class CoperationFileListState extends State<CoperationFileList> {
@@ -83,7 +86,7 @@ class CoperationFileListState extends State<CoperationFileList> {
       backgroundColor: Colors.grey
     );
     var filebll = GitFileProgressBLL();
-    CoperationGroupModel result = await filebll.getOneFolderFileLists(false, widget.coperid);
+    CoperationGroupModel result = await filebll.getOneFolderFileLists(false, widget.coperid, realUID: this.widget.uid);
     setState(() {
       Fluttertoast.cancel();
       this.list = result;

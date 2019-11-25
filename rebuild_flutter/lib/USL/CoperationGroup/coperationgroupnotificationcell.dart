@@ -82,12 +82,12 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
     );
   }
 
-  void gopage(String coperid, BuildContext context) {
-    CoperationFileList widget = CoperationFileList(coperid);
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return widget;
-    }));
-  }
+  // void gopage(String coperid, BuildContext context) {
+  //   CoperationFileList widget = CoperationFileList(coperid);
+  //   Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+  //     return widget;
+  //   }));
+  // }
 
   /// 根据指令类型获取对应的widget
   Widget getWidgetWithCMDType() {

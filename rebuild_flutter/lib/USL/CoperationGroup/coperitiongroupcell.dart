@@ -86,7 +86,7 @@ class CoperitionGroupCell extends StatelessWidget {
   }
 
   void gopage(String coperid, BuildContext context) {
-    CoperationFileList widget = CoperationFileList(coperid);
+    CoperationFileList widget = CoperationFileList(coperid, this.file.users.first);
     Navigator.of(context).push(MaterialPageRoute(builder: (context){
       return widget;
     }));

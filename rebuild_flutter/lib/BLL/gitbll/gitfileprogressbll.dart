@@ -277,12 +277,12 @@ class GitFileProgressBLL {
     return realnewmodel;
   }
 
-  /// 获取一个文件夹下面的所有的文件信息（文件不含具体信息，但有摘要）
+  /// 获取一个文件夹下面的所有的文件信息（文件不含具体信息，但有摘要）[realuid为null则表示时自己的文件，否则就是指定人的文件]
   Future<CoperationGroupModel> getOneFolderFileLists(
-      bool isNormalFolder, String folderName) async {
+      bool isNormalFolder, String folderName, {String realUID}) async {
     // 1.获取path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
-    String uid = usermodel.uid;
+    String uid = realUID == null ? usermodel.uid : realUID;
     String folderRealPath = this.createPath(
         this.defaultFolderFileName, folderName, uid, isNormalFolder);
     // 2.没有则从网络获取 [获取下来的首先是gitmodel -> content -> base64decode -> realgitfilemodel]
