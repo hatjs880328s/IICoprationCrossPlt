@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:uuid/uuid.dart';
 
@@ -38,10 +39,14 @@ class GitCMDProgressBLL {
     }
     // 1.删除自己 cmd-file中消息
     var steptwo = await this.deleteSelfCMD(origincmd, origincmds);
+    print('step 2: $steptwo');
     // 2.告知邀请人，发送一个【结果指令消息】
     var step3 = await this.sendNewCMD2Sender(origincmd,
         agress == true ? CMDType.inviteresultok : CMDType.inviteresultno);
-    // 3.如果是同意加入； 遍历所有成员，更改所有成员的协同组文件信息 [这一步先不做，UI只显示创建者]
+    print('step 3: $step3');
+    // 3.如果是同意加入,将自己的用户信息添加到当前群组的创建者 folderinfo中；
+    var step4 = addSelf2SpecifiedGroupUserList(origincmd);
+    print('step 4: $step4');
     return true;
   }
 
@@ -158,5 +163,24 @@ class GitCMDProgressBLL {
         origincmd.receiver.nickname,
         sendersha);
     return senderresult;
+  }
+
+  /// 将自己的信息添加到创建者的group-folderinfo中
+  Future<bool> addSelf2SpecifiedGroupUserList(GitCMDModel originCMD) async {
+    // 1. path
+    var path = '${originCMD.sender.uid}/Groups/${this.genfoldername}';
+    var bigDic = await this.getSenderCoperationGroupModel(originCMD.sender.uid);
+    FolderModel shaInfo = bigDic['folder'];
+    CoperationGroupModel contentInfo = bigDic['group'];
+    // 2. 获取原来文件的sha
+    var sha = shaInfo.sha;
+    // 3. 拼接content 并更新,将自己加到用户列表中
+    var selfUid = await NSLoginGlobal.getInstance().getUserInfo();
+    var realSelfUid = selfUid.uid;
+    contentInfo.users.add(realSelfUid);
+    var base64Content = base64Encode(utf8.encode(json.encode(contentInfo)));
+    // 4. 更新
+    bool result = await this.netdal.updateFile(path, base64Content, realSelfUid, selfUid.nickname, sha);
+    return result;
   }
 }
