@@ -85,22 +85,6 @@ class NewestFileState extends State<NewestFile>
           widget.titleInfo,
            style: TextStyle(fontSize: 18, fontFamily: NSNormalConfig.fontFamily)),
         elevation: 0,
-        // actions: <Widget>[
-        //   Transform.rotate(
-        //     angle: animation.value * pi,
-        //     child: IconButton(
-        //         icon: Image(image: AssetImage('images/mainpage_refresh.png'),height: 25, width: 25),
-        //         onPressed: () {
-        //           if (!isforward) {
-        //             controller.forward();
-        //           } else {
-        //             controller.reverse();
-        //           }
-        //           isforward = !isforward;
-        //           this.getSelfFolderList();
-        //         }),
-        //   )
-        // ],
       ),
       body: Container(
         color: Colors.white,
@@ -121,7 +105,11 @@ class NewestFileState extends State<NewestFile>
             }
             return FileListCell(
                 this.overinfo,
-                list[i - 1]);
+                list[i - 1], (item) {
+                  setState(() {
+                    this.list.remove(item);
+                  });
+                });
           },
         ),
         onRefresh: _loadPageOne,
