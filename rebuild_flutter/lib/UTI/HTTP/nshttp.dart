@@ -90,7 +90,7 @@ class NSHTTP {
     }
   }
 
-  /// 数据处理an
+  /// 数据处理
   static NSHttpResponse progressResponse(Response response) {
     NSHttpResponse result;
     try {

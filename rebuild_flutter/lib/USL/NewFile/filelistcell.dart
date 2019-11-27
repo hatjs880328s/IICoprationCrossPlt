@@ -62,7 +62,7 @@ class FileListCell extends StatelessWidget {
           },
         ),
       ),
-      key: Key('$itemmodel'),
+      key: Key('${itemmodel.id}'),
       onDismissed: (direction) {
         this.deleteAction(this.itemmodel);
         jump2OtherPage(context);

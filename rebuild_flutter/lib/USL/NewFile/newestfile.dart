@@ -93,8 +93,7 @@ class NewestFileState extends State<NewestFile>
           itemCount: list.length + 1,
           itemBuilder: (context, i) {
             if (this.list.length == 0) {
-              return Center(
-                      );
+              return Center();
             }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();
