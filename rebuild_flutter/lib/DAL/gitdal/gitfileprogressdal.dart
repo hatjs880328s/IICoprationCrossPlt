@@ -11,107 +11,77 @@
  */
 import 'dart:core';
 import 'package:dio/dio.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/DAL/api/apistruct.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/filegitcommitsmallmodel.dart';
 import 'package:rebuild_flutter/UTI/HTTP/nshttp.dart';
 import 'package:rebuild_flutter/UTI/HTTP/nshttpextension.dart';
+import 'package:rebuild_flutter/UTI/HTTP/nshttpresponse.dart';
 
 class GitFileProgressDAL {
-
   String headerContentType = "application/json";
-
-  void _alertError() {
-    Fluttertoast.showToast(msg: "网络异常，请稍后再试", gravity: ToastGravity.CENTER);
-  }
 
   /// 创建一个文件 path: 路径； fileContent: 文件内容（base64编码过后）; creatorName: 创建者姓名 ； creatorEmail: 创建者邮箱
   Future<bool> createFile(String path, String fileContent, String creatorName,
       String creatorEmail) async {
-    try {
-      FileGitCommitSmallModel smallModel =
-          FileGitCommitSmallModel(creatorName, creatorEmail);
-      FileGitCommitModel model = FileGitCommitModel(
-          creatorName + "commit.", fileContent, smallModel, "");
-      String url = APIStruct.gitAPINormalURL + path;
-      Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
-      headers["content-type"] = headerContentType;
-      Response res = await NSHTTP.startRequest(
-          NSHTTPRequestType.PUT, url, headers, model.toJson());
-      if (res.data != null) {
-        return true;
-      }
-      return false;
-    } on Exception {
-      _alertError();
-      return false;
+    FileGitCommitSmallModel smallModel =
+        FileGitCommitSmallModel(creatorName, creatorEmail);
+    FileGitCommitModel model = FileGitCommitModel(
+        creatorName + "commit.", fileContent, smallModel, "");
+    String url = APIStruct.gitAPINormalURL + path;
+    Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
+    headers["content-type"] = headerContentType;
+    NSHttpResponse res = await NSHTTP.startRequest(
+        NSHTTPRequestType.PUT, url, headers, model.toJson());
+    if (res.errorInfo == null) {
+      return true;
     }
+    return false;
   }
 
   /// 更新一个文件 path: 路径； fileContent: 文件内容（base64编码过后）; creatorName: 更新者姓名 ； creatorEmail: 更新者邮箱 ; sha: 更新文件必要字段
   Future<bool> updateFile(String path, String fileContent, String creatorName,
       String creatorEmail, String sha) async {
-    try {
-      FileGitCommitSmallModel smallModel =
-          FileGitCommitSmallModel(creatorName, creatorEmail);
-      FileGitCommitModel model = FileGitCommitModel(
-          creatorName + "update.", fileContent, smallModel, sha);
-      String url = APIStruct.gitAPINormalURL + path;
-      Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
-      headers["content-type"] = headerContentType;
-      Response res = await NSHTTP.startRequest(
-          NSHTTPRequestType.PUT, url, headers, model.toJson());
-      if (res.data != null) {
-        return true;
-      }
-      return false;
-    } on Exception {
-      _alertError();
-      return false;
+    FileGitCommitSmallModel smallModel =
+        FileGitCommitSmallModel(creatorName, creatorEmail);
+    FileGitCommitModel model = FileGitCommitModel(
+        creatorName + "update.", fileContent, smallModel, sha);
+    String url = APIStruct.gitAPINormalURL + path;
+    Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
+    headers["content-type"] = headerContentType;
+    NSHttpResponse res = await NSHTTP.startRequest(
+        NSHTTPRequestType.PUT, url, headers, model.toJson());
+    if (res.errorInfo == null) {
+      return true;
     }
+    return false;
   }
 
   /// 根据path，获取一个目录下的所有内容
   Future<dynamic> getFileInfo(String path) async {
-    try {
-      String url = APIStruct.gitAPINormalURL + path;
-      Response res = await NSHTTP.startRequest(
-          NSHTTPRequestType.GET, url, NSHTTPExtension().getNormalGitHeader());
-      return res.data;
-    } on Exception {
-      _alertError();
-      return {};
-    }
+    String url = APIStruct.gitAPINormalURL + path;
+    NSHttpResponse res = await NSHTTP.startRequest(
+        NSHTTPRequestType.GET, url, NSHTTPExtension().getNormalGitHeader());
+    return res.dicValue;
   }
 
   /// 根据path sha，删除一个文件
   Future<void> deleteOneFile(
-    String path, 
-    String sha, 
-    String creatorName,
-    String creatorEmail
-    ) async {
-
-    try {
-      FileGitCommitSmallModel smallModel =
-          FileGitCommitSmallModel(creatorName, creatorEmail);
-      FileGitCommitModel model = FileGitCommitModel(
-          creatorName + "update.", "", smallModel, sha);
-      String url = APIStruct.gitAPINormalURL + path;
-      Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
-      headers["content-type"] = headerContentType;
-      Map<String, dynamic> params = model.toJson();
-      params.remove("content");
-      Response res = await NSHTTP.startRequest(
-          NSHTTPRequestType.DELETE, url, headers, params);
-      if (res.data != null) {
-        return true;
-      }
-      return false;
-    } on Exception {
-      _alertError();
-      return false;
+      String path, String sha, String creatorName, String creatorEmail) async {
+    FileGitCommitSmallModel smallModel =
+        FileGitCommitSmallModel(creatorName, creatorEmail);
+    FileGitCommitModel model =
+        FileGitCommitModel(creatorName + "update.", "", smallModel, sha);
+    String url = APIStruct.gitAPINormalURL + path;
+    Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
+    headers["content-type"] = headerContentType;
+    Map<String, dynamic> params = model.toJson();
+    params.remove("content");
+    NSHttpResponse res = await NSHTTP.startRequest(
+        NSHTTPRequestType.DELETE, url, headers, params);
+    if (res.errorInfo == null) {
+      return true;
     }
+    return false;
   }
 }

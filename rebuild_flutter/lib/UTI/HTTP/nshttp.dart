@@ -1,5 +1,7 @@
 
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rebuild_flutter/UTI/HTTP/nshttpresponse.dart';
 
 /// restful - api - type
 enum NSHTTPRequestType { GET, POST, PUT, DELETE }
@@ -13,9 +15,15 @@ class NSHTTP {
    * 超时时间30S
    * 目前支持GET POST PUT
    */
-  static Future<Response> startRequest(
-      NSHTTPRequestType requestType, String url,
-      [Map<String, dynamic> header, Map<String, dynamic> params]) async {
+  static Future<NSHttpResponse> startRequest(
+      NSHTTPRequestType requestType, 
+      String url,
+      [Map<String, dynamic> header, 
+      Map<String, dynamic> params,
+      bool showAlertInfo = true
+      ]) async {
+
+    NSHttpResponse response = NSHttpResponse();
     Dio manager = new Dio();
     //这里设置了代理-正式需要去掉 =================
     // bool isProxyChecked = true;
@@ -38,37 +46,68 @@ class NSHTTP {
               method: "get",
               headers: header,
               receiveTimeout: 30);
-          return manager.get(url, options: opt);
+          var result = await manager.get(url, options: opt);
+          return NSHTTP.progressResponse(result);
           break;
         case NSHTTPRequestType.POST:
           Options opt = Options(
               method: "post",
               headers: header,
               receiveTimeout: 30);
-          return manager.post(url, data: params, options: opt);
+          var result = await manager.post(url, data: params, options: opt);
+          return NSHTTP.progressResponse(result);
           break;
         case NSHTTPRequestType.PUT:
           Options opt = Options(
               method: "put",
               headers: header,
               receiveTimeout: 30);
-          return manager.put(url, data: params, options: opt);
+          var result = await manager.put(url, data: params, options: opt);
+          return NSHTTP.progressResponse(result);
           break;
         case NSHTTPRequestType.DELETE:
           Options opt = Options(
               method: "delete",
               headers: header,
               receiveTimeout: 30);
-          return manager.delete(url, data: params, options: opt);
+          var result = await manager.delete(url, data: params, options: opt);
+          return NSHTTP.progressResponse(result);
           break;
         default:
-          return null;
+          return response;
           break;
       }
-    } on Exception catch (e) {
-      throw e;
+    } on DioError catch (e) {
+      if (showAlertInfo) {
+        _alertError();
+      }
+      response = NSHttpResponse(type: e.type);
     } on Error {
-      return null;
+      if (showAlertInfo) {
+        _alertError();
+      }
+      response = NSHttpResponse(type: DioErrorType.DEFAULT);
     }
+  }
+
+  /// 数据处理an
+  static NSHttpResponse progressResponse(Response response) {
+    NSHttpResponse result;
+    try {
+      Map<dynamic, dynamic> dic = response.data;
+      result = NSHttpResponse(dicValue: dic);
+    } on Exception {
+      try {
+        List<dynamic> arr = response.data;
+        result = NSHttpResponse(arrValue: arr);
+      } on Exception {
+        result = NSHttpResponse(anyValue: response.data);
+      }
+    }
+    return result;
+  }
+
+  static void _alertError() {
+    Fluttertoast.showToast(msg: "网络异常，请稍后再试", gravity: ToastGravity.CENTER);
   }
 }
