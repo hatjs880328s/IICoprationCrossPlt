@@ -387,4 +387,37 @@ class GitFileProgressBLL {
           path, base64realFolderContent, userinfo.uid, "451145552@qq.com");
     }
   }
+
+  /// 删除文件 [1.先删文件 2.后处理folder]
+  Future<bool> deleteOneFile(RealGitFileModel currentItem) async {
+    // 1.先删除item
+    // a.获取sha
+    var result = await this.dal.getFileInfo(currentItem.path);
+    FolderModel originModel = FolderModel.fromJson(result);
+    var sha = originModel.sha;
+    var user = await NSLoginGlobal.getInstance().getUserInfo();
+    // b.删除之
+    bool deleteResult = await this.dal.deleteOneFile(currentItem.path, sha, user.uid, user.nickname);
+
+    // 2.更改folder
+    // z.获path
+    var floderpath = currentItem.path.replaceAll('${currentItem.title}', defaultFolderFileName);
+    // a.获取sha
+    var foldermodel = await this.dal.getFileInfo(floderpath);
+    FolderModel folderModel = FolderModel.fromJson(foldermodel);
+    var realContentMap = json.decode(utf8.decode(base64Decode(folderModel.content.replaceAll('\n', ''))));
+    CoperationGroupModel folderModels = CoperationGroupModel.fromJson(realContentMap);
+    var foldersha = folderModel.sha;
+    // b.变更model，删除item
+    for (var eachItem in folderModels.files) {
+      if (eachItem.id == currentItem.id) {
+        folderModels.files.remove(eachItem);
+        break;
+      }
+    }
+    // c.处理content
+    var base64content = base64Encode(utf8.encode(json.encode(folderModels)));
+    // d.调用dal
+    await this.dal.updateFile(floderpath, base64content, user.uid, user.nickname, foldersha);
+  }
 }
