@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
-import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
+import 'package:rebuild_flutter/USL/MoveArticlePage/movearticlepagecell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nssearchbar.dart';
@@ -63,7 +63,7 @@ class MoveArticlePageState extends State<MoveArticlePage>
               };
               return search;
             }
-            return FolderPageCell(folderlist[i - 1],
+            return MoveArticlePageCell(true, folderlist[i - 1],
              () {
                   //this.goFilelistPage(i - 1);
                 });
