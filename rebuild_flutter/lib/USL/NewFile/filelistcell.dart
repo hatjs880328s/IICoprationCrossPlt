@@ -65,7 +65,7 @@ class FileListCell extends StatelessWidget {
       key: Key('${itemmodel.id}'),
       onDismissed: (direction) {
         this.deleteAction(this.itemmodel);
-        jump2OtherPage(context);
+        jump2OtherPage(context, this.itemmodel);
       },
       background: Text('', style: TextStyle(fontSize: 16)),
       secondaryBackground: Container(
@@ -94,9 +94,9 @@ class FileListCell extends StatelessWidget {
     return result;
   }
 
-  void jump2OtherPage(BuildContext context) {
+  void jump2OtherPage(BuildContext context, RealGitFileModel originFile) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return MoveArticlePage();
+      return MoveArticlePage(originFile);
     }));
   }
 

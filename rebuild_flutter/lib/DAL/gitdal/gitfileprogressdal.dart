@@ -33,7 +33,7 @@ class GitFileProgressDAL {
     headers["content-type"] = headerContentType;
     NSHttpResponse res = await NSHTTP.startRequest(
         NSHTTPRequestType.PUT, url, headers, model.toJson());
-    if (res.errorInfo == null) {
+    if (null == res.errorInfo) {
       return true;
     }
     return false;
@@ -51,7 +51,7 @@ class GitFileProgressDAL {
     headers["content-type"] = headerContentType;
     NSHttpResponse res = await NSHTTP.startRequest(
         NSHTTPRequestType.PUT, url, headers, model.toJson());
-    if (res.errorInfo == null) {
+    if (null == res.errorInfo) {
       return true;
     }
     return false;
@@ -66,7 +66,7 @@ class GitFileProgressDAL {
   }
 
   /// 根据path sha，删除一个文件
-  Future<void> deleteOneFile(
+  Future<bool> deleteOneFile(
       String path, String sha, String creatorName, String creatorEmail) async {
     FileGitCommitSmallModel smallModel =
         FileGitCommitSmallModel(creatorName, creatorEmail);
@@ -79,7 +79,7 @@ class GitFileProgressDAL {
     params.remove("content");
     NSHttpResponse res = await NSHTTP.startRequest(
         NSHTTPRequestType.DELETE, url, headers, params);
-    if (res.errorInfo == null) {
+    if (null == res.errorInfo) {
       return true;
     }
     return false;

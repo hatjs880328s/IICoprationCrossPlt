@@ -3,8 +3,10 @@ import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rebuild_flutter/BLL/gitbll/gitfilemoveprogressbll.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/MoveArticlePage/movearticlepagecell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/NSSearchComponent/nsnormalsearchbar.dart';
@@ -14,6 +16,12 @@ class MoveArticlePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return MoveArticlePageState();
+  }
+
+  RealGitFileModel originFile;
+
+  MoveArticlePage(RealGitFileModel originFile) {
+    this.originFile = originFile;
   }
 }
 
@@ -87,6 +95,7 @@ class MoveArticlePageState extends State<MoveArticlePage>
     } else {
       this.selectedIdx.add(idx);
     }
+    this.moveAction(idx);
     setState(() {
       
     });
@@ -94,7 +103,12 @@ class MoveArticlePageState extends State<MoveArticlePage>
 
   /// 移动处理
   Future<void> moveAction(int idx) async {
-
+    IIWaitAni.showWait('移动中,请稍候');
+    CoperationGroupModel currentFolder = this.folderlist[idx];
+    var originFile = this.widget.originFile;
+    var bll = GitFileMoveProgressBLL();
+    await bll.moveFileProgress(originFile, currentFolder);
+    IIWaitAni.hideWait();
   }
 
   Future<void> loadData(bool havehud) async {
