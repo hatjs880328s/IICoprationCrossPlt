@@ -21,6 +21,8 @@ class MoveArticlePageState extends State<MoveArticlePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   List<CoperationGroupModel> folderlist = [];
 
+  List<int> selectedIdx = [];
+
   @override
   bool get wantKeepAlive => true;
 
@@ -53,8 +55,7 @@ class MoveArticlePageState extends State<MoveArticlePage>
           itemCount: folderlist.length + 1,
           itemBuilder: (context, i) {
             if (this.folderlist.length == 0) {
-              return Center(
-                      );
+              return Center();
             }
             if (i == 0) {
               NSNormalSearchBar search = NSNormalSearchBar();
@@ -63,9 +64,9 @@ class MoveArticlePageState extends State<MoveArticlePage>
               };
               return search;
             }
-            return MoveArticlePageCell(true, folderlist[i - 1],
+            return MoveArticlePageCell(this.selectedIdx.contains(i - 1), folderlist[i - 1],
              () {
-                  //this.goFilelistPage(i - 1);
+                 selectOrDeselect(i - 1); 
                 });
           },
         ),
@@ -77,6 +78,23 @@ class MoveArticlePageState extends State<MoveArticlePage>
 
   Future<void> _loadPageOne() async {
     await this.loadData(false);
+  }
+
+  /// 选中与取消选中
+  void selectOrDeselect(int idx) {
+    if (this.selectedIdx.contains(idx)) {
+      this.selectedIdx.remove(idx);
+    } else {
+      this.selectedIdx.add(idx);
+    }
+    setState(() {
+      
+    });
+  }
+
+  /// 移动处理
+  Future<void> moveAction(int idx) async {
+
   }
 
   Future<void> loadData(bool havehud) async {

@@ -50,9 +50,11 @@ class MoveArticlePageCell extends StatelessWidget {
                     height: 24,
                     width: 24,
                     child: GestureDetector(
-                      child: Image(image: AssetImage(this.selected ? "images/movearticle_selectfolder.png" : 'images/movearticle_unselectfolder.png'),),
+                      child: Image(
+                        image: AssetImage(
+                          this.selected ? "images/movearticle_selectfolder.png" : 'images/movearticle_unselectfolder.png'),),
                       onTap: () {
-
+                        action();
                       },
                     )
                   )
