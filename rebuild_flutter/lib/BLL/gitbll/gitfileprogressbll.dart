@@ -364,7 +364,7 @@ class GitFileProgressBLL {
   Future<List<RealGitFileModel>> getNewestFileLists() async {
     NSLoginModel umodel = await NSLoginGlobal.getInstance().getUserInfo();
     List<RealGitFileModel> result = [];
-    List<Map> list = await GitFileDAL().getallNewestFiles(umodel.userid);
+    var list = await GitFileDAL().getallNewestFiles(umodel.userid);
     for (Map eachmap in list) {
       RealGitFileModel model = RealGitFileModel.fromJson(eachmap);
       result.add(model);

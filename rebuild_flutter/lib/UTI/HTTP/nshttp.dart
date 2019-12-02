@@ -106,8 +106,20 @@ class NSHTTP {
         result = NSHttpResponse(arrValue: arr);
       } on Exception {
         result = NSHttpResponse(anyValue: response.data);
+      } on Error {
+        result = NSHttpResponse(anyValue: response.data);
       }
-    }
+   } on Error {
+      try {
+        List<dynamic> arr = response.data;
+        result = NSHttpResponse(arrValue: arr);
+      } on Exception {
+        result = NSHttpResponse(anyValue: response.data);
+      } on Error {
+        result = NSHttpResponse(anyValue: response.data);
+      }
+   }
+  
     return result;
   }
 
