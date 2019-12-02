@@ -105,13 +105,13 @@ class CoperitionGroupCellState extends State<CoperitionGroupCell> {
 
   /// 创建者信息
   void creator() async {
-    // bool isself = await this.widget.file.isSelfCreator();
-    // setState(() {
-    //   if (isself) {
-    //     this.creatorInfo = "自己";
-    //   } else {
-    //     this.creatorInfo = "其他人";
-    //   }
-    // });
+    bool isself = await this.widget.file.isSelfCreate();
+    setState(() {
+      if (isself) {
+        this.creatorInfo = "自己";
+      } else {
+        this.creatorInfo = "其他人";
+      }
+    });
   }
 }

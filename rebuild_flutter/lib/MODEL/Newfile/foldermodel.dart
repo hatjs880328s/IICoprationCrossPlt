@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 
 /// This allows the `User` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
@@ -30,6 +32,12 @@ class FolderModel {
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
   Map<String, dynamic> toJson() => _$FolderModelToJson(this);
+
+  /// 判定是否是自己创建
+  Future<bool> isSelfCreate() async {
+    NSLoginModel model = await NSLoginGlobal.getInstance().getUserInfo();
+    return users.split(',').first.contains(model.userid);
+  }
 
   // 获取标题
   String getTitleInfo() {
