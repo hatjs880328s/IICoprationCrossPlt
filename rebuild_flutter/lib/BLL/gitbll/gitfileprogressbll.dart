@@ -352,7 +352,7 @@ class GitFileProgressBLL {
     // return realnewmodel;
 
     List<RealGitFileModel> result = [];
-    List<Map> list = await GitFolderDAL().getOneFolderFiles(folderid);
+    var list = await GitFolderDAL().getOneFolderFiles(folderid);
     for (Map eachmap in list) {
       RealGitFileModel model = RealGitFileModel.fromJson(eachmap);
       result.add(model);

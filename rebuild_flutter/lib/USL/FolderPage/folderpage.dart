@@ -131,7 +131,7 @@ class FolderPageState extends State<FolderPage>
   }
 
   void goFilelistPage(int idx) {
-    NewestFile page = NewestFile(false, folderlist[idx].name, folderlist[idx].name);
+    NewestFile page = NewestFile(false, folderlist[idx].name, folderlist[idx].folderid);
 
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return page;
