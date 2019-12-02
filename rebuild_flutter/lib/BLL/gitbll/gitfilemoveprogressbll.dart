@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
+import 'package:rebuild_flutter/DAL/gitdal/gitfiledal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
@@ -24,5 +25,8 @@ class GitFileMoveProgressBLL {
     // await this.filebll.deleteOneFile(originModel);
     // // alert
     // IIWaitAni.showWait('处理完毕');
+    originModel.folderid = currentFolder.folderid;
+    var result = await GitFileDAL().updateFile(originModel.toJson());
+    return result;
   }
 }

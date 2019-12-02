@@ -28,7 +28,7 @@ class GitFileDAL {
 
   /// 更新file
   Future<bool> updateFile(Map<String, dynamic> params) async {
-    var url = APIStruct.getFile;
+    var url = APIStruct.createFile;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.PUT, 
     url, params: params, contentType: "application/x-www-form-urlencoded");
     if (res.anyValue == null) {
