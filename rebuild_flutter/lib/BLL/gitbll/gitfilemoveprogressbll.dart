@@ -19,12 +19,6 @@ class GitFileMoveProgressBLL {
 
   /// 文件移动
   Future<bool> moveFileProgress(RealGitFileModel originModel, FolderModel currentFolder) async {
-    // 1.先添加
-    // await filebll.createFile(true, currentFolder, originModel.content, originModel.name, originModel.description);
-    // // 2.后移除  
-    // await this.filebll.deleteOneFile(originModel);
-    // // alert
-    // IIWaitAni.showWait('处理完毕');
     originModel.folderid = currentFolder.folderid;
     var result = await GitFileDAL().updateFile(originModel.toJson());
     return result;
