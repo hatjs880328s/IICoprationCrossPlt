@@ -40,7 +40,7 @@ class CoperationGroupModel {
   /// 判定创建者是否是自己
   Future<bool> isSelfCreator() async {
     var user = await NSLoginGlobal.getInstance().getUserInfo();
-    var realuid = user.uid;
+    var realuid = user.userid;
     return realuid == this.users.first;
   }
 

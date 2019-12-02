@@ -32,7 +32,7 @@ class GitFileProgressDAL {
     Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
     headers["content-type"] = headerContentType;
     NSHttpResponse res = await NSHTTP.startRequest(
-        NSHTTPRequestType.PUT, url, headers, model.toJson());
+        NSHTTPRequestType.PUT, url, header: headers, params: model.toJson());
     if (null == res.errorInfo) {
       return true;
     }
@@ -50,7 +50,7 @@ class GitFileProgressDAL {
     Map<String, dynamic> headers = NSHTTPExtension().getNormalGitHeader();
     headers["content-type"] = headerContentType;
     NSHttpResponse res = await NSHTTP.startRequest(
-        NSHTTPRequestType.PUT, url, headers, model.toJson());
+        NSHTTPRequestType.PUT, url, header: headers, params: model.toJson());
     if (null == res.errorInfo) {
       return true;
     }
@@ -61,7 +61,7 @@ class GitFileProgressDAL {
   Future<dynamic> getFileInfo(String path) async {
     String url = APIStruct.gitAPINormalURL + path;
     NSHttpResponse res = await NSHTTP.startRequest(
-        NSHTTPRequestType.GET, url, NSHTTPExtension().getNormalGitHeader());
+        NSHTTPRequestType.GET, url, header: NSHTTPExtension().getNormalGitHeader());
     return res.dicValue;
   }
 
@@ -78,7 +78,7 @@ class GitFileProgressDAL {
     Map<String, dynamic> params = model.toJson();
     params.remove("content");
     NSHttpResponse res = await NSHTTP.startRequest(
-        NSHTTPRequestType.DELETE, url, headers, params);
+        NSHTTPRequestType.DELETE, url, header: headers, params: params);
     if (null == res.errorInfo) {
       return true;
     }

@@ -7,13 +7,14 @@ part of 'nsloginmodel.dart';
 // **************************************************************************
 
 NSLoginModel _$NSLoginModelFromJson(Map<String, dynamic> json) {
-  return NSLoginModel(json['uid'] as String, json['nickname'] as String,
-      json['icon'] as String);
+  return NSLoginModel(json['userid'] as String, json['nickname'] as String,
+      json['email'] as String, json['icon'] as String);
 }
 
 Map<String, dynamic> _$NSLoginModelToJson(NSLoginModel instance) =>
     <String, dynamic>{
-      'uid': instance.uid,
+      'userid': instance.userid,
       'nickname': instance.nickname,
-      'icon': instance.icon
+      'icon': instance.icon,
+      'email': instance.email
     };

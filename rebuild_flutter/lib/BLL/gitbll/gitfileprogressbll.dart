@@ -64,7 +64,7 @@ class GitFileProgressBLL {
     IIWaitAni.showWait('创建中,请稍候');
     // 1.获取用户id - 创建path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
-    String uid = usermodel.uid;
+    String uid = usermodel.userid;
     String uemail = "451145552@qq.com";
     String path =
         this.createPath(fileTitle, folderInfo.name, uid, isNormalFolder);
@@ -136,7 +136,7 @@ class GitFileProgressBLL {
   Future<void> createFolder(bool isnormalFolder, String folderName) async {
     // 0.处理文件path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
-    String uid = usermodel.uid;
+    String uid = usermodel.userid;
     String uemail = "451145552@qq.com";
     String path =
         this.createPath(defaultFolderFileName, folderName, uid, isnormalFolder);
@@ -173,7 +173,7 @@ class GitFileProgressBLL {
     var titleIsChange = oldFileModel.title != fileTitle;
     // 0.获取用户id * 获取网络旧model的sha值PATH值
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
-    String uid = usermodel.uid;
+    String uid = usermodel.userid;
     String uemail = "451145552@qq.com";
     Map oldItemMaps = await this.dal.getFileInfo(oldFileModel.path);
     FolderModel netOldModel = this.createFolderModel(oldItemMaps);
@@ -228,7 +228,7 @@ class GitFileProgressBLL {
     String folderSha = gitResultModel.sha;
     // 2.通过dal更新folderinfo
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
-    String uid = usermodel.uid;
+    String uid = usermodel.userid;
     String uemail = "451145552@qq.com";
     String base64realFolderContent =
         base64Encode(utf8.encode(json.encode(newFolderinfo.toJson())));
@@ -270,7 +270,7 @@ class GitFileProgressBLL {
       bool isNormalFolder) async {
     // 1.获取path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
-    String uid = usermodel.uid;
+    String uid = usermodel.userid;
     String genPath = this.createGenFolderInfoPath(isNormalFolder, uid);
     // 2.获取此path下的信息[由于是文件夹列表，response返回的是一个list]
     Map maps = await this.dal.getFileInfo(genPath);
@@ -287,7 +287,7 @@ class GitFileProgressBLL {
       bool isNormalFolder, String folderName, {String realUID}) async {
     // 1.获取path
     var usermodel = await NSLoginGlobal.getInstance().getUserInfo();
-    String uid = realUID == null ? usermodel.uid : realUID;
+    String uid = realUID == null ? usermodel.userid : realUID;
     String folderRealPath = this.createPath(
         this.defaultFolderFileName, folderName, uid, isNormalFolder);
     // 2.没有则从网络获取 [获取下来的首先是gitmodel -> content -> base64decode -> realgitfilemodel]
@@ -333,7 +333,7 @@ class GitFileProgressBLL {
   Future<CoperationGroupModel> analyzeISExistGenFolderInfo(
       bool isNormalFolder) async {
     var userinfo = await NSLoginGlobal.getInstance().getUserInfo();
-    var path = this.createGenFolderInfoPath(isNormalFolder, userinfo.uid);
+    var path = this.createGenFolderInfoPath(isNormalFolder, userinfo.userid);
     Map exist = await this.dal.getFileInfo(path);
     if (exist.keys.length == 0) {
       return null;
@@ -370,7 +370,7 @@ class GitFileProgressBLL {
     } else {
       // 新建
       // 0.获取path
-      var path = this.createGenFolderInfoPath(isnormalfolder, userinfo.uid);
+      var path = this.createGenFolderInfoPath(isnormalfolder, userinfo.userid);
       // 1.构造gen-folderinfo this.name, this.id, this.users, this.time, this.files, this.path
       CoperationGroupModel genModel = CoperationGroupModel(
           folderName,
@@ -384,7 +384,7 @@ class GitFileProgressBLL {
           base64Encode(utf8.encode(json.encode(genModel.toJson())));
       // 3.创建之
       await this.dal.createFile(
-          path, base64realFolderContent, userinfo.uid, "451145552@qq.com");
+          path, base64realFolderContent, userinfo.userid, "451145552@qq.com");
     }
   }
 
@@ -397,7 +397,7 @@ class GitFileProgressBLL {
     var sha = originModel.sha;
     var user = await NSLoginGlobal.getInstance().getUserInfo();
     // b.删除之
-    bool deleteResult = await this.dal.deleteOneFile(currentItem.path, sha, user.uid, user.nickname);
+    bool deleteResult = await this.dal.deleteOneFile(currentItem.path, sha, user.userid, user.nickname);
 
     // 2.更改folder
     // z.获path
@@ -418,6 +418,6 @@ class GitFileProgressBLL {
     // c.处理content
     var base64content = base64Encode(utf8.encode(json.encode(folderModels)));
     // d.调用dal
-    await this.dal.updateFile(floderpath, base64content, user.uid, user.nickname, foldersha);
+    await this.dal.updateFile(floderpath, base64content, user.userid, user.nickname, foldersha);
   }
 }

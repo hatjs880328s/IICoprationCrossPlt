@@ -79,7 +79,7 @@ class GitCMDProgressBLL {
   /// 将目标协同组信息拷贝到自己的gen-folder中
   Future<bool> copyOldGroupInfo2SelfGroups(GitCMDModel cmd) async {
     // 1 获取邀请的组信息
-    var infos = await this.getSenderCoperationGroupModel(cmd.sender.uid);
+    var infos = await this.getSenderCoperationGroupModel(cmd.sender.userid);
     CoperationGroupModel itemGroup = infos['group'];
     CoperationGroupModel realItemGroup;
     for (CoperationGroupModel eachitem in itemGroup.dirs) {
@@ -88,8 +88,8 @@ class GitCMDProgressBLL {
       }
     }
     // 2 获取自己的gen folder info [自己的有可能为空，需要创建]
-    var selfGroup = await this.getSenderCoperationGroupModel(cmd.receiver.uid);
-    var path = '${cmd.receiver.uid}/Groups/${this.genfoldername}';
+    var selfGroup = await this.getSenderCoperationGroupModel(cmd.receiver.userid);
+    var path = '${cmd.receiver.userid}/Groups/${this.genfoldername}';
     if (selfGroup['group'] == null) {
       //新建
       var newGroup = CoperationGroupModel(
@@ -102,7 +102,7 @@ class GitCMDProgressBLL {
         [realItemGroup],
       );
       var base64Str = base64Encode(utf8.encode(json.encode(newGroup)));
-      var result = await this.netdal.createFile(path, base64Str, cmd.receiver.uid, cmd.receiver.nickname);
+      var result = await this.netdal.createFile(path, base64Str, cmd.receiver.userid, cmd.receiver.nickname);
       return result;
     } else {
       //更新
@@ -119,7 +119,7 @@ class GitCMDProgressBLL {
       // 4 base64 content
       var base64Str = base64Encode(utf8.encode(json.encode(selfRealGroup)));
       var result = await this.netdal.updateFile(path, base64Str,
-          cmd.receiver.uid, cmd.receiver.nickname, selfFolder.sha);
+          cmd.receiver.userid, cmd.receiver.nickname, selfFolder.sha);
       return result;
     }
   }
@@ -128,7 +128,7 @@ class GitCMDProgressBLL {
   Future<bool> deleteSelfCMD(
       GitCMDModel origincmd, List<GitCMDModel> origincmds) async {
     // a path
-    var path = '${origincmd.receiver.uid}/${this.currentUserInfosFileName}';
+    var path = '${origincmd.receiver.userid}/${this.currentUserInfosFileName}';
     // b new content
     origincmds.remove(origincmd);
     var base64content = base64Encode(utf8.encode(json.encode(origincmds)));
@@ -140,7 +140,7 @@ class GitCMDProgressBLL {
     FolderModel foldermodel = FolderModel.fromJson(oldinfo);
     var sha = foldermodel.sha;
     var result = await this.netdal.updateFile(path, base64content,
-        origincmd.receiver.uid, origincmd.receiver.nickname, sha);
+        origincmd.receiver.userid, origincmd.receiver.nickname, sha);
     return result;
   }
 
@@ -151,14 +151,14 @@ class GitCMDProgressBLL {
     GitCMDModel sendernewcmdmodel = GitCMDModel(
         origincmd.receiver, origincmd.sender, realcmd, time, origincmd.group);
     // a sender path
-    var senderpath = '${origincmd.sender.uid}/${this.currentUserInfosFileName}';
+    var senderpath = '${origincmd.sender.userid}/${this.currentUserInfosFileName}';
     // b sender old content [这里有可能也没有数据，需要新建]
     Map senderoldinfo = await this.netdal.getFileInfo(senderpath);
     if (senderoldinfo.keys.length == 0) {
       //新建
       var content = [sendernewcmdmodel];
       var base64contentinfo = base64Encode(utf8.encode(json.encode(content)));
-      var result = await this.netdal.createFile(senderpath, base64contentinfo, origincmd.receiver.uid, origincmd.receiver.nickname);
+      var result = await this.netdal.createFile(senderpath, base64contentinfo, origincmd.receiver.userid, origincmd.receiver.nickname);
       return result;
     }
     // 更新
@@ -177,7 +177,7 @@ class GitCMDProgressBLL {
     var senderresult = await this.netdal.updateFile(
         senderpath,
         base64contentinfo,
-        origincmd.receiver.uid,
+        origincmd.receiver.userid,
         origincmd.receiver.nickname,
         sendersha);
     return senderresult;
@@ -186,15 +186,15 @@ class GitCMDProgressBLL {
   /// 将自己的信息添加到创建者的group-folderinfo中
   Future<bool> addSelf2SpecifiedGroupUserList(GitCMDModel originCMD) async {
     // 1. path
-    var path = '${originCMD.sender.uid}/Groups/${originCMD.group.name}/${this.genfoldername}';
-    var bigDic = await this.getSenderDeepCoperationGroupModel(originCMD.sender.uid, originCMD.group.name);
+    var path = '${originCMD.sender.userid}/Groups/${originCMD.group.name}/${this.genfoldername}';
+    var bigDic = await this.getSenderDeepCoperationGroupModel(originCMD.sender.userid, originCMD.group.name);
     FolderModel shaInfo = bigDic['folder'];
     CoperationGroupModel contentInfo = bigDic['group'];
     // 2. 获取原来文件的sha
     var sha = shaInfo.sha;
     // 3. 拼接content 并更新,将自己加到用户列表中
     var selfUid = await NSLoginGlobal.getInstance().getUserInfo();
-    var realSelfUid = selfUid.uid;
+    var realSelfUid = selfUid.userid;
     contentInfo.users.add(realSelfUid);
     var base64Content = base64Encode(utf8.encode(json.encode(contentInfo)));
     // 4. 更新

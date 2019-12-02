@@ -18,10 +18,10 @@ class NSHTTP {
   static Future<NSHttpResponse> startRequest(
       NSHTTPRequestType requestType, 
       String url,
-      [Map<String, dynamic> header, 
+      {Map<String, dynamic> header, 
       Map<String, dynamic> params,
       bool showAlertInfo = true
-      ]) async {
+      }) async {
 
     NSHttpResponse response = NSHttpResponse();
     Dio manager = new Dio();

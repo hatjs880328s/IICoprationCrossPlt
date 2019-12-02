@@ -44,7 +44,7 @@ class GitUserProgressBLL {
       for (Map eachmap in infos) {
         NSLoginModel eachUser = NSLoginModel.fromJson(eachmap);
         // b.排重（直接返回true即可）
-        if (eachUser.uid == userInfo.uid) {
+        if (eachUser.userid == userInfo.userid) {
           return true;
         }
         users.add(eachUser);
@@ -54,14 +54,14 @@ class GitUserProgressBLL {
       var dataInfo = utf8.encode(jsonData);
       String base64Str = base64Encode(dataInfo);
       // c.更新信息
-      var result = await this.netdal.updateFile(this.userInfosFileName, base64Str, userInfo.uid, userInfo.nickname, sha);
+      var result = await this.netdal.updateFile(this.userInfosFileName, base64Str, userInfo.userid, userInfo.nickname, sha);
       return result;
     }
     // 3.创建一个新的文件   
     var jsonData = json.encode([userInfo]);
     var dataInfo = utf8.encode(jsonData);
     String base64Str = base64Encode(dataInfo); 
-    var result = await this.netdal.createFile(this.userInfosFileName, base64Str, userInfo.uid, userInfo.nickname);
+    var result = await this.netdal.createFile(this.userInfosFileName, base64Str, userInfo.userid, userInfo.nickname);
     return result;
   } 
 
@@ -89,7 +89,7 @@ class GitUserProgressBLL {
     CoperationGroupModel group,
     ) async {
     // 1.创建path
-    String path = "${receiver.uid}/${this.currentUserInfosFileName}";
+    String path = "${receiver.userid}/${this.currentUserInfosFileName}";
     // 2.获取此path下的文件，如果存在则获取其sha
     Map maps = await this.netdal.getFileInfo(path);
     if (maps.keys.length != 0) {
@@ -113,7 +113,7 @@ class GitUserProgressBLL {
       var jsonStr = json.encode(listresult);
       var base64Content = base64Encode(utf8.encode(jsonStr));
       // d 上传
-      var updateresult = this.netdal.updateFile(path, base64Content, selfUser.uid, selfUser.nickname, sha);
+      var updateresult = this.netdal.updateFile(path, base64Content, selfUser.userid, selfUser.nickname, sha);
       return updateresult;
     }
     // 3.不存在就创建此文件
@@ -123,14 +123,14 @@ class GitUserProgressBLL {
     var newCMD = GitCMDModel(selfUser, receiver, CMDType.invite, timeNow, group);
     var jsonStr = json.encode([newCMD]);
     var base64Content = base64Encode(utf8.encode(jsonStr));
-    var createresult = this.netdal.createFile(path, base64Content, selfUser.uid, selfUser.nickname);
+    var createresult = this.netdal.createFile(path, base64Content, selfUser.userid, selfUser.nickname);
     return createresult;
   }
 
   /// 获取所有的自己的指令消息
   Future<List<GitCMDModel>> getOwnCMDs() async {
     var model = await NSLoginGlobal.getInstance().getUserInfo();
-    var uid = model.uid;
+    var uid = model.userid;
     // 0 path
     var path = "$uid/${this.currentUserInfosFileName}";
     // 1 获取信息 -> content -> base64 decode -> list

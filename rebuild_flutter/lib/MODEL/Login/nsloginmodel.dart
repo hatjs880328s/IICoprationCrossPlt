@@ -10,19 +10,21 @@ part 'nsloginmodel.g.dart';
 
 class NSLoginModel {
   NSLoginModel(
-    this.uid, 
+    this.userid, 
     this.nickname, 
+    this.email,
     this.icon);
 
-  manualInit(String uid, String nickname, String icon) {
-    this.uid = uid;
+  manualInit(String uid, String nickname, String icon, String email) {
+    this.userid = uid;
     this.nickname = nickname;
     this.icon = icon;
   }
 
-  String uid;
+  String userid;
   String nickname;
   String icon;
+  String email;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
