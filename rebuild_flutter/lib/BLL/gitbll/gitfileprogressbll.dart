@@ -187,7 +187,7 @@ class GitFileProgressBLL {
       DateTime.now().millisecondsSinceEpoch.toDouble(),
       DateTime.now().millisecondsSinceEpoch.toDouble(),
       uid,
-      0
+      isnormalFolder ? 0 : 1
     );
     var result = await GitFolderDAL().createFolder(folder.toJson());
     return result;
