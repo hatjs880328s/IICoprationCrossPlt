@@ -247,7 +247,6 @@ class LoginPageState extends State<LoginPage> {
   void goMainpage() async {
     NSLoginModel model = await NSLoginGlobal.getInstance().getUserInfo();
     await GitUserProgressBLL().createNewUser2Git(model);
-    GitFileProgressBLL().createFolder(true, "最新");
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return MaintabBar();
     }));
