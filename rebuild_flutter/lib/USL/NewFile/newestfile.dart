@@ -129,13 +129,11 @@ class NewestFileState extends State<NewestFile>
     }
     List<RealGitFileModel> lists;
     if (widget.isNewset) {
-      overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, "最新");
+      lists = await GitFileProgressBLL().getNewestFileLists();
     } else {
-      overinfo = await GitFileProgressBLL().getOneFolderFileLists(true, widget.folderid);
+      lists = await GitFileProgressBLL().getOneFolderFileLists(widget.folderid);
     }
     IIWaitAni.hideWait();
-    lists = overinfo == null ? [] : overinfo.files;
-    list = lists;
     setState(() {
       list = lists;
     });

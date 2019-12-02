@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/FolderPage/folderpagecell.dart';
 import 'package:rebuild_flutter/USL/NewFile/newestfile.dart';
@@ -23,7 +24,7 @@ class FolderPage extends StatefulWidget {
 
 class FolderPageState extends State<FolderPage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  List<CoperationGroupModel> folderlist = [];
+  List<FolderModel> folderlist = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -125,7 +126,7 @@ class FolderPageState extends State<FolderPage>
     var infos = await filebll.getOneUsersAllFolders(true);
     IIWaitAni.hideWait();
     setState(() {
-      this.folderlist = infos.dirs;
+      this.folderlist = infos;
     });
   }
 

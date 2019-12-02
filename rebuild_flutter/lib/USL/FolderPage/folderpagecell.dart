@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 
 class FolderPageCell extends StatelessWidget {
-  CoperationGroupModel file;
+  FolderModel file;
 
   dynamic action;
 
-  FolderPageCell(CoperationGroupModel file, dynamic action) {
+  FolderPageCell(FolderModel file, dynamic action) {
     this.file = file;
     this.action = action;
   }

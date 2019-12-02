@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistfirstcell.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistforthcell.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelistsecondcell.dart';
@@ -26,7 +27,7 @@ class CoperationFileList extends StatefulWidget {
 }
 
 class CoperationFileListState extends State<CoperationFileList> {
-  CoperationGroupModel list;
+  List<RealGitFileModel> list;
 
   ScrollController scrollCon;
 
@@ -64,13 +65,13 @@ class CoperationFileListState extends State<CoperationFileList> {
                 controller: this.scrollCon,
                 children: this.list == null ? [] : [
                   //第一部分（返回按钮 & 顶部分享、邀请等按钮）
-                  CoperationFileListFirstCell(this.list.name, this.list),
-                  //第二部分协同组基本信息
-                  CoperationFileListSecondCell(this.list.files.length, this.list.users.length, this.list.time),
-                  //第三部分协同成员信息
-                  CoperationFileListCell(this.list.users),
-                  //第四部分协同组文章
-                  CoperationFileListForthCell(this.list),
+                  // CoperationFileListFirstCell(this.list.name, this.list),
+                  // //第二部分协同组基本信息
+                  // CoperationFileListSecondCell(this.list.files.length, this.list.users.length, this.list.time),
+                  // //第三部分协同成员信息
+                  // CoperationFileListCell(this.list.users),
+                  // //第四部分协同组文章
+                  // CoperationFileListForthCell(this.list),
                 ]
               )),
         ],
@@ -86,7 +87,7 @@ class CoperationFileListState extends State<CoperationFileList> {
       backgroundColor: Colors.grey
     );
     var filebll = GitFileProgressBLL();
-    CoperationGroupModel result = await filebll.getOneFolderFileLists(false, widget.coperid, realUID: this.widget.uid);
+    List<RealGitFileModel> result = await filebll.getOneFolderFileLists(widget.coperid);
     setState(() {
       Fluttertoast.cancel();
       this.list = result;

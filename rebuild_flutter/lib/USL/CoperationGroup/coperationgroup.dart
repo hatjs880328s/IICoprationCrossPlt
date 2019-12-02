@@ -4,6 +4,7 @@ import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gituserprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroupnotificationcell.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperitiongroupcell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIAnimationColor/iianimationcolor.dart';
@@ -20,7 +21,7 @@ class CoperationGroup extends StatefulWidget {
 class CoperationGroupState extends State<CoperationGroup>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
 
-  List<CoperationGroupModel> list = [];
+  List<FolderModel> list = [];
 
   List<GitCMDModel> cmdlists = [];
 
@@ -94,7 +95,7 @@ class CoperationGroupState extends State<CoperationGroup>
     var listsInfo = await filebll.getOneUsersAllFolders(false);
     IIWaitAni.hideWait();
     setState(() {
-      this.list = listsInfo.dirs;
+      this.list = listsInfo;
     });
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
+import 'package:rebuild_flutter/DAL/gitdal/gitcmddal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gituserdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
@@ -17,6 +18,7 @@ import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
+import 'package:uuid/uuid.dart';
 
 class GitUserProgressBLL {
 
@@ -93,57 +95,56 @@ class GitUserProgressBLL {
     NSLoginModel receiver,
     CoperationGroupModel group,
     ) async {
-    // 1.创建path
-    String path = "${receiver.userid}/${this.currentUserInfosFileName}";
-    // 2.获取此path下的文件，如果存在则获取其sha
-    Map maps = await this.netdal.getFileInfo(path);
-    if (maps.keys.length != 0) {
-      // a 处理元数据
-      FolderModel gitmodel = FolderModel.fromJson(maps);
-      var jsondata = base64Decode(gitmodel.content.replaceAll("\n", ""));
-      var strInfo = utf8.decode(jsondata);
-      List<dynamic> listresult = json.decode(strInfo);
-      List<GitCMDModel> result = [];
-      for (Map eachcmd in listresult) {
-        GitCMDModel cmd = GitCMDModel.fromJson(eachcmd);
-        result.add(cmd);
-      }
-      var sha = gitmodel.sha;
-      // b 创建新数据
-      var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
-      var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
-      var newCMD = GitCMDModel(selfUser, receiver, CMDType.invite, timeNow, group);
-      // c 拼接并编码
-      listresult.add(newCMD);
-      var jsonStr = json.encode(listresult);
-      var base64Content = base64Encode(utf8.encode(jsonStr));
-      // d 上传
-      var updateresult = this.netdal.updateFile(path, base64Content, selfUser.userid, selfUser.nickname, sha);
-      return updateresult;
-    }
-    // 3.不存在就创建此文件
-    // a 创建新cmd并编码
+    // // 1.创建path
+    // String path = "${receiver.userid}/${this.currentUserInfosFileName}";
+    // // 2.获取此path下的文件，如果存在则获取其sha
+    // Map maps = await this.netdal.getFileInfo(path);
+    // if (maps.keys.length != 0) {
+    //   // a 处理元数据
+    //   FolderModel gitmodel = FolderModel.fromJson(maps);
+    //   var jsondata = base64Decode(gitmodel.content.replaceAll("\n", ""));
+    //   var strInfo = utf8.decode(jsondata);
+    //   List<dynamic> listresult = json.decode(strInfo);
+    //   List<GitCMDModel> result = [];
+    //   for (Map eachcmd in listresult) {
+    //     GitCMDModel cmd = GitCMDModel.fromJson(eachcmd);
+    //     result.add(cmd);
+    //   }
+    //   var sha = gitmodel.sha;
+    //   // b 创建新数据
+    //   var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
+    //   var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
+    //   var newCMD = GitCMDModel(selfUser, receiver, CMDType.invite, timeNow, group);
+    //   // c 拼接并编码
+    //   listresult.add(newCMD);
+    //   var jsonStr = json.encode(listresult);
+    //   var base64Content = base64Encode(utf8.encode(jsonStr));
+    //   // d 上传
+    //   var updateresult = this.netdal.updateFile(path, base64Content, selfUser.userid, selfUser.nickname, sha);
+    //   return updateresult;
+    // }
+    // // 3.不存在就创建此文件
+    // // a 创建新cmd并编码
     var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
     var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
-    var newCMD = GitCMDModel(selfUser, receiver, CMDType.invite, timeNow, group);
-    var jsonStr = json.encode([newCMD]);
-    var base64Content = base64Encode(utf8.encode(jsonStr));
-    var createresult = this.netdal.createFile(path, base64Content, selfUser.userid, selfUser.nickname);
-    return createresult;
+    var newCMD = GitCMDModel(CMDType.invite.index, selfUser.userid, receiver.userid, Uuid().v1(), timeNow, group.id);
+    var result = await GitCMDDal().createCMD(newCMD.toJson());
+    return result;
   }
 
   /// 获取所有的自己的指令消息
   Future<List<GitCMDModel>> getOwnCMDs() async {
+    // // 0 path
+    // var path = "$uid/${this.currentUserInfosFileName}";
+    // // 1 获取信息 -> content -> base64 decode -> list
+    // Map map = await this.netdal.getFileInfo(path);
+    // FolderModel gitresult = FolderModel.fromJson(map);
+    // var data = base64Decode(gitresult.content.replaceAll("\n", ""));
+    // var lists = json.decode(utf8.decode(data));
     var model = await NSLoginGlobal.getInstance().getUserInfo();
     var uid = model.userid;
-    // 0 path
-    var path = "$uid/${this.currentUserInfosFileName}";
-    // 1 获取信息 -> content -> base64 decode -> list
-    Map map = await this.netdal.getFileInfo(path);
-    FolderModel gitresult = FolderModel.fromJson(map);
-    var data = base64Decode(gitresult.content.replaceAll("\n", ""));
-    var lists = json.decode(utf8.decode(data));
     List<GitCMDModel> result = [];
+    var lists = await GitCMDDal().getCMDInfo(uid);
     for (Map eachMap in lists) {
       GitCMDModel model = GitCMDModel.fromJson(eachMap);
       result.add(model);

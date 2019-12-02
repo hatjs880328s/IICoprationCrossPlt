@@ -32,19 +32,19 @@ class NewListLocalDAL {
    */
   Future<void> createNewListTab() async {
     await _openDB();
-    String sql = "CREATE TABLE IF NOT EXISTS " + tabName +
-    " (id varchar(100) PRIMARY KEY, content TEXT, time REAL, title varchar(100), subtitle varchar(100))";
-    this.db.execute(sql);
+    // String sql = "CREATE TABLE IF NOT EXISTS " + tabName +
+    // " (fileid varchar(70) PRIMARY KEY, name varchar(70), description varchar(100),  content TEXT, time REAL, title varchar(100), subtitle varchar(100))";
+    // this.db.execute(sql);
   }
 
   /// 插入数据【事务处理】Returns the last inserted record id
   Future<void> insertInfo(RealGitFileModel model) async {
     await _openDB();
-    String sql = "insert into " + tabName + 
-    "  values ('${model.id}', '${model.content}', ${model.time}, '${model.title}', '${model.subtitle}')";
-    await db.transaction((txn) async {
-      await txn.rawInsert(sql);
-    });
+    // String sql = "insert into " + tabName + 
+    // "  values ('${model.fileid}', '${model.content}', ${model.time}, '${model.title}', '${model.subtitle}')";
+    // await db.transaction((txn) async {
+    //   await txn.rawInsert(sql);
+    // });
   }
 
   /// 更新数据

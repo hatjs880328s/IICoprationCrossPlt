@@ -13,18 +13,19 @@ part 'gitcmdmodel.g.dart';
 
 class GitCMDModel {
   GitCMDModel(
+    this.cmdtype,
     this.sender, 
-    this.receiver, 
-    this.cmd,
+    this.reveiver, 
+    this.cmdid,
     this.time,
-    this.group,
+    this.groupid,
     );
-
-  NSLoginModel sender;
-  NSLoginModel receiver;
-  CMDType cmd;
+  String cmdid;
+  String sender;
+  String reveiver;
+  int cmdtype;
   double time;
-  CoperationGroupModel group;
+  String groupid;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
@@ -43,10 +44,10 @@ class GitCMDModel {
 
   /// 根据cmd指令枚举获取指令文本信息
   String getRealCMDStr() {
-    switch (this.cmd) {
-      case CMDType.invite: return "邀请加入";
-      case CMDType.inviteresultno: return "拒绝回执";
-      case CMDType.inviteresultok: return "同意回执";
+    switch (this.cmdtype) {
+      case 0: return "邀请加入";
+      case 1: return "拒绝回执";
+      case 2: return "同意回执";
     }
   }
 }

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
 
 class CoperitionGroupCell extends StatefulWidget {
-  CoperationGroupModel file;
+  FolderModel file;
 
-  CoperitionGroupCell(CoperationGroupModel file) {
+  CoperitionGroupCell(FolderModel file) {
     this.file = file;
   }
 
@@ -59,7 +60,7 @@ class CoperitionGroupCellState extends State<CoperitionGroupCell> {
                         ),
                         Container(
                           padding: EdgeInsets.only(top: 8),
-                          child: Text("文件数目: ${this.widget.file.files.length}",
+                          child: Text("文件数目: ${this.widget.file}",
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
@@ -96,7 +97,7 @@ class CoperitionGroupCellState extends State<CoperitionGroupCell> {
 
   void gopage(String coperid, BuildContext context) {
     CoperationFileList widget =
-        CoperationFileList(coperid, this.widget.file.users.first);
+        CoperationFileList(coperid, this.widget.file.users);
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return widget;
     }));
@@ -104,13 +105,13 @@ class CoperitionGroupCellState extends State<CoperitionGroupCell> {
 
   /// 创建者信息
   void creator() async {
-    bool isself = await this.widget.file.isSelfCreator();
-    setState(() {
-      if (isself) {
-        this.creatorInfo = "自己";
-      } else {
-        this.creatorInfo = "其他人";
-      }
-    });
+    // bool isself = await this.widget.file.isSelfCreator();
+    // setState(() {
+    //   if (isself) {
+    //     this.creatorInfo = "自己";
+    //   } else {
+    //     this.creatorInfo = "其他人";
+    //   }
+    // });
   }
 }

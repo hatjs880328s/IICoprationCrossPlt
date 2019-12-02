@@ -8,22 +8,28 @@ part of 'realgitfilemodel.dart';
 
 RealGitFileModel _$RealGitFileModelFromJson(Map<String, dynamic> json) {
   return RealGitFileModel(
-      json['id'] as String,
       json['content'] as String,
-      (json['time'] as num)?.toDouble(),
-      json['img'] as String,
-      json['title'] as String,
-      json['subtitle'] as String,
-      json['path'] as String);
+      (json['createtime'] as num)?.toDouble(),
+      json['images'] as String,
+      json['name'] as String,
+      json['description'] as String,
+      json['fileid'] as String,
+      json['folderid'] as String,
+      (json['changetime'] as num)?.toDouble(),
+      json['currentowner'] as String,
+      json['creator'] as String);
 }
 
 Map<String, dynamic> _$RealGitFileModelToJson(RealGitFileModel instance) =>
     <String, dynamic>{
       'content': instance.content,
-      'time': instance.time,
-      'img': instance.img,
-      'title': instance.title,
-      'subtitle': instance.subtitle,
-      'id': instance.id,
-      'path': instance.path
+      'images': instance.images,
+      'name': instance.name,
+      'description': instance.description,
+      'fileid': instance.fileid,
+      'folderid': instance.folderid,
+      'createtime': instance.createtime,
+      'changetime': instance.changetime,
+      'currentowner': instance.currentowner,
+      'creator': instance.creator
     };

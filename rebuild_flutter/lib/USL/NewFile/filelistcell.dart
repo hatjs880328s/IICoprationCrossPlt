@@ -31,7 +31,7 @@ class FileListCell extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                child: Text(this.itemmodel.title,
+                child: Text(this.itemmodel.name,
                     style: TextStyle(
                         fontSize: 16, fontFamily: NSNormalConfig.fontFamily)),
               ),
@@ -62,7 +62,7 @@ class FileListCell extends StatelessWidget {
           },
         ),
       ),
-      key: Key('${itemmodel.id}'),
+      key: Key('${itemmodel.fileid}'),
       onDismissed: (direction) {
         this.deleteAction(this.itemmodel);
         jump2OtherPage(context, this.itemmodel);
@@ -90,7 +90,7 @@ class FileListCell extends StatelessWidget {
 
   /// 去掉结尾的换行
   String nonEnterSubtitle() {
-    var result = this.itemmodel.subtitle.replaceAll("\n", "");
+    var result = this.itemmodel.description.replaceAll("\n", "");
     return result;
   }
 

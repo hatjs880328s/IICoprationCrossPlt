@@ -8,28 +8,24 @@ part of 'foldermodel.dart';
 
 FolderModel _$FolderModelFromJson(Map<String, dynamic> json) {
   return FolderModel(
+      json['folderid'] as String,
       json['name'] as String,
-      json['path'] as String,
-      json['sha'] as String,
-      json['size'] as int,
-      json['url'] as String,
-      json['html_url'] as String,
-      json['git_url'] as String,
-      json['download_url'] as String,
-      json['type'] as String,
-      json['content'] as String);
+      json['description'] as String,
+      json['content'] as String,
+      (json['createtime'] as num)?.toDouble(),
+      (json['changetime'] as num)?.toDouble(),
+      json['users'] as String,
+      json['type'] as int);
 }
 
 Map<String, dynamic> _$FolderModelToJson(FolderModel instance) =>
     <String, dynamic>{
+      'folderid': instance.folderid,
       'name': instance.name,
-      'path': instance.path,
-      'sha': instance.sha,
-      'size': instance.size,
-      'url': instance.url,
-      'html_url': instance.html_url,
-      'git_url': instance.git_url,
-      'download_url': instance.download_url,
-      'type': instance.type,
-      'content': instance.content
+      'description': instance.description,
+      'content': instance.content,
+      'createtime': instance.createtime,
+      'changetime': instance.changetime,
+      'users': instance.users,
+      'type': instance.type
     };

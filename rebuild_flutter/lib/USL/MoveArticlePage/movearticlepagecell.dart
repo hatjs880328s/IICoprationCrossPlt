@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 
 class MoveArticlePageCell extends StatelessWidget {
-  CoperationGroupModel file;
+  FolderModel file;
 
   dynamic action;
 
   bool selected;
 
   MoveArticlePageCell(
-      bool selected, CoperationGroupModel file, dynamic action) {
+      bool selected, FolderModel file, dynamic action) {
     this.file = file;
     this.action = action;
     this.selected = selected;

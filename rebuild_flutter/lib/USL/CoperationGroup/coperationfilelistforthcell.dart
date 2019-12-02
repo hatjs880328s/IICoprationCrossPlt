@@ -72,7 +72,7 @@ class CoperationFileListForthCell extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Container(
-                    child: Text(this.lists[i].title,
+                    child: Text(this.lists[i].name,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
@@ -94,7 +94,7 @@ class CoperationFileListForthCell extends StatelessWidget {
               Container(
                 padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
                 child: Text(
-                  this.lists[i].subtitle.replaceAll("\n", ""),
+                  this.lists[i].description.replaceAll("\n", ""),
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       color: Colors.black87, fontSize: 15, height: 1.7),

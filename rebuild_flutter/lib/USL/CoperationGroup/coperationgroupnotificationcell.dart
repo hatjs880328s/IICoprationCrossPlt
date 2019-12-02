@@ -51,7 +51,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
                           fontFamily: NSNormalConfig.fontFamily)),
                 ),
                 Container(
-                  child: Text("邀请人员: ${this.file.sender.nickname}",
+                  child: Text("邀请人员: ${this.file.sender}",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -59,7 +59,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.only(top: 8),
-                  child: Text("群组名称: ${this.file.group.name}",
+                  child: Text("群组名称: ${this.file.groupid}",
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -91,7 +91,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
 
   /// 根据指令类型获取对应的widget
   Widget getWidgetWithCMDType() {
-    if (this.file.cmd == CMDType.invite) {
+    if (this.file.cmdtype == CMDType.invite) {
       return Container(
           padding: EdgeInsets.only(top: 8),
           child: Row(

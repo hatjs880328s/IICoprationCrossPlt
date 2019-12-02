@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfilemoveprogressbll.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
+import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/MoveArticlePage/movearticlepagecell.dart';
 import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
@@ -27,7 +28,7 @@ class MoveArticlePage extends StatefulWidget {
 
 class MoveArticlePageState extends State<MoveArticlePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  List<CoperationGroupModel> folderlist = [];
+  List<FolderModel> folderlist = [];
 
   List<int> selectedIdx = [];
 
@@ -104,7 +105,7 @@ class MoveArticlePageState extends State<MoveArticlePage>
   /// 移动处理
   Future<void> moveAction(int idx) async {
     IIWaitAni.showWait('移动中,请稍候');
-    CoperationGroupModel currentFolder = this.folderlist[idx];
+    FolderModel currentFolder = this.folderlist[idx];
     var originFile = this.widget.originFile;
     var bll = GitFileMoveProgressBLL();
     await bll.moveFileProgress(originFile, currentFolder);
@@ -119,7 +120,7 @@ class MoveArticlePageState extends State<MoveArticlePage>
     var infos = await filebll.getOneUsersAllFolders(true);
     IIWaitAni.hideWait();
     setState(() {
-      this.folderlist = infos.dirs;
+      this.folderlist = infos;
     });
   }
 }

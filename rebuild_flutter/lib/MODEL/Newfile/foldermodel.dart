@@ -10,18 +10,16 @@ part 'foldermodel.g.dart';
 @JsonSerializable()
 
 class FolderModel {
-  FolderModel(this.name, this.path, this.sha, this.size, this.url, this.html_url, this.git_url, this.download_url, this.type, this.content);
+  FolderModel(this.folderid, this.name, this.description, this.content, this.createtime, this.changetime, this.users, this.type);
 
+  String folderid;
   String name;
-  String path;
-  String sha;
-  int size;
-  String url;
-  String html_url;
-  String git_url;
-  String download_url;
-  String type;
+  String description;
   String content;
+  double createtime;
+  double changetime;
+  String users;
+  int type;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

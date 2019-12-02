@@ -96,7 +96,7 @@ class UpdateFileState extends State<UpdateFile> {
     String subTtitle = plainTxt.length > 10 ? plainTxt.substring(0, 9) : plainTxt;
     String title = this.fieldCon.text;
     var bll = GitFileProgressBLL();
-    await bll.updateOneFile(widget.isNormalFolder, contents, title, subTtitle, widget.oldItemmodel, widget.oldGroupInfo);
+    await bll.updateOneFile(contents, title, subTtitle, widget.oldItemmodel);
   }
 
   /// 加载数据，使用json数据源
