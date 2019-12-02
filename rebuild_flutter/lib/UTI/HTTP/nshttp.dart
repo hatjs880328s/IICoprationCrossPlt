@@ -53,7 +53,9 @@ class NSHTTP {
           Options opt = Options(
               method: "post",
               headers: header,
+              contentType: "application/x-www-form-urlencoded",
               receiveTimeout: 30);
+            
           var result = await manager.post(url, data: params, options: opt);
           return NSHTTP.progressResponse(result);
           break;

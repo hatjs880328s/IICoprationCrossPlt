@@ -89,9 +89,10 @@ class LoginBll {
     var digest = md5.convert(content);
     String md5Str = hex.encode(digest.bytes);
     Map<String, String> map = {
-      "uid": md5Str,
+      "userid": md5Str,
       "nickname": email,
-      "icon": "images/cop_128.png"
+      "icon": "images/cop_128.png",
+      "email": email
     };
     NSLoginModel model = NSLoginModel.fromJson(map);
     this.saveUserinfo2Local(json.encode(map));

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
+import 'package:rebuild_flutter/DAL/gitdal/gituserdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
@@ -30,57 +31,61 @@ class GitUserProgressBLL {
 
   /// 新建一个用户的时候同步用户信息到网络
   Future<bool> createNewUser2Git(NSLoginModel userInfo) async {
-    // 1.判断是否存在这个文件
-    Map userInfos = await this.netdal.getFileInfo(this.userInfosFileName);
-    // 2.更新一有的文件
-    if (userInfos.keys.length != 0) {
-      FolderModel netModel = FolderModel.fromJson(userInfos);
-      var sha = netModel.sha;
-      // a.获取content值，并重新组织用户信息
-      var data = base64Decode(netModel.content.replaceAll("\n", ""));
-      String contents = utf8.decode(data);
-      List<dynamic> infos = json.decode(contents);
-      List<NSLoginModel> users = [];
-      for (Map eachmap in infos) {
-        NSLoginModel eachUser = NSLoginModel.fromJson(eachmap);
-        // b.排重（直接返回true即可）
-        if (eachUser.userid == userInfo.userid) {
-          return true;
-        }
-        users.add(eachUser);
-      }
-      users.add(userInfo);
-      var jsonData = json.encode(users);
-      var dataInfo = utf8.encode(jsonData);
-      String base64Str = base64Encode(dataInfo);
-      // c.更新信息
-      var result = await this.netdal.updateFile(this.userInfosFileName, base64Str, userInfo.userid, userInfo.nickname, sha);
-      return result;
-    }
-    // 3.创建一个新的文件   
-    var jsonData = json.encode([userInfo]);
-    var dataInfo = utf8.encode(jsonData);
-    String base64Str = base64Encode(dataInfo); 
-    var result = await this.netdal.createFile(this.userInfosFileName, base64Str, userInfo.userid, userInfo.nickname);
+    // // 1.判断是否存在这个文件
+    // Map userInfos = await this.netdal.getFileInfo(this.userInfosFileName);
+    // // 2.更新一有的文件
+    // if (userInfos.keys.length != 0) {
+    //   FolderModel netModel = FolderModel.fromJson(userInfos);
+    //   var sha = netModel.sha;
+    //   // a.获取content值，并重新组织用户信息
+    //   var data = base64Decode(netModel.content.replaceAll("\n", ""));
+    //   String contents = utf8.decode(data);
+    //   List<dynamic> infos = json.decode(contents);
+    //   List<NSLoginModel> users = [];
+    //   for (Map eachmap in infos) {
+    //     NSLoginModel eachUser = NSLoginModel.fromJson(eachmap);
+    //     // b.排重（直接返回true即可）
+    //     if (eachUser.userid == userInfo.userid) {
+    //       return true;
+    //     }
+    //     users.add(eachUser);
+    //   }
+    //   users.add(userInfo);
+    //   var jsonData = json.encode(users);
+    //   var dataInfo = utf8.encode(jsonData);
+    //   String base64Str = base64Encode(dataInfo);
+    //   // c.更新信息
+    //   var result = await this.netdal.updateFile(this.userInfosFileName, base64Str, userInfo.userid, userInfo.nickname, sha);
+    //   return result;
+    // }
+    // // 3.创建一个新的文件   
+    // var jsonData = json.encode([userInfo]);
+    // var dataInfo = utf8.encode(jsonData);
+    // String base64Str = base64Encode(dataInfo); 
+    // var result = await this.netdal.createFile(this.userInfosFileName, base64Str, userInfo.userid, userInfo.nickname);
+    // return result;
+    var result = await GitUserDAL().createUser(userInfo.toJson());
     return result;
   } 
 
   /// 获取用户信息 - 根据用户id
   Future<List<NSLoginModel>> getALLUserInfo() async  {
-    Map info = await this.netdal.getFileInfo(this.userInfosFileName);
-    // 1. 通过 foldermodel - 获取content
-    FolderModel gitmodel = FolderModel.fromJson(info);
-    // 2. 解析model
-    var data = base64Decode(gitmodel.content.replaceAll("\n", ""));
-    var strInfo = utf8.decode(data);
-    List<dynamic> listinfo = json.decode(strInfo);
+    // Map info = await this.netdal.getFileInfo(this.userInfosFileName);
+    // // 1. 通过 foldermodel - 获取content
+    // FolderModel gitmodel = FolderModel.fromJson(info);
+    // // 2. 解析model
+    // var data = base64Decode(gitmodel.content.replaceAll("\n", ""));
+    // var strInfo = utf8.decode(data);
+    // List<dynamic> listinfo = json.decode(strInfo);
     List<NSLoginModel> result = [];
+    List<dynamic> listinfo = await GitUserDAL().getAllUser();
     // 3.循环取出所有的model
     for (Map eachitem in listinfo) {
       NSLoginModel model = NSLoginModel.fromJson(eachitem);      
       result.add(model);
     }
     return result;
+    
   }
 
   ///邀请某人进群 - 根据被邀请用户nsloginmodel
