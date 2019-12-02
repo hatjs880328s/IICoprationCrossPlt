@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-10-12 17:30:56
- * @LastEditTime: 2019-11-25 16:56:52
+ * @LastEditTime: 2019-11-27 17:11:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /rebuild_flutter/README.md
@@ -10,8 +10,6 @@
 # 新特性&已开发
 
 1. 创建文件* 升级的细节(hud)
-
-2. 新建文件移动到其他文件夹
 
 3. 协作文章锁
 
@@ -37,3 +35,5 @@
 
 7. 接收邀请或者拒绝|加入频道后需要将信息同步到每一个成员那里
    ## 同意后，需要将自己的信息同步到所有的成员文件中
+
+8. 新建文件移动到其他文件夹
