@@ -29,7 +29,8 @@ class GitUserDAL {
   /// 创建用户信息
   Future<bool> createUser(Map<String, dynamic> params) async {
     var url = APIStruct.createUser;
-    NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST, url, params: params, header: {"content-type": "application/x-www-form-urlencoded"});
+    NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST,
+     url, params: params, contentType: "application/x-www-form-urlencoded");
     if (res.anyValue == null) {
       return false;
     } 

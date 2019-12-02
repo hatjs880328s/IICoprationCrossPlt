@@ -18,7 +18,8 @@ class GitCMDDal {
   /// 创建cmd
   Future<bool> createCMD(Map<String, dynamic> params) async {
     var url = APIStruct.createCMD;
-    NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST, url, params: params, header: {"content-type": "application/x-www-form-urlencoded"});
+    NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST, 
+    url, params: params, contentType: "application/x-www-form-urlencoded");
     if (res.anyValue == null) {
       return false;
     } 

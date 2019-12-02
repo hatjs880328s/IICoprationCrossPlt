@@ -30,7 +30,7 @@ class GitFileDAL {
   Future<bool> updateFile(Map<String, dynamic> params) async {
     var url = APIStruct.getFile;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.PUT, 
-    url, params: params, header: {"content-type": "application/x-www-form-urlencoded"});
+    url, params: params, contentType: "application/x-www-form-urlencoded");
     if (res.anyValue == null) {
       return false;
     } 
@@ -51,7 +51,7 @@ class GitFileDAL {
   Future<bool> createFile(Map<String, dynamic> params) async {
     var url = APIStruct.createFile;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST, 
-    url, params: params, header: {"content-type": "application/x-www-form-urlencoded"});
+    url, params: params, contentType: "application/x-www-form-urlencoded");
     if (res.anyValue == null) {
       return false;
     } 

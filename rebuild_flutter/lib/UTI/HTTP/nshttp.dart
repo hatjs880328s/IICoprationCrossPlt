@@ -20,6 +20,7 @@ class NSHTTP {
       String url,
       {Map<String, dynamic> header, 
       Map<String, dynamic> params,
+      String contentType,
       bool showAlertInfo = true
       }) async {
 
@@ -53,7 +54,7 @@ class NSHTTP {
           Options opt = Options(
               method: "post",
               headers: header,
-              //contentType: "application/x-www-form-urlencoded",
+              contentType: contentType,
               receiveTimeout: 30);
             
           var result = await manager.post(url, data: params, options: opt);
@@ -63,6 +64,7 @@ class NSHTTP {
           Options opt = Options(
               method: "put",
               headers: header,
+              contentType: contentType,
               receiveTimeout: 30);
           var result = await manager.put(url, data: params, options: opt);
           return NSHTTP.progressResponse(result);

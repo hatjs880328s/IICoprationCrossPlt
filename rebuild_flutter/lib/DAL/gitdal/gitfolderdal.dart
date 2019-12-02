@@ -42,7 +42,7 @@ class GitFolderDAL {
   Future<bool> createFolder(Map<String, dynamic> params) async {
     var url = APIStruct.createFolder;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST, 
-    url, params: params, header: {"content-type": "application/x-www-form-urlencoded"});
+    url, params: params, contentType: "application/x-www-form-urlencoded");
     if (res.anyValue == null) {
       return false;
     } 
