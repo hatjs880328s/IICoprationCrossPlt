@@ -20,9 +20,9 @@ class GitCMDDal {
     var url = APIStruct.createCMD;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST, 
     url, params: params, contentType: "application/x-www-form-urlencoded");
-    if (res.anyValue == null) {
+    if (res.dicValue == null) {
       return false;
     } 
-    return res.anyValue;
+    return res.dicValue['result'];
   }
 }
