@@ -67,7 +67,7 @@ class CoperationFileListState extends State<CoperationFileList> {
                   //第一部分（返回按钮 & 顶部分享、邀请等按钮）
                   CoperationFileListFirstCell(this.list.name, this.list),
                   //第二部分协同组基本信息
-                  CoperationFileListSecondCell(this.list.realFiles.length, this.list.users.length, this.list.createtime),
+                  CoperationFileListSecondCell(this.list.realFiles.length, this.list.realUsers.length, this.list.createtime),
                   //第三部分协同成员信息
                   CoperationFileListCell(this.list.realUsers),
                   //第四部分协同组文章
