@@ -27,7 +27,7 @@ class CoperationFileList extends StatefulWidget {
 }
 
 class CoperationFileListState extends State<CoperationFileList> {
-  List<RealGitFileModel> list;
+  CoperationGroupModel list;
 
   ScrollController scrollCon;
 
@@ -65,13 +65,13 @@ class CoperationFileListState extends State<CoperationFileList> {
                 controller: this.scrollCon,
                 children: this.list == null ? [] : [
                   //第一部分（返回按钮 & 顶部分享、邀请等按钮）
-                  // CoperationFileListFirstCell(this.list.name, this.list),
-                  // //第二部分协同组基本信息
-                  // CoperationFileListSecondCell(this.list.files.length, this.list.users.length, this.list.time),
-                  // //第三部分协同成员信息
-                  // CoperationFileListCell(this.list.users),
-                  // //第四部分协同组文章
-                  // CoperationFileListForthCell(this.list),
+                  CoperationFileListFirstCell(this.list.name, this.list),
+                  //第二部分协同组基本信息
+                  CoperationFileListSecondCell(this.list.realFiles.length, this.list.users.length, this.list.createtime),
+                  //第三部分协同成员信息
+                  CoperationFileListCell(this.list.realUsers),
+                  //第四部分协同组文章
+                  CoperationFileListForthCell(this.list),
                 ]
               )),
         ],
@@ -87,7 +87,7 @@ class CoperationFileListState extends State<CoperationFileList> {
       backgroundColor: Colors.grey
     );
     var filebll = GitFileProgressBLL();
-    List<RealGitFileModel> result = await filebll.getOneFolderFileLists(widget.coperid);
+    CoperationGroupModel result = await filebll.getOneCoperationGroupInfo(widget.coperid);
     setState(() {
       Fluttertoast.cancel();
       this.list = result;

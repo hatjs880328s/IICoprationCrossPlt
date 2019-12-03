@@ -15,7 +15,7 @@ class CoperationFileListForthCell extends StatelessWidget {
 
   CoperationFileListForthCell(CoperationGroupModel oldModel) {
     this.oldModel = oldModel;
-    this.lists = oldModel.files;
+    this.lists = oldModel.realFiles;
   }
 
   @override

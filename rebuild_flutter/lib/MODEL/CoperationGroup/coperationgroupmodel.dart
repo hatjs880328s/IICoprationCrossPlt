@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 
 /// This allows the `User` class to access private members in
@@ -12,15 +13,28 @@ part 'coperationgroupmodel.g.dart';
 @JsonSerializable()
 
 class CoperationGroupModel {
-  CoperationGroupModel(this.name, this.id, this.users, this.time, this.files, this.path, this.dirs);
+  CoperationGroupModel(
+    this.folderid, 
+    this.name, 
+    this.description, 
+    this.content, 
+    this.createtime, 
+    this.changetime, 
+    this.users, 
+    this.type, 
+    this.realFiles, 
+    this.realUsers);
 
+  String folderid;
   String name;
-  String id;
-  List<String> users;
-  double time;
-  List<RealGitFileModel> files;
-  List<CoperationGroupModel> dirs;
-  String path;
+  String description;
+  String content;
+  double createtime;
+  double changetime;
+  String users;
+  int type;
+  List<NSLoginModel> realUsers;
+  List<RealGitFileModel> realFiles;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
@@ -33,15 +47,16 @@ class CoperationGroupModel {
   Map<String, dynamic> toJson() => _$CoperationGroupModelToJson(this);
 
   String getCreateTime() {
-    var time = DateTime.fromMillisecondsSinceEpoch(this.time.toInt());
+    var time = DateTime.fromMillisecondsSinceEpoch(this.createtime.toInt());
     return "${time.year}.${time.month}.${time.day}";
   }
 
   /// 判定创建者是否是自己
   Future<bool> isSelfCreator() async {
-    var user = await NSLoginGlobal.getInstance().getUserInfo();
-    var realuid = user.userid;
-    return realuid == this.users.first;
+    // var user = await NSLoginGlobal.getInstance().getUserInfo();
+    // var realuid = user.userid;
+    // return realuid == this.users.first;
+    return false;
   }
 
 }

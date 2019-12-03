@@ -52,4 +52,7 @@ class APIStruct {
   /// 根据用户id获取此用户所有的文件夹 - 需要区分普通&协同
   static String getOneUserFolders = '${APIStruct.remoteServerIP}folders/:id/:type';
 
+  /// 获取协同组信息
+  static String getCoperationFolder = '${APIStruct.remoteServerIP}coperationgroup/:id';
+
 }

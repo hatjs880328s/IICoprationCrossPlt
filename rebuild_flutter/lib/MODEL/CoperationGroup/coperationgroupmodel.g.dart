@@ -8,31 +8,37 @@ part of 'coperationgroupmodel.dart';
 
 CoperationGroupModel _$CoperationGroupModelFromJson(Map<String, dynamic> json) {
   return CoperationGroupModel(
+      json['folderid'] as String,
       json['name'] as String,
-      json['id'] as String,
-      (json['users'] as List)?.map((e) => e as String)?.toList(),
-      (json['time'] as num)?.toDouble(),
-      (json['files'] as List)
+      json['description'] as String,
+      json['content'] as String,
+      (json['createtime'] as num)?.toDouble(),
+      (json['changetime'] as num)?.toDouble(),
+      json['users'] as String,
+      json['type'] as int,
+      (json['realFiles'] as List)
           ?.map((e) => e == null
               ? null
               : RealGitFileModel.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      json['path'] as String,
-      (json['dirs'] as List)
+      (json['realUsers'] as List)
           ?.map((e) => e == null
               ? null
-              : CoperationGroupModel.fromJson(e as Map<String, dynamic>))
+              : NSLoginModel.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
 Map<String, dynamic> _$CoperationGroupModelToJson(
         CoperationGroupModel instance) =>
     <String, dynamic>{
+      'folderid': instance.folderid,
       'name': instance.name,
-      'id': instance.id,
+      'description': instance.description,
+      'content': instance.content,
+      'createtime': instance.createtime,
+      'changetime': instance.changetime,
       'users': instance.users,
-      'time': instance.time,
-      'files': instance.files,
-      'dirs': instance.dirs,
-      'path': instance.path
+      'type': instance.type,
+      'realUsers': instance.realUsers,
+      'realFiles': instance.realFiles
     };

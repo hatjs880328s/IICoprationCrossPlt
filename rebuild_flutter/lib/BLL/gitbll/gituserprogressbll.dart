@@ -57,7 +57,7 @@ class GitUserProgressBLL {
     ) async {
     var selfUser = await NSLoginGlobal.getInstance().getUserInfo();
     var timeNow = DateTime.now().millisecondsSinceEpoch.toDouble();
-    var newCMD = GitCMDModel(CMDType.invite.index, selfUser.userid, receiver.userid, Uuid().v1(), timeNow, group.id);
+    var newCMD = GitCMDModel(CMDType.invite.index, selfUser.userid, receiver.userid, Uuid().v1(), timeNow, group.folderid);
     var result = await GitCMDDal().createCMD(newCMD.toJson());
     return result;
   }

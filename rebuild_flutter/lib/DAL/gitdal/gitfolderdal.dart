@@ -27,6 +27,17 @@ class GitFolderDAL {
     return res.arrayValue;
   }
 
+  /// 获取某个文件夹下的文件
+  Future<Map> getOneCoperationFolderFiles(String folderid) async {
+    var url = APIStruct.getCoperationFolder.replaceAll(":id", folderid);
+    NSHttpResponse res = await NSHTTP.startRequest(
+        NSHTTPRequestType.GET, url);
+    if (res.dicValue == null) {
+      return {};
+    }
+    return res.dicValue;
+  }
+
   /// 获取当前用户的所有文件夹 - 需要区分普通文件夹&协同文件夹
   Future<List> getOneUserFolders(String userid, int type) async {
     var url = APIStruct.getOneUserFolders.replaceAll(":id", userid).replaceAll(":type", "$type");

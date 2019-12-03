@@ -31,7 +31,7 @@ class CoperitionGroupCellState extends State<CoperitionGroupCell> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        this.gopage(this.widget.file.name, context);
+        this.gopage(this.widget.file.folderid, context);
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
@@ -58,14 +58,14 @@ class CoperitionGroupCellState extends State<CoperitionGroupCell> {
                                   color: Colors.black,
                                   fontFamily: NSNormalConfig.fontFamily)),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text("文件数目: ${this.widget.file}",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                  fontFamily: NSNormalConfig.fontFamily)),
-                        ),
+                        // Container(
+                        //   padding: EdgeInsets.only(top: 8),
+                        //   child: Text("文件数目: ${this.widget.file}",
+                        //       style: TextStyle(
+                        //           fontSize: 14,
+                        //           color: Colors.grey,
+                        //           fontFamily: NSNormalConfig.fontFamily)),
+                        // ),
                         Container(
                           padding: EdgeInsets.only(top: 8),
                           child: Text("群拥有者: $creatorInfo",

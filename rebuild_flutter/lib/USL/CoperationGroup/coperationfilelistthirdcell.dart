@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 
 /// 协同组成员cell
 class CoperationFileListCell extends StatelessWidget {
 
-  CoperationFileListCell(List<String> users) {
+  CoperationFileListCell(List<NSLoginModel> users) {
     this.lists = users;
   }
 
-  List<String> lists = [];
+  List<NSLoginModel> lists = [];
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class CoperationFileListCell extends StatelessWidget {
             border: Border.all(width: 0.5, color: NSNormalConfig.listCellBgColor),
           ),
           child: Text(
-        lists[i], 
+        lists[i].nickname, 
         style: TextStyle(fontSize: 15, color: Colors.black87))),
       );
     }

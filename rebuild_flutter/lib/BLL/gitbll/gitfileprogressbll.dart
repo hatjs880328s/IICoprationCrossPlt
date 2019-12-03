@@ -63,7 +63,7 @@ class GitFileProgressBLL {
       fileTitle,
       fileSubtitle,
       Uuid().v1(),
-      folderInfo.id,
+      folderInfo.folderid,
       DateTime.now().millisecondsSinceEpoch.toDouble(),
       '',
       usermodel.userid
@@ -137,6 +137,13 @@ class GitFileProgressBLL {
       RealGitFileModel model = RealGitFileModel.fromJson(eachmap);
       result.add(model);
     }
+    return result;
+  }
+
+  /// 获取一个协同组信息 【协同组 & users & files】
+  Future<CoperationGroupModel> getOneCoperationGroupInfo(String folderid) async {
+    var group = await GitFolderDAL().getOneCoperationFolderFiles(folderid);
+    CoperationGroupModel result = CoperationGroupModel.fromJson(group);
     return result;
   }
 
