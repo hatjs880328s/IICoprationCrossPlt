@@ -25,4 +25,15 @@ class GitCMDDal {
     } 
     return res.dicValue['result'];
   }
+
+  /// 指令的处理
+  Future<bool> progressCMD(String oldCMDID, Map<String, dynamic> params) async {
+    var url = APIStruct.progressCMD.replaceAll(":id", oldCMDID);
+    NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.PUT, 
+    url, params: params, contentType: "application/x-www-form-urlencoded");
+    if (res.dicValue == null) {
+      return false;
+    } 
+    return res.dicValue['result'];
+  }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rebuild_flutter/DAL/gitdal/gitcmddal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
@@ -29,52 +30,45 @@ class GitCMDProgressBLL {
 
   /// 处理邀请指令
   Future<bool> progressInviteCMD(
-      bool agress, GitCMDModel origincmd, List<GitCMDModel> origincmds) async {
-    // 0.将这个协同组信息同步到自己的文件夹下
-    if (agress) {
-      var stepone = await this.copyOldGroupInfo2SelfGroups(origincmd);
-      if (!stepone) {
-        return false;
-      }
-    }
-    // 1.删除自己 cmd-file中消息
-    var steptwo = await this.deleteSelfCMD(origincmd, origincmds);
-    print('step 2: $steptwo');
-    // 2.告知邀请人，发送一个【结果指令消息】
-    var step3 = await this.sendNewCMD2Sender(origincmd,
-        agress == true ? CMDType.inviteresultok : CMDType.inviteresultno);
-    print('step 3: $step3');
-    // 3.如果是同意加入,将自己的用户信息添加到当前群组的创建者 folderinfo中；
-    var step4 = await addSelf2SpecifiedGroupUserList(origincmd);
-    print('step 4: $step4');
-    return true;
+      bool agress, GitCMDModel origincmd) async {
+    var oldCMDID = origincmd.cmdid;
+    var newCmd = GitCMDModel(
+      agress ? 1 : 2, 
+      origincmd.reveiver, 
+      origincmd.sender,
+      Uuid().v1(),
+      DateTime.now().millisecondsSinceEpoch.toDouble(),
+      origincmd.groupid
+    );
+    var result = await GitCMDDal().progressCMD(oldCMDID, newCmd.toJson());
+    return result;
   }
 
   /// 获取某人的协同组 - gen folder model * foldermodel
-  Future<Map<String, dynamic>> getSenderCoperationGroupModel(String uid) async {
-    var path = '$uid/Groups/${this.genfoldername}';
-    Map result = await this.netdal.getFileInfo(path);
-    if (result.keys.length == 0) {
-      return {"group": null, "folder": null};
-    }
-    FolderModel model = FolderModel.fromJson(result);
-    CoperationGroupModel resultmodel = CoperationGroupModel.fromJson(json
-        .decode(utf8.decode(base64Decode(model.content.replaceAll("\n", "")))));
-    return {"group": resultmodel, "folder": model};
-  }
+  // Future<Map<String, dynamic>> getSenderCoperationGroupModel(String uid) async {
+  //   var path = '$uid/Groups/${this.genfoldername}';
+  //   Map result = await this.netdal.getFileInfo(path);
+  //   if (result.keys.length == 0) {
+  //     return {"group": null, "folder": null};
+  //   }
+  //   FolderModel model = FolderModel.fromJson(result);
+  //   CoperationGroupModel resultmodel = CoperationGroupModel.fromJson(json
+  //       .decode(utf8.decode(base64Decode(model.content.replaceAll("\n", "")))));
+  //   return {"group": resultmodel, "folder": model};
+  // }
 
-  /// 获取某人的协同组内层信息 - gen folder model * foldermodel
-  Future<Map<String, dynamic>> getSenderDeepCoperationGroupModel(String uid, String groupname) async {
-    var path = '$uid/Groups/$groupname/${this.genfoldername}';
-    Map result = await this.netdal.getFileInfo(path);
-    if (result.keys.length == 0) {
-      return {"group": null, "folder": null};
-    }
-    FolderModel model = FolderModel.fromJson(result);
-    CoperationGroupModel resultmodel = CoperationGroupModel.fromJson(json
-        .decode(utf8.decode(base64Decode(model.content.replaceAll("\n", "")))));
-    return {"group": resultmodel, "folder": model};
-  }
+  // /// 获取某人的协同组内层信息 - gen folder model * foldermodel
+  // Future<Map<String, dynamic>> getSenderDeepCoperationGroupModel(String uid, String groupname) async {
+  //   var path = '$uid/Groups/$groupname/${this.genfoldername}';
+  //   Map result = await this.netdal.getFileInfo(path);
+  //   if (result.keys.length == 0) {
+  //     return {"group": null, "folder": null};
+  //   }
+  //   FolderModel model = FolderModel.fromJson(result);
+  //   CoperationGroupModel resultmodel = CoperationGroupModel.fromJson(json
+  //       .decode(utf8.decode(base64Decode(model.content.replaceAll("\n", "")))));
+  //   return {"group": resultmodel, "folder": model};
+  // }
 
   /// 将目标协同组信息拷贝到自己的gen-folder中
   Future<bool> copyOldGroupInfo2SelfGroups(GitCMDModel cmd) async {

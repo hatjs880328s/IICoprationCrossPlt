@@ -1,7 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
-import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
-import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 /// This allows the `User` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
 /// the star denotes the source file name.
@@ -46,8 +43,8 @@ class GitCMDModel {
   String getRealCMDStr() {
     switch (this.cmdtype) {
       case 0: return "邀请加入";
-      case 1: return "拒绝回执";
-      case 2: return "同意回执";
+      case 1: return "同意回执";
+      case 2: return "拒绝回执";
     }
   }
 }

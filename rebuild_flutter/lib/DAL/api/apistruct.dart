@@ -27,6 +27,9 @@ class APIStruct {
   /// 获取 & 更新CMD信息
   static String getCMD = '${APIStruct.remoteServerIP}CMD/:id';
 
+  /// 指令的处理
+  static String progressCMD = '${APIStruct.remoteServerIP}CMD/:id';
+
 
 
   /// file创建

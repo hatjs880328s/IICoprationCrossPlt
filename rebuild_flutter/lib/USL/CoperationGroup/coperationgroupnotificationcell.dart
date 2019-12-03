@@ -138,6 +138,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
   /// 拒绝或者同意
   Future<void> agreeInvite(bool agree) async {
     var bll = GitCMDProgressBLL();
-    await bll.progressInviteCMD(agree, this.file, this.allcmd);
+    var result = await bll.progressInviteCMD(agree, this.file);
+    // 通知；刷新指令列表
   }
 }
