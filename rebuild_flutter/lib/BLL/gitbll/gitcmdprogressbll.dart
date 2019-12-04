@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:rebuild_flutter/DAL/gitdal/gitcmddal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
+import 'package:rebuild_flutter/MODEL/CMD/gitcmdshowmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
@@ -30,7 +31,7 @@ class GitCMDProgressBLL {
 
   /// 处理邀请指令
   Future<bool> progressInviteCMD(
-      bool agress, GitCMDModel origincmd) async {
+      bool agress, GitCMDShowModel origincmd) async {
     var oldCMDID = origincmd.cmdid;
     var newCmd = GitCMDModel(
       agress ? 1 : 2, 

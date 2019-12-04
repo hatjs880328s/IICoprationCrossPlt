@@ -3,15 +3,16 @@ import 'package:flutter/widgets.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
+import 'package:rebuild_flutter/MODEL/CMD/gitcmdshowmodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationfilelist.dart';
 
 /// 消息cell
 class CoperitionGroupNotificationCell extends StatelessWidget {
-  GitCMDModel file;
+  GitCMDShowModel file;
 
-  List<GitCMDModel> allcmd;
+  List<GitCMDShowModel> allcmd;
 
-  CoperitionGroupNotificationCell(GitCMDModel file, List<GitCMDModel> allcmd) {
+  CoperitionGroupNotificationCell(GitCMDShowModel file, List<GitCMDShowModel> allcmd) {
     this.file = file;
     this.allcmd = allcmd;
   }
@@ -44,6 +45,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
+                  padding: EdgeInsets.only(bottom: 10),
                   child: Text("指令类型：${this.file.getRealCMDStr()}",
                       style: TextStyle(
                           fontSize: 16,
@@ -51,15 +53,15 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
                           fontFamily: NSNormalConfig.fontFamily)),
                 ),
                 Container(
-                  child: Text("邀请人员: ${this.file.sender.substring(18)}",
+                  child: Text("发送人员: ${this.file.nickname}",
                       style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
+                          fontSize: 14,
+                          color: Colors.grey,
                           fontFamily: NSNormalConfig.fontFamily)),
                 ),
                 Container(
                   padding: EdgeInsets.only(top: 8),
-                  child: Text("群组名称: ${this.file.groupid.substring(18)}",
+                  child: Text("群组名称: ${this.file.name}",
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -93,7 +95,7 @@ class CoperitionGroupNotificationCell extends StatelessWidget {
   Widget getWidgetWithCMDType() {
     if (this.file.cmdtype == CMDType.invite.index) {
       return Container(
-          padding: EdgeInsets.only(top: 8),
+          padding: EdgeInsets.only(top: 12),
           child: Row(
             children: <Widget>[
               GestureDetector(

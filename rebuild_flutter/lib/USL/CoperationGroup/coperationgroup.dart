@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gituserprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
+import 'package:rebuild_flutter/MODEL/CMD/gitcmdshowmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroupnotificationcell.dart';
@@ -23,7 +24,7 @@ class CoperationGroupState extends State<CoperationGroup>
 
   List<FolderModel> list = [];
 
-  List<GitCMDModel> cmdlists = [];
+  List<GitCMDShowModel> cmdlists = [];
 
   String segmentkey = "0";
 

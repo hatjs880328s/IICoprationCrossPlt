@@ -5,6 +5,7 @@ import 'package:rebuild_flutter/DAL/gitdal/gitcmddal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gituserdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
+import 'package:rebuild_flutter/MODEL/CMD/gitcmdshowmodel.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 /**
@@ -63,13 +64,13 @@ class GitUserProgressBLL {
   }
 
   /// 获取所有的自己的指令消息
-  Future<List<GitCMDModel>> getOwnCMDs() async {
+  Future<List<GitCMDShowModel>> getOwnCMDs() async {
     var model = await NSLoginGlobal.getInstance().getUserInfo();
     var uid = model.userid;
-    List<GitCMDModel> result = [];
+    List<GitCMDShowModel> result = [];
     var lists = await GitCMDDal().getCMDInfo(uid);
     for (Map eachMap in lists) {
-      GitCMDModel model = GitCMDModel.fromJson(eachMap);
+      GitCMDShowModel model = GitCMDShowModel.fromJson(eachMap);
       result.add(model);
     }
     return result;
