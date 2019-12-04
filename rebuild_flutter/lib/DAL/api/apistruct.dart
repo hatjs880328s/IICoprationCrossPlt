@@ -9,8 +9,10 @@ class APIStruct {
   /// 获取某人的所有文件夹[需要自己处理path,此url只到uid之前]
   static String gitAPINormalURL = "https://api.github.com/repos/hatjs880328s/FlutterContent/contents/";
 
-  /// 远程服务API-IP
-  static String remoteServerIP = 'http://127.0.0.1:8081/';
+  /// 远程服务API-IP 
+  /// debug: http://127.0.0.1:8081/
+  /// release: http://106.54.5.12:8081/
+  static String remoteServerIP = 'http://106.54.5.12:8081/';
 
 
   /// user处理
