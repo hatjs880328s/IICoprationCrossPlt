@@ -58,7 +58,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
                             child: GestureDetector(
                                 child: Column(
                                   children: <Widget>[
-                                    Image(image: AssetImage('images/coperation_folder_invitepeople.png'), height: 24, width: 24),
+                                    Image(image: AssetImage('images/coperation_folder_invitepeople.png'), height: 22, width: 22),
                                     Text('邀请', style: TextStyle(fontSize: 15)),
                                     Text('加入',
                                         style: TextStyle(
@@ -76,7 +76,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
                             child: GestureDetector(
                               child: Column(
                                 children: <Widget>[
-                                  Image(image: AssetImage('images/coperation_detail_share.png'), height: 24, width: 24),
+                                  Image(image: AssetImage('images/coperation_detail_share.png'), height: 22, width: 22),
                                   Text('分享', style: TextStyle(fontSize: 15)),
                                   Text('此群组',
                                       style: TextStyle(
@@ -93,7 +93,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
                             child: GestureDetector(
                               child: Column(
                                 children: <Widget>[
-                                  Image(image: AssetImage('images/coperation_detail_edit.png'), height: 24, width: 24),
+                                  Image(image: AssetImage('images/coperation_detail_edit.png'), height: 22, width: 22),
                                   Text('创建', style: TextStyle(fontSize: 15)),
                                   Text('新文章',
                                       style: TextStyle(
@@ -129,7 +129,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
             Positioned(
                 top: 110,
                 right: 40,
-                child: Text("组名:   ${this.oldGroupInfoModel.name}",
+                child: Text("组名:   ${this.oldGroupInfoModel.name.substring(0, 12)}",
                     textAlign: TextAlign.end,
                     style:
                         TextStyle(fontSize: 17, fontWeight: FontWeight.w500)))
