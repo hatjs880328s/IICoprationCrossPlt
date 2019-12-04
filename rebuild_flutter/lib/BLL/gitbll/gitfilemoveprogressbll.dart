@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfiledal.dart';
-import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
-import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
-import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 
 /// 文件移动bll
 class GitFileMoveProgressBLL {

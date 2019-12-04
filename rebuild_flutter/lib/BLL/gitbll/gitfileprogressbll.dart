@@ -21,9 +21,7 @@
  
  */
 import 'dart:convert';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfiledal.dart';
-import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfolderdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
@@ -31,10 +29,7 @@ import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
-import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 import 'package:uuid/uuid.dart';
-import 'package:convert/src/hex.dart';
-import 'package:crypto/crypto.dart';
 
 class GitFileProgressBLL {
 
