@@ -23,9 +23,6 @@ class GitCMDProgressBLL {
   /// 此用户自己的指令文件
   var currentUserInfosFileName = "CurrentUserInfosFile";
 
-  /// dal
-  var netdal = GitFileProgressDAL();
-
   /// gen folder name
   var genfoldername = "GroupInfoFile";
 

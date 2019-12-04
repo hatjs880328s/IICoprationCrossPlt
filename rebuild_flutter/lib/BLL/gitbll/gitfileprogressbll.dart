@@ -37,8 +37,6 @@ import 'package:convert/src/hex.dart';
 import 'package:crypto/crypto.dart';
 
 class GitFileProgressBLL {
-  /// net - dal
-  GitFileProgressDAL dal = GitFileProgressDAL();
 
   /// db - dal
   NewListLocalDAL localDal = NewListLocalDAL();

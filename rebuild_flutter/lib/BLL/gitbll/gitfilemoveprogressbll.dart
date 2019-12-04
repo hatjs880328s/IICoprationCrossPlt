@@ -11,8 +11,6 @@ import 'package:rebuild_flutter/UTI/COMPONENT/IIWaitAni/iiwaitani.dart';
 /// 文件移动bll
 class GitFileMoveProgressBLL {
 
-  var netdal = GitFileProgressDAL();
-
   String folderStr = '/GroupInfoFile';
 
   GitFileProgressBLL filebll = GitFileProgressBLL();

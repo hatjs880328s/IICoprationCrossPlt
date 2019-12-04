@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:rebuild_flutter/BLL/gitbll/gitcmdprogressbll.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitcmddal.dart';
-import 'package:rebuild_flutter/DAL/gitdal/gitfileprogressdal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gituserdal.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdmodel.dart';
 import 'package:rebuild_flutter/MODEL/CMD/gitcmdshowmodel.dart';
@@ -18,7 +17,6 @@ import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
  */
 
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
-import 'package:rebuild_flutter/MODEL/Newfile/foldermodel.dart';
 import 'package:uuid/uuid.dart';
 
 class GitUserProgressBLL {
@@ -28,9 +26,6 @@ class GitUserProgressBLL {
 
   /// 此用户自己的指令文件
   var currentUserInfosFileName = "CurrentUserInfosFile";
-
-  /// dal
-  var netdal = GitFileProgressDAL();
 
   /// 新建一个用户的时候同步用户信息到网络
   Future<bool> createNewUser2Git(NSLoginModel userInfo) async {
