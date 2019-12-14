@@ -8,24 +8,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
-  english_words: ^3.1.0
-  json_annotation: ^2.0.0
+  cupertino_icons: any
+  english_words: any
+  json_annotation: any
   http: any
-  fish_redux: ^0.2.8
+  fish_redux: any
   dio: any
   sqflite: any
   path: any
-  aspectd: ^0.9.6
+  aspectd: any
   fluttertoast: any
   uuid: any
-  sharesdk_plugin: ^1.1.6
-  flutter_email_sender: ^2.1.0
-  mailer2: ^1.2.4
-  shared_preferences: ^0.5.4
+  sharesdk_plugin: any
+  flutter_email_sender: any
+  mailer2: any
+  shared_preferences: any
   zefyr: any
   # 加载指示器
-  flutter_spinkit: ^4.0.0
+  flutter_spinkit: any
 
 dev_dependencies:
   flutter_test:

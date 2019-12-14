@@ -42,8 +42,10 @@ class NSShareSDK {
       url, 
       url, 
       url, 
+      url,
       url, 
-      SSDKContentType(value: 0));
+      SSDKContentTypes.auto,
+      );
 
       SharesdkPlugin.showMenu([ShareSDKPlatforms.qq], params, (SSDKResponseState state, ShareSDKPlatform platform, Map userData, Map contentEntity, SSDKError error) {
         if (error == null) {
