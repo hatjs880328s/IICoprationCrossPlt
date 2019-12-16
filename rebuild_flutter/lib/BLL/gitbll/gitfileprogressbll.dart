@@ -21,6 +21,7 @@
  
  */
 import 'dart:convert';
+import 'package:rebuild_flutter/BLL/gitbll/coperationfilelockbll.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfiledal.dart';
 import 'package:rebuild_flutter/DAL/gitdal/gitfolderdal.dart';
 import 'package:rebuild_flutter/DAL/newlist/newlistlocaldal.dart';
@@ -97,6 +98,7 @@ class GitFileProgressBLL {
         newFileModel.content = fileContent;
 
         var result = await GitFileDAL().updateFile(newFileModel.toJson());
+        await CoperationFileLockBLL().unlockfile(newFileModel.fileid);
         return result;
   }
 

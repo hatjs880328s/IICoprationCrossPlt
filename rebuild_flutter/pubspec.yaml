@@ -26,6 +26,8 @@ dependencies:
   zefyr: ^0.8.0
   # 加载指示器
   flutter_spinkit: any
+  # tuple 元组
+  tuple: any
 
 dev_dependencies:
   flutter_test:

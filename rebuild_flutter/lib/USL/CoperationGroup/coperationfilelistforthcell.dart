@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
+import 'package:rebuild_flutter/BLL/gitbll/coperationfilelockbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
 import 'package:rebuild_flutter/USL/CreateFile/updateFile.dart';
@@ -129,6 +131,15 @@ class CoperationFileListForthCell extends StatelessWidget {
 
   /// 跳转到编辑页面 - 需要先判定是否可编辑
   Future jump2EditorPage(BuildContext context, int idx) async {
+    var bll = CoperationFileLockBLL();
+    var tupleInfo = await bll.couldEdit(this.lists[idx].fileid);
+    if (!tupleInfo.i0) {
+      Fluttertoast.showToast(
+        msg: '此刻{tupleInfo.i2}正在编辑，请稍候再试',
+        gravity: ToastGravity.CENTER
+      );
+      return;
+    }
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       var page = UpdateFile(this.oldModel, this.lists[idx], false);
       return page;
