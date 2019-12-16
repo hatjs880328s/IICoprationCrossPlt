@@ -41,10 +41,10 @@ class GitFileDAL {
   Future<bool> deleteFile(String fileid) async {
     var url = APIStruct.getFile;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.DELETE, url);
-    if (res.anyValue == null) {
-      return false;
+    if (res.dicValue != null) {
+      return res.dicValue['result'];
     } 
-    return res.anyValue;
+    return false;
   }
 
   /// 创建file
@@ -52,9 +52,9 @@ class GitFileDAL {
     var url = APIStruct.createFile;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST, 
     url, params: params, contentType: "application/x-www-form-urlencoded");
-    if (res.anyValue == null) {
-      return false;
+    if (res.dicValue != null) {
+      return res.dicValue['result'];
     } 
-    return res.anyValue;
+    return false;
   }
 }

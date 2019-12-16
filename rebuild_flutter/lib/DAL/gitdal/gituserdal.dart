@@ -31,9 +31,9 @@ class GitUserDAL {
     var url = APIStruct.createUser;
     NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.POST,
      url, params: params, contentType: "application/x-www-form-urlencoded");
-    if (res.anyValue == null) {
-      return false;
+    if (res.dicValue != null) {
+      return res.dicValue['result'];
     } 
-    return res.anyValue;
+    return false;
   }
 }
