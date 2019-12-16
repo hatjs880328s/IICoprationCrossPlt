@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quill_delta/quill_delta.dart';
+import 'package:rebuild_flutter/BLL/gitbll/coperationfilelockbll.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/MODEL/CoperationGroup/coperationgroupmodel.dart';
 import 'package:rebuild_flutter/MODEL/Newfile/realgitfilemodel.dart';
@@ -62,6 +63,9 @@ class UpdateFileState extends State<UpdateFile> {
     );
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+          this._justGoback();
+        },),
         title: TextField(
           ///textAlign: TextAlign.center,
           controller: this.fieldCon,
@@ -102,6 +106,18 @@ class UpdateFileState extends State<UpdateFile> {
     } else {
       Fluttertoast.showToast(
         msg: '保存失败，请稍候再试',
+        gravity: ToastGravity.CENTER
+      );
+    }
+  }
+
+  Future<void> _justGoback() async {
+    var unlock = await CoperationFileLockBLL().unlockfile(widget.oldItemmodel.fileid);
+    if (unlock) {
+      Navigator.of(context).pop();
+    } else {
+      Fluttertoast.showToast(
+        msg: '释放文件失败，请重试',
         gravity: ToastGravity.CENTER
       );
     }
