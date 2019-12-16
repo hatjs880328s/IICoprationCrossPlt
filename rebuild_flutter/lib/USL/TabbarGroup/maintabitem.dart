@@ -7,13 +7,14 @@ class MainTabItem extends StatelessWidget {
   String icons;
   MainTabItemTapAction tapaction;
   int idx;
+  Color itemcolor;
 
-  MainTabItem(
-      int idx, String title, String icons, MainTabItemTapAction tapaction) {
+  MainTabItem(Color backcolor, int idx, String title, String icons, MainTabItemTapAction tapaction) {
     this.icons = icons;
     this.title = title;
     this.tapaction = tapaction;
     this.idx = idx;
+    this.itemcolor = backcolor;
   }
 
   dynamic action;
@@ -32,7 +33,22 @@ class MainTabItem extends StatelessWidget {
                   alignment: Alignment.center,
                   width: 50,
                   height: 25,
-                  child: Image(image: AssetImage(icons),)
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                        width: 22,
+                        height: 22,
+                        left: 5,
+                        top: 4,
+                        child: Container(
+                          color: this.itemcolor,
+                        )
+                      ),
+                      Positioned(
+                        child: Image(image: AssetImage(icons),),
+                      )
+                    ],
+                  )
                 ),
                 Container(
                     padding: EdgeInsets.only(top: 4),
@@ -43,8 +59,11 @@ class MainTabItem extends StatelessWidget {
                       title,
                       style: TextStyle(fontSize: 13),
                       textAlign: TextAlign.center,
-                    )),
+                    )
+                )
               ],
-            )));
+          )
+        )
+      );
   }
 }

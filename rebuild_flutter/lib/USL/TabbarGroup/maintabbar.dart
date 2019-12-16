@@ -1,3 +1,4 @@
+import 'package:rebuild_flutter/BLL/AppBll/nsnormalconfig.dart';
 import 'package:rebuild_flutter/BLL/gitbll/gitfileprogressbll.dart';
 import 'package:rebuild_flutter/USL/CoperationGroup/coperationgroup.dart';
 import 'package:rebuild_flutter/USL/CreateFile/createNewestFile.dart';
@@ -33,6 +34,14 @@ class MaintabBarState extends State<MaintabBar> {
     PersonCenter()
   ];
 
+  /// 选中与非选中背景色
+  List<Color> itemColor = [
+    Colors.yellow[200],
+    Colors.white,
+    Colors.white,
+    Colors.white
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -52,17 +61,17 @@ class MaintabBarState extends State<MaintabBar> {
         notchMargin: 4,
         child: Row(
           children: <Widget>[
-            MainTabItem(0, '首页', "images/main_tab_main.png", (idx) {
+            MainTabItem(this.itemColor[0], 0, '首页', "images/main_tab_main.png", (idx) {
               onTap(idx);
             }),
-            MainTabItem(1, '文件夹', "images/main_tab_bookstore.png", (idx) {
+            MainTabItem(this.itemColor[1], 1, '文件夹', "images/main_tab_bookstore.png", (idx) {
               onTap(idx);
             }),
             SizedBox(),
-            MainTabItem(2, '协作', "images/main_tab_group.png", (idx) {
+            MainTabItem(this.itemColor[2], 2, '协作', "images/main_tab_group.png", (idx) {
               onTap(idx);
             }),
-            MainTabItem(3, '我的', "images/main_tab_person.png", (idx) {
+            MainTabItem(this.itemColor[3], 3, '我的', "images/main_tab_person.png", (idx) {
               onTap(idx);
             }),
           ],
@@ -103,6 +112,7 @@ class MaintabBarState extends State<MaintabBar> {
 
   void onTap(int index) {
     _controller.jumpToPage(index);
+    this.changeBgColor(index);
   }
 
   void _pageChange(int index) {
@@ -111,6 +121,19 @@ class MaintabBarState extends State<MaintabBar> {
         _currentIndex = index;
       });
     }
+  }
+
+  void changeBgColor(int idx) {
+    for (var i = 0 ; i < this.itemColor.length ; i++) {
+      if ( idx == i ) {
+        this.itemColor[idx] = Colors.yellow[200];
+      } else {
+        this.itemColor[i] = Colors.white;
+      }
+    }
+    setState(() {
+      
+    });
   }
 
   // 新建一个文件夹
