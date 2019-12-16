@@ -23,7 +23,7 @@ dependencies:
   flutter_email_sender: any
   mailer2: any
   shared_preferences: any
-  zefyr: ^0.8.0
+  zefyr: any
   # 加载指示器
   flutter_spinkit: any
   # tuple 元组
