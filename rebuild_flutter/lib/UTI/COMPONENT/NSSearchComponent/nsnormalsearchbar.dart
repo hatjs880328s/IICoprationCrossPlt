@@ -20,7 +20,7 @@ class NSNormalSearchBar extends StatelessWidget {
                 border: InputBorder.none,
                 hintText: '搜索',
                 prefixIcon: Icon(Icons.search),
-                contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 0)
+                contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0)
               ),
             )
     );
