@@ -9,10 +9,10 @@ class GitUserDAL {
     var url = APIStruct.getUser.replaceAll(":id", id);
     NSHttpResponse res = await NSHTTP.startRequest(
         NSHTTPRequestType.GET, url);
-    if (res.dicValue == null) {
-      return {};
+    if (res.arrayValue != null) {
+      return res.arrayValue.first;
     }
-    return res.dicValue;
+    return {};
   } 
 
   /// 获取所有用户信息

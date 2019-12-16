@@ -98,7 +98,7 @@ class GitFileProgressBLL {
         newFileModel.content = fileContent;
 
         var result = await GitFileDAL().updateFile(newFileModel.toJson());
-        await CoperationFileLockBLL().unlockfile(newFileModel.fileid);
+        var unlock = await CoperationFileLockBLL().unlockfile(newFileModel.fileid);
         return result;
   }
 

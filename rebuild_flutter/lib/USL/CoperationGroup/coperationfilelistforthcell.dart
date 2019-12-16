@@ -135,7 +135,7 @@ class CoperationFileListForthCell extends StatelessWidget {
     var tupleInfo = await bll.couldEdit(this.lists[idx].fileid);
     if (!tupleInfo.i0) {
       Fluttertoast.showToast(
-        msg: '此刻{tupleInfo.i2}正在编辑，请稍候再试',
+        msg: '此刻${tupleInfo.i2}正在编辑，请稍候再试',
         gravity: ToastGravity.CENTER
       );
       return;

@@ -19,10 +19,9 @@ class CoperationFileCouldEdit {
   /// 文件解除锁定
   Future<bool> fileUnlock(String fileid) async {
     var url = APIStruct.fileUnlock.replaceAll(':fileid', fileid);
-    NSHttpResponse res = await NSHTTP.startRequest(
-        NSHTTPRequestType.DELETE, url);
-    if (res.anyValue == null) {
-      return res.anyValue;
+    NSHttpResponse res = await NSHTTP.startRequest(NSHTTPRequestType.DELETE, url);
+    if (res.dicValue != null) {
+      return res.dicValue['result'];
     }
     return false;
   }

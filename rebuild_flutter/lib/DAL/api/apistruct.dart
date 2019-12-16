@@ -66,6 +66,6 @@ class APIStruct {
   static String fileCouldEdit = '${APIStruct.remoteServerIP}editfile/:fileid/:userid';
 
   /// 文件接触编辑锁
-  static String fileUnlock = '106.54.5.12:8081/editfile/:fileid';
+  static String fileUnlock = '${APIStruct.remoteServerIP}editfile/:fileid';
 
 }
