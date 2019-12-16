@@ -41,9 +41,15 @@ class RealGitFileModel {
     return this.name;
   }
 
-  // 获取日期格式化信息
+  // 获取创建时间
   String getCreateTime() {
     var timeStr = DateTime.fromMillisecondsSinceEpoch(this.createtime.toInt());
+    return "${timeStr.year}年${timeStr.month}月${timeStr.day}日";
+  }
+
+  // 获取最后修改时间
+  String getLstChangeTime() {
+    var timeStr = DateTime.fromMillisecondsSinceEpoch(this.changetime.toInt());
     return "${timeStr.year}年${timeStr.month}月${timeStr.day}日";
   }
 }

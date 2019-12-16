@@ -129,7 +129,7 @@ class CoperationFileListFirstCell extends StatelessWidget {
             Positioned(
                 top: 110,
                 right: 40,
-                child: Text("组名:   ${this.oldGroupInfoModel.name.substring(0, 12)}",
+                child: Text("组名:  ${this.oldGroupInfoModel.name.substring(0, 12)}",
                     textAlign: TextAlign.end,
                     style:
                         TextStyle(fontSize: 17, fontWeight: FontWeight.w500)))

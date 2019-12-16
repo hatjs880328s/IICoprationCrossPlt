@@ -79,7 +79,7 @@ class CoperationFileListForthCell extends StatelessWidget {
                           letterSpacing: 1.5)),
                     width: MediaQuery.of(context).size.width - 110,
                   ),
-                  // 目前没有指定操作
+                  // 目前没有置顶操作
                   // Container(
                   //   margin: EdgeInsets.only(left: 15),
                   //   child: Text(
@@ -106,10 +106,10 @@ class CoperationFileListForthCell extends StatelessWidget {
                   RichText(
                     text: TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: "Noah_shan",
+                          text: "最后修改时间：  ",
                           style: TextStyle(color: Colors.black, fontSize: 16)),
                       TextSpan(
-                          text: "   2019-10-15 12:09",
+                          text: this.lists[i].getLstChangeTime(),
                           style: TextStyle(color: Colors.grey, fontSize: 16)),
                     ]),
                   )
