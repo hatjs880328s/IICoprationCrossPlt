@@ -86,7 +86,7 @@ class GitFileProgressBLL {
   }
 
   /// 更新一个文件（还需要更新所在文件夹下的folderinfo文件）
-  Future<void> updateOneFile(
+  Future<bool> updateOneFile(
       String fileContent,
       String fileTitle,
       String fileSubtitle,
@@ -99,7 +99,7 @@ class GitFileProgressBLL {
 
         var result = await GitFileDAL().updateFile(newFileModel.toJson());
         var unlock = await CoperationFileLockBLL().unlockfile(newFileModel.fileid);
-        return result;
+        return result && unlock;
   }
 
   /// 获取一个文件的信息(需要此文件的path信息)

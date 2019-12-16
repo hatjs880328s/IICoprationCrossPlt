@@ -96,7 +96,15 @@ class UpdateFileState extends State<UpdateFile> {
     String subTtitle = plainTxt.length > 10 ? plainTxt.substring(0, 9) : plainTxt;
     String title = this.fieldCon.text;
     var bll = GitFileProgressBLL();
-    await bll.updateOneFile(contents, title, subTtitle, widget.oldItemmodel);
+    bool editresult = await bll.updateOneFile(contents, title, subTtitle, widget.oldItemmodel);
+    if (editresult) {
+      Navigator.of(context).pop();
+    } else {
+      Fluttertoast.showToast(
+        msg: '保存失败，请稍候再试',
+        gravity: ToastGravity.CENTER
+      );
+    }
   }
 
   /// 加载数据，使用json数据源
