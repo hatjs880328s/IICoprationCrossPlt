@@ -63,9 +63,12 @@ class UpdateFileState extends State<UpdateFile> {
     );
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-          this._justGoback();
-        },),
+        leading: IconButton(
+          icon: Image(image: AssetImage('images/app_back.png'), width: 24, height: 35),
+          onPressed: () {
+            this._justGoback();
+          },
+        ),
         title: TextField(
           ///textAlign: TextAlign.center,
           controller: this.fieldCon,
