@@ -60,4 +60,12 @@ class APIStruct {
   /// 获取协同组信息
   static String getCoperationFolder = '${APIStruct.remoteServerIP}coperationgroup/:id';
 
+
+
+  /// 文件是否可以编辑
+  static String fileCouldEdit = '${APIStruct.remoteServerIP}editfile/:fileid/:userid';
+
+  /// 文件接触编辑锁
+  static String fileUnlock = '106.54.5.12:8081/editfile/:fileid';
+
 }

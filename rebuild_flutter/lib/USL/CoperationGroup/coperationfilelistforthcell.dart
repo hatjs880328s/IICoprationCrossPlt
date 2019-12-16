@@ -127,7 +127,7 @@ class CoperationFileListForthCell extends StatelessWidget {
     return result;
   }
 
-  /// 跳转到编辑页面
+  /// 跳转到编辑页面 - 需要先判定是否可编辑
   Future jump2EditorPage(BuildContext context, int idx) async {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       var page = UpdateFile(this.oldModel, this.lists[idx], false);
