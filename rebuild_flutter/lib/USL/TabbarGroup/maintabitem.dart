@@ -36,10 +36,10 @@ class MainTabItem extends StatelessWidget {
                   child: Stack(
                     children: <Widget>[
                       Positioned(
-                        width: 22,
-                        height: 22,
-                        left: 5,
-                        top: 4,
+                        width: 24,
+                        height: 24,
+                        left: 6,
+                        top: 6,
                         child: Container(
                           color: this.itemcolor,
                         )
