@@ -41,8 +41,10 @@ class MainTabItem extends StatelessWidget {
                         left: 6,
                         top: 6,
                         child: Container(
-                          color: this.itemcolor,
-                        )
+                          decoration: BoxDecoration(
+                            color: this.itemcolor,
+                            borderRadius: BorderRadius.circular(6)),
+                          ),
                       ),
                       Positioned(
                         child: Image(image: AssetImage(icons),),

@@ -34,7 +34,7 @@ class MaintabBarState extends State<MaintabBar> {
 
   /// 选中与非选中背景色
   List<Color> itemColor = [
-    Colors.yellow[200],
+    Colors.blue[200],
     Colors.white,
     Colors.white,
     Colors.white
@@ -124,7 +124,7 @@ class MaintabBarState extends State<MaintabBar> {
   void changeBgColor(int idx) {
     for (var i = 0 ; i < this.itemColor.length ; i++) {
       if ( idx == i ) {
-        this.itemColor[idx] = Colors.yellow[200];
+        this.itemColor[idx] = Colors.blue[200];
       } else {
         this.itemColor[i] = Colors.white;
       }
