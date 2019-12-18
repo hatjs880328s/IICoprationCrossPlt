@@ -32,7 +32,11 @@ class PersonCenterHeader extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 //头像
-                Container(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('mainpage', arguments: null);
+                  },
+                  child: Container(
                   width: 75,
                   height: 75,
                   decoration: BoxDecoration(
@@ -44,6 +48,7 @@ class PersonCenterHeader extends StatelessWidget {
                         : Image(image: AssetImage("images/cop_128.png")).image,
                         fit: BoxFit.cover),
                   ),
+                )
                 ),
                 Container(
                     margin: EdgeInsets.fromLTRB(8, 0, 0, 0),

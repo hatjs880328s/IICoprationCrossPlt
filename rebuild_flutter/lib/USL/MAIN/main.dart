@@ -1,7 +1,10 @@
+import 'package:fish_redux/fish_redux.dart';
 import 'package:rebuild_flutter/BLL/AppBll/nsappconfig.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginglobal.dart';
 import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
+import 'package:rebuild_flutter/USL/ReduxAPP/empty/gird_page/page.dart';
+import 'package:rebuild_flutter/USL/ReduxAPP/empty/main_page/page.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +33,23 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     NSAPPConfig.startService();
 
+    final AbstractRoutes routes = PageRoutes(
+    pages: <String, Page<Object, dynamic>>{
+      'mainpage': MainPage(),
+      'girdpage': GirdPage(),
+    }
+  );
+
     return MaterialApp(
       title: "halo,world",
       theme: ThemeData(primaryColor: Colors.white),
       debugShowCheckedModeBanner: false,
       home: mainWid,
+      onGenerateRoute: (RouteSettings settings) {
+      return MaterialPageRoute<Object>(builder: (BuildContext context) {
+        return routes.buildPage(settings.name, settings.arguments);
+      });
+    },
     );
   }
 
