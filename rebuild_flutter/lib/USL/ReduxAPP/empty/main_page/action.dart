@@ -4,7 +4,7 @@ import 'package:fish_redux/fish_redux.dart';
 enum MainAction { action, jump2girdpage }
 
 class MainActionCreator {
-  static Action onAction() {
+  static Action get onAction {
     return const Action(MainAction.action);
   }
 

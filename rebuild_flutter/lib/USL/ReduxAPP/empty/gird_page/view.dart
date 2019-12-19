@@ -22,7 +22,7 @@ Widget buildView(GirdState state, Dispatch dispatch, ViewService viewService) {
             child: InkWell(
               splashColor: Colors.blue.withAlpha(100),
               onTap: () {
-                //todo 点击事件
+                dispatch(GirdActionCreator.onListview());
               },
               child: Container(
                 width: 200,

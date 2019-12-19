@@ -5,6 +5,7 @@ import 'package:rebuild_flutter/MODEL/Login/nsloginmodel.dart';
 import 'package:rebuild_flutter/USL/Login/loginpage.dart';
 import 'package:rebuild_flutter/USL/ReduxAPP/empty/gird_page/page.dart';
 import 'package:rebuild_flutter/USL/ReduxAPP/empty/main_page/page.dart';
+import 'package:rebuild_flutter/USL/ReduxAPP/empty/reduxlist_page/page.dart';
 import 'package:rebuild_flutter/USL/TabbarGroup/maintabbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class MyAppState extends State<MyApp> {
     pages: <String, Page<Object, dynamic>>{
       'mainpage': MainPage(),
       'girdpage': GirdPage(),
+      'reduxlist': ReduxlistPage(),
     }
   );
 
