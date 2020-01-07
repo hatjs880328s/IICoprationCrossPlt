@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class APIStruct {
   /*
    目前的目录结构为：project/userid/folder/file.txt
@@ -12,8 +14,13 @@ class APIStruct {
   /// 远程服务API-IP 
   /// debug: http://127.0.0.1:8081/
   /// release: http://106.54.5.12:8081/
-  static String remoteServerIP = 'http://106.54.5.12:8081/';
-
+  static String get remoteServerIP {
+    if (kReleaseMode) {
+      return "http://106.54.5.12:8081/";
+    } else {
+      return "http://127.0.0.1:8081/";
+    }
+  }
 
   /// user处理
   static String createUser = '${APIStruct.remoteServerIP}user';
