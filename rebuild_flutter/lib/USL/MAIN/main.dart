@@ -26,7 +26,6 @@ class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     this.mainWid = initWid();
-
     this.shouldJumpWid();
   }
 

@@ -56,6 +56,7 @@ flutter:
     - images/app_back.png
     - images/movearticle_unselectfolder.png
     - images/movearticle_selectfolder.png
+    - images/1024.jpg
 
     - images/main_tab_bookstore.png
     - images/2.0x/main_tab_bookstore.png
