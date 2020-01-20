@@ -12,8 +12,8 @@ class NSShareSDK {
   void sharesdkConfig() {
     ShareSDKRegister reg = ShareSDKRegister();
 
-    reg.setupWechat("wxd65286084621658c", "6c906766908b4ad7725db5c08c031aee", "https://hatjs880328s.github.io/apple-app-site-association/");
-    reg.setupQQ("1109322686", "SMmtHCbX4eAzVXs0");
+    reg.setupWechat("wxd34a9ddadc30af9c", "6c906766908b4ad7725db5c08c031aee", "https://hatjs880328s.github.io/apple-app-site-association/");
+    reg.setupQQ("101845009", "14c9cabd173de352fad46f796150a226");
     reg.setupSinaWeibo("1238681065", "9daa170c7d83186847a85f825c611223", "https://hatjs880328s.github.io");
 
     SharesdkPlugin.regist(reg);
